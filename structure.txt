@@ -1,0 +1,123 @@
+media-vision-bangalore/
+│
+├── client/                   # Frontend React application
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── favicon.ico
+│   │   └── manifest.json
+│   │
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── images/
+│   │   │   │   └── logo.jpg
+│   │   │   └── icons/
+│   │   │       ├── facebook.svg
+│   │   │       ├── instagram.svg
+│   │   │       ├── youtube.svg
+│   │   │       └── website.svg
+│   │   │
+│   │   ├── components/
+│   │   │   ├── common/
+│   │   │   │   ├── Header.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   ├── Navbar.jsx
+│   │   │   │   ├── ImageSlider.jsx
+│   │   │   │   ├── EventBrochure.jsx
+│   │   │   │   └── LanguageSelector.jsx
+│   │   │   │
+│   │   │   ├── forms/
+│   │   │   │   ├── ContactForm.jsx
+│   │   │   │   ├── DonationForm.jsx
+│   │   │   │   ├── MembershipForm.jsx
+│   │   │   │   └── ApplicationForm.jsx
+│   │   │   │
+│   │   │   └── ui/
+│   │   │       ├── Button.jsx
+│   │   │       ├── Card.jsx
+│   │   │       ├── Modal.jsx
+│   │   │       └── Loader.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── About.jsx
+│   │   │   ├── Donate.jsx
+│   │   │   ├── Contact.jsx
+│   │   │   ├── Events.jsx
+│   │   │   ├── UpcomingEvents.jsx
+│   │   │   ├── News.jsx
+│   │   │   ├── Membership.jsx
+│   │   │   ├── Application.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   └── Settings.jsx
+│   │   │
+│   │   ├── context/
+│   │   │   ├── AuthContext.jsx
+│   │   │   ├── ThemeContext.jsx
+│   │   │   └── LanguageContext.jsx
+│   │   │
+│   │   ├── hooks/
+│   │   │   ├── useAuth.jsx
+│   │   │   ├── useTranslation.jsx
+│   │   │   └── useEventData.jsx
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── api.js
+│   │   │   ├── formatter.js
+│   │   │   └── validators.js
+│   │   │
+│   │   ├── translations/
+│   │   │   ├── en.json
+│   │   │   ├── hi.json
+│   │   │   └── kn.json
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── index.jsx
+│   │   └── routes.jsx
+│   │
+│   ├── tailwind.config.js
+│   ├── package.json
+│   └── README.md
+│
+├── server/                   # Backend Node.js application
+│   ├── config/
+│   │   ├── db.js
+│   │   └── config.js
+│   │
+│   ├── controllers/
+│   │   ├── userController.js
+│   │   ├── eventController.js
+│   │   ├── donationController.js
+│   │   ├── membershipController.js
+│   │   └── applicationController.js
+│   │
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   ├── errorHandler.js
+│   │   └── validator.js
+│   │
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Event.js
+│   │   ├── Donation.js
+│   │   ├── Membership.js
+│   │   └── Application.js
+│   │
+│   ├── routes/
+│   │   ├── userRoutes.js
+│   │   ├── eventRoutes.js
+│   │   ├── donationRoutes.js
+│   │   ├── membershipRoutes.js
+│   │   └── applicationRoutes.js
+│   │
+│   ├── utils/
+│   │   ├── logger.js
+│   │   └── helpers.js
+│   │
+│   ├── app.js
+│   ├── server.js
+│   ├── package.json
+│   └── README.md
+│
+├── .gitignore
+├── package.json
+└── README.md
