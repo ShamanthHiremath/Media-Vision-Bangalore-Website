@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiHome, FiInfo, FiMail, FiMenu, FiX } from "react-icons/fi";
+import GoogleTranslate from './GoogleTranslate';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,6 +52,34 @@ function Header() {
             Contact
           </NavLink>
         </div>
+        {/* Google Translate Button */}
+        <div className="ml-4 flex items-center space-x-2 border border-gray-200 rounded px-2 py-1 bg-gray-50 hover:shadow transition-shadow">
+          <span
+            className="text-sm text-blue-600 font-semibold cursor-pointer inline mr-1 hover:underline"
+            onClick={() => {
+              let attempts = 0;
+              const tryOpenDropdown = () => {
+                const combo = document.querySelector('.goog-te-combo');
+                if (combo) {
+                  combo.focus();
+                  // Try to open with click
+                  combo.click();
+                  // Try to open with keyboard event
+                  const event = new KeyboardEvent('keydown', { key: 'ArrowDown', keyCode: 40, which: 40 });
+                  combo.dispatchEvent(event);
+                } else if (attempts < 5) {
+                  attempts++;
+                  setTimeout(tryOpenDropdown, 300);
+                }
+              };
+              tryOpenDropdown();
+            }}
+          >
+            Translate:
+          </span>
+          <GoogleTranslate />
+        </div>
+
         {/* Mobile Burger */}
         <button
           className="md:hidden"
