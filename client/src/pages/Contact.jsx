@@ -9,6 +9,8 @@ function Contact() {
     subject: '',
     message: ''
   });
+  const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,10 +20,26 @@ function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setStatus('');
+    setError('');
+    try {
+      const res = await fetch('http://localhost:5000/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus('Thank you for contacting us! We will get back to you soon.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    }
   };
 
   // Animation variants
@@ -184,6 +202,8 @@ function Contact() {
                 <FiSend />
                 Send Message
               </button>
+              {status && <div className="text-green-600 text-center mt-4">{status}</div>}
+              {error && <div className="text-red-600 text-center mt-2">{error}</div>}
             </form>
           </motion.div>
         </motion.div>

@@ -51,6 +51,17 @@ function Header() {
             <FiMail />
             Contact
           </NavLink>
+          <NavLink
+            to="/donate"
+            className={({ isActive }) =>
+              `flex items-center gap-2 ${
+                isActive ? "text-pink-600 font-bold" : "text-gray-600 hover:text-pink-600"
+              }`
+            }
+          >
+            <span role="img" aria-label="donate">💝</span>
+            Donate
+          </NavLink>
         </div>
         {/* Google Translate Button */}
         <div className="ml-4 flex items-center space-x-2 border border-gray-200 rounded px-2 py-1 bg-gray-50 hover:shadow transition-shadow">
@@ -128,6 +139,18 @@ function Header() {
           >
             <FiMail />
             Contact
+          </NavLink>
+          <NavLink
+            to="/donate"
+            onClick={handleLinkClick}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-2 py-2 rounded ${
+                isActive ? "text-pink-600 font-bold bg-pink-50" : "text-gray-600 hover:text-pink-600"
+              }`
+            }
+          >
+            <span role="img" aria-label="donate">💝</span>
+            Donate
           </NavLink>
         </div>
       )}
