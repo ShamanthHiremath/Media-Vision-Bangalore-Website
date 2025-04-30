@@ -1,0 +1,32 @@
+/* Custom styles for Google Translate in header */
+.google-translate-custom {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 2px 8px;
+  /* min-width: 120px; */
+  height: 32px;
+}
+
+/* Hide Google branding and make dropdown compact */
+.goog-logo-link, .goog-te-gadget span {
+  display: none !important;
+}
+.goog-te-gadget {
+  font-size: 0.95rem !important;
+  color: #374151 !important;
+}
+.goog-te-combo {
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  padding: 2px 6px;
+  font-size: 0.95rem;
+  background: #fff;
+  color: #374151;
+}
+
+/* Remove extra margin */
+#google_translate_element {
+  margin: 0 !important;
+}
