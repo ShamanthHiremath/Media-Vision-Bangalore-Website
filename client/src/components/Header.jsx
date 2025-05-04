@@ -52,6 +52,17 @@ function Header() {
             Contact
           </NavLink>
           <NavLink
+            to="/events"
+            className={({ isActive }) =>
+              `flex items-center gap-2 ${
+                isActive ? "text-green-600 font-bold" : "text-gray-600 hover:text-green-600"
+              }`
+            }
+          >
+            <span role="img" aria-label="events">🎉</span>
+            Events
+          </NavLink>
+          <NavLink
             to="/donate"
             className={({ isActive }) =>
               `flex items-center gap-2 ${
@@ -139,6 +150,18 @@ function Header() {
           >
             <FiMail />
             Contact
+          </NavLink>
+          <NavLink
+            to="/events"
+            onClick={handleLinkClick}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-2 py-2 rounded ${
+                isActive ? "text-green-600 font-bold bg-green-50" : "text-gray-600 hover:text-green-600"
+              }`
+            }
+          >
+            <span role="img" aria-label="events">🎉</span>
+            Events
           </NavLink>
           <NavLink
             to="/donate"

@@ -5,6 +5,8 @@ const connectDB = require('./utils/db');
 
 const donationRoutes = require('./routes/donationRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +26,8 @@ app.get('/', (req, res) => {
 // Mount routes
 app.use('/', donationRoutes); // POST /create-order, /save-donation
 app.use('/contact', contactRoutes); // POST /contact
+app.use('/events', eventRoutes); // CRUD for events
+app.use('/users', userRoutes); // signup, login
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
