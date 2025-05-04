@@ -132,9 +132,8 @@ function Contact() {
             variants={fadeInUp}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <FiUser size={40} className="text-gray-400" />
-            </div>
+            {/* <di
+             */}
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
               <div className="mb-6 relative">
                 <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
