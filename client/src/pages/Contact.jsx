@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiMapPin, FiMail, FiPhone, FiSend, FiUser } from "react-icons/fi";
+import { FiMapPin, FiMail, FiPhone, FiSend } from "react-icons/fi";
+import { FaUser, FaEnvelope, FaEdit, FaComments } from "react-icons/fa";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -56,72 +57,94 @@ function Contact() {
   };
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-4">
-        {/* Contact Header */}
-        <motion.section
-          className="mb-12 text-center"
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          transition={{ duration: 0.8 }}
-        >
+    <div className="min-h-screen">
+      {/* Hero Banner */}
+      <motion.section
+        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="container mx-auto px-4 text-center">
           <motion.h1
-            className="text-4xl font-bold mb-4"
+            className="text-4xl md:text-5xl font-bold mb-4"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             Contact Us
           </motion.h1>
           <motion.p
-            className="text-xl text-gray-600"
+            className="text-xl max-w-3xl mx-auto"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </motion.p>
-        </motion.section>
+        </div>
+      </motion.section>
 
+      <div className="container mx-auto px-4 py-12">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+          className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12"
           initial="hidden"
           animate="visible"
           variants={stagger}
         >
           {/* Contact Information */}
           <motion.div
+            className="md:col-span-2"
             variants={fadeInUp}
             transition={{ duration: 0.7 }}
           >
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
-              <div className="space-y-6">
+            <div className="bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-[#003049]">
+              <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Get in Touch</h2>
+              <div className="space-y-8">
                 <div className="flex items-start">
-                  <div className="text-blue-600 mr-4 mt-1">
+                  <div className="text-[#003049] mr-4 mt-1 bg-gray-100 p-3 rounded-full">
                     <FiMapPin size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Address</h3>
+                    <h3 className="font-semibold text-[#003049]">Address</h3>
                     <p className="text-gray-600">123 Organization Street, City, Country</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-blue-600 mr-4 mt-1">
+                  <div className="text-[#669BBC] mr-4 mt-1 bg-gray-100 p-3 rounded-full">
                     <FiMail size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-600">info@organization.com</p>
+                    <h3 className="font-semibold text-[#003049]">Email</h3>
+                    <p className="text-gray-600">info@mediavision.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-blue-600 mr-4 mt-1">
+                  <div className="text-[#C1121F] mr-4 mt-1 bg-gray-100 p-3 rounded-full">
                     <FiPhone size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Phone</h3>
-                    <p className="text-gray-600">+1 (234) 567-8900</p>
+                    <h3 className="font-semibold text-[#003049]">Phone</h3>
+                    <p className="text-gray-600">+91 98765 43210</p>
                   </div>
+                </div>
+              </div>
+              
+              {/* Social Media Links */}
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <h3 className="font-semibold text-[#003049] mb-4">Connect With Us</h3>
+                <div className="flex space-x-4">
+                  {['facebook', 'twitter', 'instagram', 'linkedin'].map(platform => (
+                    <a 
+                      key={platform} 
+                      href={`https://${platform}.com/mediavision`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-[#003049] hover:bg-[#669BBC] hover:text-white transition-colors duration-300"
+                    >
+                      <span className="sr-only">{platform}</span>
+                      <i className={`fab fa-${platform}`}></i>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -129,87 +152,129 @@ function Contact() {
 
           {/* Contact Form */}
           <motion.div
+            className="md:col-span-3"
             variants={fadeInUp}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            {/* <di
-             */}
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
+            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#669BBC]">
+              <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Send a Message</h2>
+              
               <div className="mb-6 relative">
                 <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
                   Name
                 </label>
-                <span className="absolute left-3 top-10 text-gray-400">
-                  <FiUser />
-                </span>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-[#003049]">
+                    <FaUser />
+                  </span>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
               </div>
-              <div className="mb-6">
+              
+              <div className="mb-6 relative">
                 <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
                   Email
                 </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-[#669BBC]">
+                    <FaEnvelope />
+                  </span>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+                    placeholder="Your email address"
+                    required
+                  />
+                </div>
               </div>
-              <div className="mb-6">
+              
+              <div className="mb-6 relative">
                 <label htmlFor="subject" className="block text-gray-700 font-semibold mb-2">
                   Subject
                 </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-[#003049]">
+                    <FaEdit />
+                  </span>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+                    placeholder="What is this regarding?"
+                    required
+                  />
+                </div>
               </div>
-              <div className="mb-6">
+              
+              <div className="mb-6 relative">
                 <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">
                   Message
                 </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="4"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                ></textarea>
+                <div className="relative">
+                  <span className="absolute left-4 top-3 text-[#669BBC]">
+                    <FaComments />
+                  </span>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="5"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+                    placeholder="Your message..."
+                    required
+                  ></textarea>
+                </div>
               </div>
+              
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-[#C1121F] hover:bg-[#780000] text-white py-3 px-6 rounded-lg font-semibold transition duration-300 flex items-center justify-center gap-2 shadow-md"
               >
                 <FiSend />
                 Send Message
               </button>
-              {status && <div className="text-green-600 text-center mt-4">{status}</div>}
-              {error && <div className="text-red-600 text-center mt-2">{error}</div>}
+              
+              {status && (
+                <div className="mt-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded">
+                  {status}
+                </div>
+              )}
+              
+              {error && (
+                <div className="mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded">
+                  {error}
+                </div>
+              )}
             </form>
           </motion.div>
         </motion.div>
+        
         {/* Google Map Section */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-4 text-center">Find Us Here</h2>
-          <div className="w-full h-72 md:h-96 rounded-lg overflow-hidden shadow-lg">
+        <motion.div 
+          className="mt-12"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+        >
+          <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Find Us Here</h2>
+          <div className="w-full h-72 md:h-96 rounded-lg overflow-hidden shadow-lg border-t-4 border-[#003049]">
             <iframe
               title="Organization Location"
               src="https://www.google.com/maps?q=123+Organization+Street,+City,+Country&output=embed"
@@ -221,8 +286,38 @@ function Contact() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
-        </div>
+        </motion.div>
       </div>
+      
+      {/* Call to Action */}
+      <motion.section
+        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16 mt-12"
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">Need Immediate Assistance?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Our team is ready to help you with any questions or concerns you may have.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <a
+              href="tel:+919876543210"
+              className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg flex items-center gap-2"
+            >
+              <FiPhone /> Call Now
+            </a>
+            <a
+              href="mailto:info@mediavision.com"
+              className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center gap-2"
+            >
+              <FiMail /> Email Us
+            </a>
+          </div>
+        </div>
+      </motion.section>
     </div>
   );
 }
