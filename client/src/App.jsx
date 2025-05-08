@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -9,6 +10,7 @@ import Donation from './pages/Donation';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import Events from './pages/Events';
+import { FaTimes, FaBell } from 'react-icons/fa';
 import './App.css';
 
 function App() {
@@ -19,6 +21,12 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
   
+  // Animation variants from Home.jsx
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
     <Router>
       <div className="min-h-screen flex flex-col">
@@ -35,23 +43,91 @@ function App() {
           </Routes>
         </main>
         <Footer />
-        {/* Popup Modal */}
-        {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 animate-fadeIn">
-            <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full relative animate-popIn">
-              <button
-                className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-transform duration-200 transform hover:scale-125"
-                onClick={() => setShowModal(false)}
-                aria-label="Close"
+        
+        {/* Enhanced Popup Modal with AnimatePresence for smooth animations */}
+        <AnimatePresence>
+          {showModal && (
+            <motion.div 
+              className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div 
+                className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, y: 20, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.4 }}
               >
-                &times;
-              </button>
-              <h2 className="text-2xl font-bold mb-4 text-center">Welcome to Media Vision Bangalore!</h2>
-              <p className="text-gray-700 text-center mb-2">This is a dummy popup modal. You can use this space for announcements, newsletter signups, or important updates.</p>
-              <div className="text-center text-blue-600 font-semibold mt-4">Enjoy exploring our website!</div>
-            </div>
-          </div>
-        )}
+                {/* Top color band */}
+                <div className="h-2 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
+                
+                {/* Close button */}
+                <button
+                  className="absolute top-3 right-3 text-gray-400 hover:text-[#C1121F] transition-colors duration-200 p-1 rounded-full hover:bg-gray-100"
+                  onClick={() => setShowModal(false)}
+                  aria-label="Close"
+                >
+                  <FaTimes size={20} />
+                </button>
+                
+                <div className="p-6 pt-8">
+                  {/* Icon at the top */}
+                  <div className="w-16 h-16 rounded-full bg-[#003049] mx-auto mb-4 flex items-center justify-center text-white">
+                    <FaBell size={28} />
+                  </div>
+                  
+                  {/* Modal content */}
+                  <h2 className="text-2xl font-bold mb-4 text-[#003049] text-center">
+                    Welcome to Media Vision Bangalore!
+                  </h2>
+                  
+                  <p className="text-gray-700 text-center mb-6">
+                    Join our newsletter to stay updated on our latest events, initiatives, and opportunities to get involved with our community.
+                  </p>
+                  
+                  {/* Email subscription form */}
+                  <div className="mb-6">
+                    <div className="flex">
+                      <input 
+                        type="email" 
+                        placeholder="Your email address" 
+                        className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+                      />
+                      <button className="bg-[#C1121F] hover:bg-[#780000] text-white font-medium px-4 py-2 rounded-r-md transition-colors duration-300">
+                        Subscribe
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Modal footer */}
+                  <div className="text-center text-sm text-gray-500 mt-4">
+                    <p>By subscribing, you agree to our <a href="/privacy" className="text-[#669BBC] hover:text-[#003049] hover:underline">privacy policy</a></p>
+                  </div>
+                </div>
+                
+                {/* Bottom actions */}
+                <div className="bg-gray-50 px-6 py-3 flex justify-between items-center border-t border-gray-200">
+                  <button 
+                    className="text-gray-600 hover:text-[#003049] text-sm font-medium hover:underline"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Remind me later
+                  </button>
+                  <button 
+                    className="text-[#003049] hover:text-[#669BBC] text-sm font-medium hover:underline"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Don't show again
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Router>
   );
