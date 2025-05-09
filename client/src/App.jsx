@@ -10,6 +10,7 @@ import Donation from './pages/Donation';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import Events from './pages/Events';
+import ProtectedRoute from './components/ProtectedRoute';
 import { FaTimes, FaBell } from 'react-icons/fa';
 import './App.css';
 
@@ -38,7 +39,11 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donation />} />
             <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-dashboard" element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            } />
             <Route path="/events" element={<Events />} />
           </Routes>
         </main>

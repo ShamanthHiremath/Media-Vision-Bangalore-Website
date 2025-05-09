@@ -1,36 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaSignInAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem('admin_token');
+    if (token) {
+      // Verify token validity with backend
+      const verifyToken = async () => {
+        try {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/users/verify-token`, {
+            method: 'GET',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          if (res.ok) {
+            navigate('/admin-dashboard');
+          } else {
+            // If token is invalid, clear it
+            localStorage.removeItem('admin_token');
+          }
+        } catch (err) {
+          localStorage.removeItem('admin_token');
+        }
+      };
+      verifyToken();
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
     try {
       // Call backend for login
-      const res = await fetch('http://localhost:5000/users/login', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: form.email, password: form.password }),
+        body: JSON.stringify({ 
+          email: form.email, 
+          password: form.password 
+        }),
       });
+      
       const data = await res.json();
+      
       if (res.ok && data.token) {
+        // Store token in localStorage
         localStorage.setItem('admin_token', data.token);
-        window.location.href = '/'; // redirect or show admin dashboard
+        
+        // Store user info if available
+        if (data.user) {
+          localStorage.setItem('admin_user', JSON.stringify({
+            id: data.user._id,
+            username: data.user.username,
+            email: data.user.email
+          }));
+        }
+        
+        // Redirect to admin dashboard
+        navigate('/admin-dashboard');
       } else {
-        setError(data.error || 'Login failed');
+        setError(data.error || 'Login failed. Please check your credentials.');
       }
     } catch (err) {
-      setError('Login failed');
+      console.error('Login error:', err);
+      setError('Connection error. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -67,27 +121,6 @@ const AdminLogin = () => {
         >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Username
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaUser className="h-5 w-5 text-[#669BBC]" />
-                </div>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  value={form.username}
-                  onChange={handleChange}
-                  required
-                  className="focus:ring-[#003049] focus:border-[#003049] block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md"
-                  placeholder="Admin Username"
-                />
-              </div>
-            </div>
-
-            <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email Address
               </label>
@@ -104,6 +137,7 @@ const AdminLogin = () => {
                   required
                   className="focus:ring-[#003049] focus:border-[#003049] block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md"
                   placeholder="admin@example.com"
+                  autoComplete="email"
                 />
               </div>
             </div>
@@ -119,13 +153,32 @@ const AdminLogin = () => {
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={form.password}
                   onChange={handleChange}
                   required
-                  className="focus:ring-[#003049] focus:border-[#003049] block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md"
+                  className="focus:ring-[#003049] focus:border-[#003049] block w-full pl-10 pr-12 py-3 sm:text-sm border-gray-300 rounded-md"
                   placeholder="••••••••"
+                  autoComplete="current-password"
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-[#003049] transition-colors"
+                  onClick={togglePasswordVisibility}
+                  tabIndex="-1"
+                >
+                  {showPassword ? 
+                    <FaEyeSlash className="h-5 w-5" title="Hide password" /> : 
+                    <FaEye className="h-5 w-5" title="Show password" />
+                  }
+                </button>
+              </div>
+              <div className="flex justify-end mt-2">
+                <div className="text-sm">
+                  <a href="#" className="font-medium text-[#669BBC] hover:text-[#003049]">
+                    Forgot your password?
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -153,7 +206,15 @@ const AdminLogin = () => {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <FaSignInAlt className="h-5 w-5 text-blue-300 group-hover:text-blue-200" />
                 </span>
-                {loading ? 'Signing in...' : 'Sign in'}
+                {loading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                  </>
+                ) : 'Sign in'}
               </button>
             </div>
           </form>
@@ -164,8 +225,7 @@ const AdminLogin = () => {
           variants={fadeInUp}
           transition={{ delay: 0.2 }}
         >
-          <p>Forgot your password? <a href="#" className="font-medium text-[#669BBC] hover:text-[#003049] transition-colors">Reset it here</a></p>
-          <p className="mt-1">Need help? <a href="/contact" className="font-medium text-[#669BBC] hover:text-[#003049] transition-colors">Contact support</a></p>
+          <p>Need help? <a href="/contact" className="font-medium text-[#669BBC] hover:text-[#003049] transition-colors">Contact support</a></p>
         </motion.div>
         
         <motion.div 

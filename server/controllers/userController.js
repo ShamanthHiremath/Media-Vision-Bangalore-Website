@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Signup controller
 exports.signup = async (req, res) => {
@@ -32,14 +33,38 @@ exports.login = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: 'Invalid email or password.' });
+      return res.status(401).json({ error: 'Invalid email or password.' });
     }
+    
+    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: 'Invalid email or password.' });
+      return res.status(401).json({ error: 'Invalid email or password.' });
     }
-    res.json({ message: 'Login successful.' });
+    
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+    
+    // Send response with token and minimal user info
+    res.status(200).json({
+      token,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email
+      }
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Server error. Please try again later.' });
   }
-}; 
+};
+
+// Verify token controller for protected routes
+exports.verifyToken = (req, res) => {
+  res.status(200).json({ valid: true, user: req.user });
+};

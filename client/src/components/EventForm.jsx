@@ -1,7 +1,20 @@
 import React from 'react';
-import { FaCalendarAlt, FaMapMarkerAlt, FaFileImage, FaAlignLeft } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaFileImage, FaAlignLeft, FaTimesCircle } from 'react-icons/fa';
 
-const EventForm = ({ form, onChange, onFileChange, onSubmit, loading, error, onCancel, selectedFiles = [] }) => (
+const EventForm = ({ 
+  form, 
+  onChange, 
+  onFileChange, 
+  onSubmit, 
+  loading, 
+  error, 
+  onCancel, 
+  selectedFiles = [], 
+  existingPhotos = [],
+  onRemoveFile,
+  onRemoveExistingPhoto,
+  isEditing = false
+}) => (
   <form onSubmit={onSubmit} className="space-y-6">
     <div>
       <label className="block mb-2 font-medium text-gray-700">Event Name</label>
@@ -63,33 +76,99 @@ const EventForm = ({ form, onChange, onFileChange, onSubmit, loading, error, onC
         </div>
       </label>
       
-      <div className="border-2 border-dashed border-[#669BBC] rounded-lg p-6 bg-blue-50 flex flex-col items-center justify-center cursor-pointer hover:bg-blue-100 transition-colors">
-        <input
-          type="file"
-          name="photos"
-          multiple
-          accept="image/*"
-          onChange={onFileChange}
-          className="w-full mb-2"
-          style={{ display: 'block' }}
-        />
-        <span className="text-[#003049] font-medium">Drag and drop or click to select images</span>
+      <div className="border-2 border-dashed border-[#669BBC] rounded-lg p-6 bg-blue-50 hover:bg-blue-100 transition-colors">
+        <div className="flex flex-col items-center justify-center cursor-pointer mb-4">
+          <input
+            type="file"
+            id="event-photos"
+            name="photos"
+            multiple
+            accept="image/*"
+            onChange={onFileChange}
+            className="hidden"
+          />
+          <label htmlFor="event-photos" className="cursor-pointer w-full text-center">
+            <div className="flex flex-col items-center justify-center py-4">
+              <FaFileImage className="text-[#003049] text-3xl mb-2" />
+              <span className="text-[#003049] font-medium">
+                Drag and drop or click to select images
+              </span>
+              <span className="text-gray-500 text-sm mt-1">
+                {isEditing ? 'Add new photos or remove existing ones' : 'Select images to upload'}
+              </span>
+            </div>
+          </label>
+        </div>
         
-        {selectedFiles && selectedFiles.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 w-full">
+        {/* Display both existing and newly selected photos */}
+        {(existingPhotos.length > 0 || selectedFiles.length > 0) && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4 w-full">
+            {/* Existing photos */}
+            {existingPhotos.map((photoUrl, idx) => (
+              <div 
+                key={`existing-${idx}`} 
+                className="group relative aspect-square rounded-lg overflow-hidden border border-gray-300 bg-white flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+              >
+                <img
+                  src={photoUrl}
+                  alt={`Existing photo ${idx+1}`}
+                  className="object-cover w-full h-full"
+                />
+                {/* Tag showing it's an existing photo */}
+                <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-full opacity-70">
+                  Existing
+                </div>
+                {/* Remove button */}
+                <button
+                  type="button"
+                  className="absolute top-1 right-1 bg-white bg-opacity-75 rounded-full p-1 text-red-500 hover:text-red-700 hover:bg-opacity-100 transition-colors opacity-0 group-hover:opacity-100"
+                  onClick={() => onRemoveExistingPhoto(idx)}
+                  aria-label="Remove existing image"
+                >
+                  <FaTimesCircle size={18} />
+                </button>
+              </div>
+            ))}
+
+            {/* Newly selected photos */}
             {selectedFiles.map((file, idx) => (
               <div 
-                key={idx} 
-                className="aspect-square rounded-lg overflow-hidden border border-gray-300 bg-white flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+                key={`new-${idx}`} 
+                className="group relative aspect-square rounded-lg overflow-hidden border border-gray-300 bg-white flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
               >
                 <img
                   src={URL.createObjectURL(file)}
                   alt={file.name}
                   className="object-cover w-full h-full"
-                  onLoad={e => URL.revokeObjectURL(e.target.src)}
+                  onLoad={(e) => {
+                    // We don't actually want to revoke here as it would make the image disappear
+                    // URL.revokeObjectURL will be called automatically when component unmounts
+                  }}
                 />
+                {/* Tag showing it's a new photo */}
+                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-2 py-1 rounded-full opacity-70">
+                  New
+                </div>
+                {/* Remove button */}
+                <button
+                  type="button"
+                  className="absolute top-1 right-1 bg-white bg-opacity-75 rounded-full p-1 text-red-500 hover:text-red-700 hover:bg-opacity-100 transition-colors opacity-0 group-hover:opacity-100"
+                  onClick={() => onRemoveFile(idx)}
+                  aria-label="Remove new image"
+                >
+                  <FaTimesCircle size={18} />
+                </button>
               </div>
             ))}
+            
+            {/* Add more button */}
+            <label 
+              htmlFor="event-photos" 
+              className="aspect-square rounded-lg overflow-hidden border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+            >
+              <FaFileImage className="text-gray-400 text-2xl mb-2" />
+              <span className="text-gray-500 text-sm font-medium">Add More</span>
+            </label>
           </div>
         )}
       </div>
@@ -132,9 +211,11 @@ const EventForm = ({ form, onChange, onFileChange, onSubmit, loading, error, onC
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            Creating...
+            {isEditing ? 'Updating...' : 'Creating...'}
           </>
-        ) : 'Create Event'}
+        ) : (
+          isEditing ? 'Update Event' : 'Create Event'
+        )}
       </button>
       {onCancel && (
         <button
