@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiMapPin, FiMail, FiPhone, FiSend } from "react-icons/fi";
 import { FaUser, FaEnvelope, FaEdit, FaComments } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube, FaXTwitter } from "react-icons/fa6";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ function Contact() {
     setStatus('');
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/contact', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -115,7 +116,7 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#003049]">Email</h3>
-                    <p className="text-gray-600">info@mediavision.com</p>
+                    <p className="text-gray-600">mediavisionbng@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -124,7 +125,7 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#003049]">Phone</h3>
-                    <p className="text-gray-600">+91 98765 43210</p>
+                    <p className="text-gray-600">+91 72594 56555</p>
                   </div>
                 </div>
               </div>
@@ -133,18 +134,62 @@ function Contact() {
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <h3 className="font-semibold text-[#003049] mb-4">Connect With Us</h3>
                 <div className="flex space-x-4">
-                  {['facebook', 'twitter', 'instagram', 'linkedin'].map(platform => (
-                    <a 
-                      key={platform} 
-                      href={`https://${platform}.com/mediavision`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-[#003049] hover:bg-[#669BBC] hover:text-white transition-colors duration-300"
-                    >
-                      <span className="sr-only">{platform}</span>
-                      <i className={`fab fa-${platform}`}></i>
-                    </a>
-                  ))}
+                  {/* Facebook */}
+                  <a 
+                    href="https://www.facebook.com/forwardfoundation.in" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+                    title="Facebook"
+                  >
+                    <div className="bg-[#1877F2] text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+                      <FaFacebookF size={18} />
+                    </div>
+                  </a>
+                  
+                  {/* Instagram */}
+                  <a 
+                    href="#0"
+                    className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+                    title="Instagram"
+                  >
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center instagram-gradient">
+                      <FaInstagram size={18} className="text-white" />
+                    </div>
+                  </a>
+                  
+                  {/* X (Twitter) */}
+                  <a 
+                    href="#0"
+                    className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+                    title="X (Twitter)"
+                  >
+                    <div className="bg-black text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+                      <FaXTwitter size={18} />
+                    </div>
+                  </a>
+                  
+                  {/* LinkedIn */}
+                  <a 
+                    href="#0"
+                    className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+                    title="LinkedIn"
+                  >
+                    <div className="bg-[#0A66C2] text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+                      <FaLinkedinIn size={18} />
+                    </div>
+                  </a>
+                  
+                  {/* YouTube */}
+                  <a 
+                    href="#0"
+                    className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+                    title="YouTube"
+                  >
+                    <div className="bg-[#FF0000] text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+                      <FaYoutube size={18} />
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -318,6 +363,13 @@ function Contact() {
           </div>
         </div>
       </motion.section>
+
+      {/* Add Instagram gradient style */}
+      <style jsx>{`
+        .instagram-gradient {
+          background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+      `}</style>
     </div>
   );
 }
