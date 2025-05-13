@@ -34,7 +34,7 @@ function Home() {
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            Welcome to Media Vision
+            Welcome to Media Vision Bengaluru
           </motion.h1>
           <motion.p
             className="text-xl mb-10 max-w-3xl mx-auto"
