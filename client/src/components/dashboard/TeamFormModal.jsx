@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaUpload, FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -13,6 +13,10 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
   const [previewUrl, setPreviewUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+  
+  const fileInputRef = useRef(null);
+  const dropZoneRef = useRef(null);
 
   // Set form data when editing an existing team member
   useEffect(() => {
@@ -55,13 +59,62 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
   // Handle image file selection
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    processFile(file);
+  };
+  
+  // Process the file
+  const processFile = (file) => {
     if (file) {
+      // Check if file is an image
+      if (!file.type.startsWith('image/')) {
+        setError('Please upload an image file');
+        return;
+      }
+      
       setSelectedFile(file);
       const fileReader = new FileReader();
       fileReader.onload = () => {
         setPreviewUrl(fileReader.result);
       };
       fileReader.readAsDataURL(file);
+    }
+  };
+  
+  // Handle drag events
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    
+    const files = [...e.dataTransfer.files];
+    if (files.length > 0) {
+      // Just use the first file for team member image
+      processFile(files[0]);
+    }
+  };
+  
+  // Handle click on drop zone
+  const handleDropZoneClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -236,7 +289,15 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Team Member Photo
                     </label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md h-64">
+                    <div 
+                      ref={dropZoneRef}
+                      className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 ${isDragging ? 'border-[#003049] bg-blue-50' : 'border-gray-300'} border-dashed rounded-md h-64 cursor-pointer transition-colors`}
+                      onDragEnter={handleDragEnter}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      onClick={handleDropZoneClick}
+                    >
                       {previewUrl ? (
                         <div className="relative w-full h-full">
                           <img 
@@ -246,7 +307,8 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                           />
                           <button
                             type="button"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               setSelectedFile(null);
                               setPreviewUrl('');
                             }}
@@ -259,23 +321,27 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                       ) : (
                         <div className="space-y-1 text-center flex flex-col items-center justify-center w-full">
                           <div className="mx-auto h-20 w-20 text-gray-400 mb-2">
-                            <FaUser className="h-20 w-20" />
+                            {isDragging ? (
+                              <FaUpload className="h-20 w-20 text-[#003049] animate-bounce" />
+                            ) : (
+                              <FaUser className="h-20 w-20" />
+                            )}
                           </div>
                           <div className="flex text-sm text-gray-600">
-                            <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-[#003049] hover:text-[#669BBC] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#003049]">
-                              <span>Upload a photo</span>
-                              <input 
-                                id="file-upload" 
-                                name="file-upload" 
-                                type="file" 
-                                accept="image/*"
-                                className="sr-only" 
-                                onChange={handleFileChange}
-                              />
-                            </label>
-                            <p className="pl-1">or drag and drop</p>
+                            <input 
+                              ref={fileInputRef}
+                              id="file-upload" 
+                              name="file-upload" 
+                              type="file" 
+                              accept="image/*"
+                              className="sr-only" 
+                              onChange={handleFileChange}
+                            />
+                            <span className="font-medium text-[#003049]">
+                              {isDragging ? 'Drop image here' : 'Drag and drop or click to upload'}
+                            </span>
                           </div>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 mt-1">
                             PNG, JPG, GIF up to 5MB
                           </p>
                         </div>

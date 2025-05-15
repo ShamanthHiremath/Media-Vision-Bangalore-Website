@@ -250,52 +250,101 @@ const TeamMemberCard = ({ member, onDelete, onEdit }) => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
+  
+  const [showImageModal, setShowImageModal] = useState(false);
 
   return (
     <motion.div
       variants={fadeInUp}
       className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
     >
-      <div className="relative h-48">
-        <img 
-          src={member.image} 
-          alt={member.name}
-          className="w-full h-full object-cover object-center"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Found';
-          }}
-        />
-      </div>
-      
-      <div className="p-4">
-        <div className="flex justify-between items-start mb-2">
-          <div>
-            <h3 className="text-lg font-semibold text-[#003049]">{member.name}</h3>
-            <p className="text-[#669BBC] font-medium">{member.position}</p>
-          </div>
-          <div className="flex space-x-1">
-            <button 
-              className="p-2 text-[#669BBC] hover:bg-blue-50 rounded-full transition-colors"
-              onClick={onEdit}
-              title="Edit Team Member"
-            >
-              <FaEdit />
-            </button>
-            <button 
-              className="p-2 text-[#C1121F] hover:bg-red-50 rounded-full transition-colors"
-              onClick={onDelete}
-              title="Delete Team Member"
-            >
-              <FaTrash />
-            </button>
-          </div>
+      <div className="flex flex-col md:flex-row">
+        {/* Square image on the left */}
+        <div 
+          className="relative md:w-2/5 aspect-square cursor-pointer" 
+          onClick={() => setShowImageModal(true)}
+        >
+          <img 
+            src={member.image} 
+            alt={member.name}
+            className="w-full h-full object-cover object-center"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://via.placeholder.com/400x400?text=Image+Not+Found';
+            }}
+          />
         </div>
         
-        <p className="text-gray-600 mt-2 text-sm line-clamp-3">
-          {member.description}
-        </p>
+        {/* Content on the right */}
+        <div className="p-4 md:w-3/5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <h3 className="text-lg font-semibold text-[#003049]">{member.name}</h3>
+                <p className="text-[#669BBC] font-medium">{member.position}</p>
+              </div>
+              <div className="flex space-x-1">
+                <button 
+                  className="p-2 text-[#669BBC] hover:bg-blue-50 rounded-full transition-colors"
+                  onClick={onEdit}
+                  title="Edit Team Member"
+                >
+                  <FaEdit />
+                </button>
+                <button 
+                  className="p-2 text-[#C1121F] hover:bg-red-50 rounded-full transition-colors"
+                  onClick={onDelete}
+                  title="Delete Team Member"
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </div>
+            
+            <p className="text-gray-600 mt-2 text-sm">
+              {member.description}
+            </p>
+          </div>
+        </div>
       </div>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {showImageModal && (
+          <motion.div 
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowImageModal(false)}
+          >
+            <motion.div 
+              className="relative max-w-4xl w-full max-h-[90vh]"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 15 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="absolute top-3 right-3 text-white hover:text-[#C1121F] transition-colors p-2 rounded-full hover:bg-white hover:bg-opacity-20"
+                onClick={() => setShowImageModal(false)}
+              >
+                <FaTimes className="text-2xl" />
+              </button>
+              <img 
+                src={member.image} 
+                alt={member.name}
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://via.placeholder.com/800x800?text=Image+Not+Found';
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
+// Import event banner images
+import event1 from '../assets/events/e1.jpeg';
+import event2 from '../assets/events/e2.jpeg';
+import event3 from '../assets/events/e3.jpeg';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -11,6 +15,8 @@ const Events = () => {
   const [carouselIdx, setCarouselIdx] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [showGrid, setShowGrid] = useState(true);
+  const [bannerIdx, setBannerIdx] = useState(0);
+  const bannerImages = [event1, event2, event3]; // Add your event images here
 
   // Animation variants
   const fadeInUp = {
@@ -65,6 +71,15 @@ const Events = () => {
     setAutoPlay(true);
   }, [selectedEventId]);
 
+  // Banner auto-rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBannerIdx((prev) => (prev + 1) % bannerImages.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [bannerImages.length]);
+
   // Get selected event object
   const selectedEvent = events.find(e => e._id === selectedEventId);
 
@@ -105,24 +120,66 @@ const Events = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Banner */}
+      {/* Hero Banner with Carousel */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16"
+        className="relative text-white py-32 md:py-48 overflow-hidden" // Increased height with larger padding
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 text-center">
+        {/* Background carousel */}
+        <div className="absolute inset-0 z-0 w-full h-full"> {/* Added h-full for explicit height */}
+          {bannerImages.map((img, idx) => (
+            <div
+              key={idx}
+              className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out"
+              style={{ 
+                opacity: idx === bannerIdx ? 1 : 0,
+              }}
+            >
+              <img 
+                src={img} 
+                alt={`Event banner ${idx + 1}`} 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/80"></div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Left/Right Navigation Buttons - made larger */}
+        <div className="absolute inset-y-0 left-0 flex items-center z-20">
+          <button
+            onClick={() => setBannerIdx((prev) => (prev - 1 + bannerImages.length) % bannerImages.length)}
+            className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-r-lg transition-colors" // Larger padding
+            aria-label="Previous slide"
+          >
+            <FaArrowLeft size={24} /> {/* Increased icon size */}
+          </button>
+        </div>
+        
+        <div className="absolute inset-y-0 right-0 flex items-center z-20">
+          <button
+            onClick={() => setBannerIdx((prev) => (prev + 1) % bannerImages.length)}
+            className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-l-lg transition-colors" // Larger padding
+            aria-label="Next slide"
+          >
+            <FaArrowRight size={24} /> {/* Increased icon size */}
+          </button>
+        </div>
+        
+        {/* Content overlay - increased spacing */}
+        <div className="container mx-auto px-4 text-center relative z-10 max-w-6xl py-8"> {/* Added py-8 padding */}
           <motion.h1
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg" // Increased font size and margin
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             Our Events
           </motion.h1>
           <motion.p
-            className="text-xl max-w-3xl mx-auto"
+            className="text-xl md:text-2xl max-w-4xl mx-auto drop-shadow-md" // Increased font size
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >

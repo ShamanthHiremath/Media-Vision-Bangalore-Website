@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes } from 'react-icons/fa';
 import EventForm from '../EventForm';
+import DragDropImageUpload from '../DragDropImageUpload';
 
 const EventFormModal = ({ show, onClose, onSuccess }) => {
   const [form, setForm] = useState({
     name: '',
     date: '',
     venue: '',
-    photos: '',
     description: ''
   });
   const [formError, setFormError] = useState('');
   const [formLoading, setFormLoading] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [photoFiles, setPhotoFiles] = useState([]);
 
   // Animation variants
   const fadeInUp = {
@@ -26,9 +26,9 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle file input change
-  const handleFileChange = (e) => {
-    setSelectedFiles(Array.from(e.target.files));
+  // Handle photo files change
+  const handlePhotosChange = (files) => {
+    setPhotoFiles(files);
   };
 
   // Handle event creation
@@ -42,8 +42,10 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
       formData.append('date', form.date);
       formData.append('venue', form.venue);
       formData.append('description', form.description);
-      selectedFiles.forEach((file) => {
-        formData.append('photos', file);
+      
+      // Append all photo files
+      photoFiles.forEach((fileObj) => {
+        formData.append('photos', fileObj.file);
       });
       
       const token = localStorage.getItem('admin_token');
@@ -56,8 +58,8 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
       });
       const data = await res.json();
       if (res.ok) {
-        setForm({ name: '', date: '', venue: '', photos: '', description: '' });
-        setSelectedFiles([]);
+        setForm({ name: '', date: '', venue: '', description: '' });
+        setPhotoFiles([]);
         onSuccess('Event created successfully!');
         onClose();
       } else {
@@ -65,6 +67,7 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
       }
     } catch (err) {
       setFormError('Failed to create event');
+      console.error(err);
     } finally {
       setFormLoading(false);
     }
@@ -72,8 +75,8 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
 
   // Handle modal close and reset form
   const handleClose = () => {
-    setForm({ name: '', date: '', venue: '', photos: '', description: '' });
-    setSelectedFiles([]);
+    setForm({ name: '', date: '', venue: '', description: '' });
+    setPhotoFiles([]);
     setFormError('');
     onClose();
   };
@@ -82,13 +85,13 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
     <AnimatePresence>
       {show && (
         <motion.div 
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div 
-            className="bg-white rounded-lg shadow-xl max-w-md w-full relative overflow-hidden"
+            className="bg-white rounded-lg shadow-xl max-w-md w-full relative my-8"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
@@ -109,12 +112,12 @@ const EventFormModal = ({ show, onClose, onSuccess }) => {
               <EventForm
                 form={form}
                 onChange={handleChange}
-                onFileChange={handleFileChange}
                 onSubmit={handleCreateEvent}
                 loading={formLoading}
                 error={formError}
                 onCancel={handleClose}
-                selectedFiles={selectedFiles}
+                photoFiles={photoFiles}
+                onPhotosChange={handlePhotosChange}
               />
             </div>
           </motion.div>

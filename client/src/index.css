@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* Calendar picker fix */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: relative;
+  z-index: 100;
+  cursor: pointer;
+}
+
+/* Ensure input fields appear above file upload area */
+input[type="date"],
+input[type="text"] {
+  position: relative;
+  z-index: 10;
+}
+
+/* General modal fixes for Vercel deployment */
+.fixed.inset-0 {
+  position: fixed !important;
+  overflow-y: auto !important;
+  max-height: 100vh !important;
+}
+
+
