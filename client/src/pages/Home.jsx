@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling } from "react-icons/fa";
-
+import image from '../assets/logo1.png';
 function Home() {
   // Animation variants for reuse
   const fadeInUp = {
@@ -20,24 +20,35 @@ function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Updated with color scheme from Header */}
+      {/* Hero Section - Updated with background image and overlay */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-24 md:py-32"
+        className="relative bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-24 md:py-32"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 text-center">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img 
+            src={image}
+            alt="Bangalore cityscape" 
+            className="w-full h-full object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/80"></div>
+        </div>
+        
+        {/* Content positioned over the background */}
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.h1
-            className="text-4xl md:text-6xl font-bold mb-6"
+            className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             Welcome to Media Vision Bengaluru
           </motion.h1>
           <motion.p
-            className="text-xl mb-10 max-w-3xl mx-auto"
+            className="text-xl mb-10 max-w-3xl mx-auto text-white/90 drop-shadow-md"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >

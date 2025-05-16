@@ -13,14 +13,15 @@ import Events from './pages/Events';
 import ProtectedRoute from './components/ProtectedRoute';
 import { FaTimes, FaBell } from 'react-icons/fa';
 import './App.css';
+import Registration from './pages/Registration';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowModal(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setShowModal(true), 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
   
   // Animation variants from Home.jsx
   const fadeInUp = {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donation />} />
+            <Route path="/registration" element={<Registration />} />
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/admin-dashboard" element={
               <ProtectedRoute>

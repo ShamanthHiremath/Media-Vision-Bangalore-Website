@@ -235,6 +235,7 @@ function TeamCarousel() {
   const [idx, setIdx] = useState(0);
   const [selectedMember, setSelectedMember] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
   const autoPlay = true;
   const [visibleCount, setVisibleCount] = useState(window.innerWidth < 768 ? 1 : 3);
   const scrollRef = useRef(null);
@@ -377,6 +378,19 @@ function TeamCarousel() {
     document.body.style.overflow = 'auto'; // Restore scrolling
   };
 
+  // Add this to handle image clicks
+  const openImageModal = (e) => {
+    e.stopPropagation(); // Prevent closing the member modal
+    if (selectedMember?.image) {
+      setShowImageModal(true);
+    }
+  };
+
+  // Add this function to close the image modal
+  const closeImageModal = () => {
+    setShowImageModal(false);
+  };
+
   if (loading) {
     return (
       <div className="w-full max-w-[100%] mx-auto bg-white rounded-lg shadow-lg p-8 flex justify-center items-center h-64">
@@ -454,7 +468,7 @@ function TeamCarousel() {
                 onClick={() => openMemberDetails(member)}
               >
                 {member.image ? (
-                  <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
+                  <div className="w-24 h-24 rounded-[5px] overflow-hidden mb-4">
                     <img 
                       src={member.image} 
                       alt={member.name} 
@@ -503,7 +517,7 @@ function TeamCarousel() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-xl overflow-hidden"
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden"
             >
               {/* Decorative top gradient */}
               <div className="h-3 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
@@ -517,11 +531,14 @@ function TeamCarousel() {
                 <FaTimes size={20} />
               </button>
               
-              <div className="p-8">
-                {/* Header with image and name */}
-                <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+              <div className="p-6 flex flex-col md:flex-row gap-8">
+                {/* Larger square image on the left - Update with onClick */}
+                <div className="w-full md:w-1/3 flex-shrink-0">
                   {selectedMember.image ? (
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <div 
+                      className="aspect-square w-full overflow-hidden rounded-lg border-4 border-white shadow-lg cursor-pointer transition-transform hover:scale-105"
+                      onClick={openImageModal}
+                    >
                       <img 
                         src={selectedMember.image} 
                         alt={selectedMember.name} 
@@ -531,25 +548,29 @@ function TeamCarousel() {
                           e.target.style.display = 'none';
                           e.target.parentNode.classList.add('bg-gradient-to-r', 'from-[#003049]', 'to-[#669BBC]');
                           const initials = document.createElement('div');
-                          initials.className = 'flex items-center justify-center text-3xl text-white font-bold w-full h-full';
+                          initials.className = 'flex items-center justify-center text-5xl text-white font-bold w-full h-full';
                           initials.innerText = selectedMember.name.split(' ').map(n => n[0]).join('').slice(0,2);
                           e.target.parentNode.appendChild(initials);
                         }}
                       />
                     </div>
                   ) : (
-                    <div className="w-32 h-32 bg-gradient-to-r from-[#003049] to-[#669BBC] rounded-full border-4 border-white shadow-lg flex items-center justify-center text-3xl text-white font-bold">
+                    <div className="aspect-square w-full bg-gradient-to-r from-[#003049] to-[#669BBC] rounded-lg border-4 border-white shadow-lg flex items-center justify-center text-5xl text-white font-bold">
                       {selectedMember.name.split(' ').map(n => n[0]).join('').slice(0,2)}
                     </div>
                   )}
-                  
-                  <div className="text-center sm:text-left sm:flex-1">
+                </div>
+                
+                {/* Content on the right */}
+                <div className="w-full md:w-2/3">
+                  {/* Header with name and position - centered */}
+                  <div className="text-center md:text-center mb-6">
                     <h3 className="text-2xl font-bold text-[#003049] mb-2">{selectedMember.name}</h3>
-                    <div className="inline-block px-4 py-1 rounded-full bg-[#669BBC]/10 text-[#669BBC] font-medium mb-3">
+                    <div className="inline-block px-4 py-1 rounded-full bg-[#669BBC]/10 text-[#669BBC] font-medium">
                       {selectedMember.position}
                     </div>
                     
-                    <div className="mt-2 flex justify-center sm:justify-start">
+                    <div className="mt-3 flex justify-center">
                       {/* Social links - optional, add if available */}
                       {selectedMember.linkedin && (
                         <a 
@@ -571,45 +592,45 @@ function TeamCarousel() {
                       )}
                     </div>
                   </div>
-                </div>
-                
-                {/* Bio/Description section */}
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <h4 className="text-xl font-semibold mb-4 text-[#003049]">About</h4>
-                  {selectedMember.description ? (
-                    <div className="prose prose-lg max-w-none text-gray-700">
-                      <p className="whitespace-pre-line">{selectedMember.description}</p>
-                    </div>
-                  ) : (
-                    <div className="bg-gray-50 p-4 rounded-lg text-center text-gray-500">
-                      <p>No additional information available about {selectedMember.name} at this time.</p>
+                  
+                  {/* Description section */}
+                  <div className="pt-4 border-t border-gray-200">
+                    <h4 className="text-xl font-semibold mb-4 text-[#003049]">About</h4>
+                    {selectedMember.description ? (
+                      <div className="prose prose-lg max-w-none text-gray-700">
+                        <p className="whitespace-pre-line">{selectedMember.description}</p>
+                      </div>
+                    ) : (
+                      <div className="bg-gray-50 p-4 rounded-lg text-gray-500">
+                        <p>No additional information available about {selectedMember.name} at this time.</p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Optional accomplishments section */}
+                  {selectedMember.accomplishments && (
+                    <div className="mt-6 pt-4 border-t border-gray-200">
+                      <h4 className="text-xl font-semibold mb-4 text-[#003049]">Accomplishments</h4>
+                      <ul className="space-y-2">
+                        {selectedMember.accomplishments.map((item, i) => (
+                          <li key={i} className="flex items-start">
+                            <span className="text-[#669BBC] mr-2">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
-                </div>
-                
-                {/* Optional accomplishments/role description section */}
-                {selectedMember.accomplishments && (
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <h4 className="text-xl font-semibold mb-4 text-[#003049]">Accomplishments</h4>
-                    <ul className="space-y-2">
-                      {selectedMember.accomplishments.map((item, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-[#669BBC] mr-2">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  
+                  {/* Footer with close button */}
+                  <div className="mt-6 flex justify-end">
+                    <button
+                      onClick={closeMemberDetails}
+                      className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors"
+                    >
+                      Close
+                    </button>
                   </div>
-                )}
-                
-                {/* Footer with close button */}
-                <div className="mt-8 flex justify-end">
-                  <button
-                    onClick={closeMemberDetails}
-                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors"
-                  >
-                    Close
-                  </button>
                 </div>
               </div>
             </motion.div>
@@ -617,14 +638,53 @@ function TeamCarousel() {
         </div>
       )}
 
-      {/* Hide scrollbar CSS */}
+      {/* Full-size Image Modal */}
+      {showImageModal && selectedMember?.image && (
+        <div className="fixed inset-0 z-[60] overflow-hidden flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm">
+          <div 
+            className="absolute inset-0 z-0"
+            onClick={closeImageModal}
+          ></div>
+          
+          <div className="relative z-10 max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative rounded-lg overflow-hidden max-h-full max-w-full shadow-2xl"
+            >
+              <img 
+                src={selectedMember.image} 
+                alt={selectedMember.name}
+                className="max-h-[80vh] max-w-full object-contain" 
+              />
+              
+              <button
+                className="absolute top-3 right-3 bg-white rounded-full p-2 shadow-md text-gray-700 hover:text-[#C1121F] transition-colors"
+                onClick={closeImageModal}
+                aria-label="Close image"
+              >
+                <FaTimes size={20} />
+              </button>
+              
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <h3 className="text-white font-bold text-lg">{selectedMember.name}</h3>
+                <p className="text-white/80 text-sm">{selectedMember.position}</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      )}
+
+      {/* Hide scrollbar CSS - keep your existing style */}
       <style jsx>{`
         .hide-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         .hide-scrollbar::-webkit-scrollbar {
-          display: none;  /* Chrome, Safari and Opera */
+          display: none;
         }
       `}</style>
     </>
