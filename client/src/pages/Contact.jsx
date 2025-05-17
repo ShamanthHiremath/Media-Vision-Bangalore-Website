@@ -116,7 +116,12 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#003049]">Email</h3>
-                    <p className="text-gray-600">mediavisionbng@gmail.com</p>
+                    <a 
+                      href="mailto:mediavisionbng@gmail.com" 
+                      className="text-gray-600 hover:text-gray-800 transition-colors"
+                    >
+                      mediavisionbng@gmail.com
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -125,7 +130,12 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#003049]">Phone</h3>
-                    <p className="text-gray-600">+91 72594 56555</p>
+                    <a 
+                      href="tel:+917259456555" 
+                      className="text-gray-600 hover:text-gray-800 transition-colors"
+                    >
+                  +91 72594 56555
+                </a>
                   </div>
                 </div>
               </div>
@@ -157,18 +167,7 @@ function Contact() {
                       <FaInstagram size={18} className="text-white" />
                     </div>
                   </a>
-                  
-                  {/* X (Twitter) */}
-                  <a 
-                    href="#0"
-                    className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
-                    title="X (Twitter)"
-                  >
-                    <div className="bg-black text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
-                      <FaXTwitter size={18} />
-                    </div>
-                  </a>
-                  
+                
                   {/* LinkedIn */}
                   <a 
                     href="#0"
@@ -349,13 +348,13 @@ function Contact() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href="tel:+919876543210"
+              href="tel:+917259456555"
               className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg flex items-center gap-2"
             >
               <FiPhone /> Call Now
             </a>
             <a
-              href="mailto:info@mediavision.com"
+              href="mailto:mediavisionbng@gmail.com"
               className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center gap-2"
             >
               <FiMail /> Email Us

@@ -87,6 +87,50 @@ function About() {
           </motion.div>
         </motion.section>
 
+        {/* Event Highlight Section - Moved right after Our Story */}
+        <motion.section
+          className="mb-16"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-3xl font-bold mb-8 text-center text-[#003049]">Event Highlights</h2>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            {/* Feature image - larger */}
+            <div className="md:col-span-3 rounded-xl overflow-hidden shadow-xl h-96">
+              <img 
+                src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                alt="PR conference" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            {/* Right side smaller images */}
+            <div className="md:col-span-2 grid grid-cols-1 gap-6">
+              <div className="rounded-xl overflow-hidden shadow-lg h-44">
+                <img 
+                  src="https://images.unsplash.com/photo-1558403194-611308249627?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                  alt="Panel discussion" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-lg h-44">
+                <img 
+                  src="https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                  alt="Media workshop" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-8">
+            <a href="/events" className="inline-block px-6 py-3 bg-[#003049] text-white rounded-lg font-medium hover:bg-[#002030] transition-colors">
+              View All Events
+            </a>
+          </div>
+        </motion.section>
+
         {/* Mission Section */}
         <motion.section
           className="mb-16"

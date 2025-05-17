@@ -14,6 +14,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { FaTimes, FaBell } from 'react-icons/fa';
 import './App.css';
 import Registration from './pages/Registration';
+import Gallery from './pages/Gallery';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -47,6 +48,7 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/events" element={<Events />} />
+            <Route path="/gallery" element={<Gallery />} />
           </Routes>
         </main>
         <Footer />

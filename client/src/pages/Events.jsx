@@ -118,77 +118,87 @@ const Events = () => {
     );
   }
 
+  // Add this function to handle event selection and scrolling
+  const handleEventSelect = (eventId) => {
+    setSelectedEventId(eventId);
+    setShowGrid(false);
+    // Scroll to top of page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen">
-      {/* Hero Banner with Carousel */}
-      <motion.section
-        className="relative text-white py-32 md:py-48 overflow-hidden" // Increased height with larger padding
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        transition={{ duration: 0.8 }}
-      >
-        {/* Background carousel */}
-        <div className="absolute inset-0 z-0 w-full h-full"> {/* Added h-full for explicit height */}
-          {bannerImages.map((img, idx) => (
-            <div
-              key={idx}
-              className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out"
-              style={{ 
-                opacity: idx === bannerIdx ? 1 : 0,
-              }}
+      {/* Hero Banner with Carousel - Only show if in grid view */}
+      {showGrid && (
+        <motion.section
+          className="relative text-white py-32 md:py-48 overflow-hidden" // Increased height with larger padding
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Background carousel */}
+          <div className="absolute inset-0 z-0 w-full h-full"> {/* Added h-full for explicit height */}
+            {bannerImages.map((img, idx) => (
+              <div
+                key={idx}
+                className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out"
+                style={{ 
+                  opacity: idx === bannerIdx ? 1 : 0,
+                }}
+              >
+                <img 
+                  src={img} 
+                  alt={`Event banner ${idx + 1}`} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/80"></div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Left/Right Navigation Buttons - made larger */}
+          <div className="absolute inset-y-0 left-0 flex items-center z-20">
+            <button
+              onClick={() => setBannerIdx((prev) => (prev - 1 + bannerImages.length) % bannerImages.length)}
+              className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-r-lg transition-colors" // Larger padding
+              aria-label="Previous slide"
             >
-              <img 
-                src={img} 
-                alt={`Event banner ${idx + 1}`} 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/80"></div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Left/Right Navigation Buttons - made larger */}
-        <div className="absolute inset-y-0 left-0 flex items-center z-20">
-          <button
-            onClick={() => setBannerIdx((prev) => (prev - 1 + bannerImages.length) % bannerImages.length)}
-            className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-r-lg transition-colors" // Larger padding
-            aria-label="Previous slide"
-          >
-            <FaArrowLeft size={24} /> {/* Increased icon size */}
-          </button>
-        </div>
-        
-        <div className="absolute inset-y-0 right-0 flex items-center z-20">
-          <button
-            onClick={() => setBannerIdx((prev) => (prev + 1) % bannerImages.length)}
-            className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-l-lg transition-colors" // Larger padding
-            aria-label="Next slide"
-          >
-            <FaArrowRight size={24} /> {/* Increased icon size */}
-          </button>
-        </div>
-        
-        {/* Content overlay - increased spacing */}
-        <div className="container mx-auto px-4 text-center relative z-10 max-w-6xl py-8"> {/* Added py-8 padding */}
-          <motion.h1
-            className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg" // Increased font size and margin
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            Our Events
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-2xl max-w-4xl mx-auto drop-shadow-md" // Increased font size
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Join us for our upcoming events and activities that make a difference
-          </motion.p>
-        </div>
-      </motion.section>
+              <FaArrowLeft size={24} /> {/* Increased icon size */}
+            </button>
+          </div>
+          
+          <div className="absolute inset-y-0 right-0 flex items-center z-20">
+            <button
+              onClick={() => setBannerIdx((prev) => (prev + 1) % bannerImages.length)}
+              className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-l-lg transition-colors" // Larger padding
+              aria-label="Next slide"
+            >
+              <FaArrowRight size={24} /> {/* Increased icon size */}
+            </button>
+          </div>
+          
+          {/* Content overlay - increased spacing */}
+          <div className="container mx-auto px-4 text-center relative z-10 max-w-6xl py-8"> {/* Added py-8 padding */}
+            <motion.h1
+              className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg" // Increased font size and margin
+              variants={fadeInUp}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              Our Events
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl max-w-4xl mx-auto drop-shadow-md" // Increased font size
+              variants={fadeInUp}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Join us for our upcoming events and activities that make a difference
+            </motion.p>
+          </div>
+        </motion.section>
+      )}
 
-      <div className="container mx-auto py-12 px-4">
+      <div className={`container mx-auto ${showGrid ? 'py-12' : 'py-8 mt-8'} px-4`}>
         {/* Event Grid */}
         {showGrid && (
           <motion.div
@@ -219,7 +229,7 @@ const Events = () => {
                       key={event._id}
                       className="bg-white rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer overflow-hidden border-t-4"
                       style={{ borderColor: idx === 0 ? '#003049' : idx === 1 ? '#669BBC' : '#C1121F' }}
-                      onClick={() => { setSelectedEventId(event._id); setShowGrid(false); }}
+                      onClick={() => handleEventSelect(event._id)} // Updated to use the new function
                       variants={fadeInUp}
                       transition={{ duration: 0.6, delay: idx * 0.1 }}
                     >
@@ -275,7 +285,7 @@ const Events = () => {
                       key={event._id}
                       className="bg-white rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer overflow-hidden border-t-4"
                       style={{ borderColor: idx % 3 === 0 ? '#003049' : idx % 3 === 1 ? '#669BBC' : '#C1121F' }}
-                      onClick={() => { setSelectedEventId(event._id); setShowGrid(false); }}
+                      onClick={() => handleEventSelect(event._id)} // Updated to use the new function
                       variants={fadeInUp}
                       transition={{ duration: 0.6, delay: idx * 0.1 }}
                     >
@@ -455,7 +465,11 @@ const Events = () => {
                       key={event._id}
                       className="bg-white rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer overflow-hidden border-l-4 flex"
                       style={{ borderColor: idx === 0 ? '#003049' : idx === 1 ? '#669BBC' : idx === 2 ? '#C1121F' : '#FDF0D5' }}
-                      onClick={() => { setSelectedEventId(event._id); setCarouselIdx(0); setAutoPlay(true); }}
+                      onClick={() => { 
+                        handleEventSelect(event._id); // Updated to use the new function
+                        setCarouselIdx(0); 
+                        setAutoPlay(true); 
+                      }}
                       variants={fadeInUp}
                     >
                       <img
