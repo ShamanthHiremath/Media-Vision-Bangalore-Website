@@ -111,7 +111,7 @@ const Registration = () => {
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
           <div className="bg-gradient-to-r from-[#003049] to-[#669BBC] py-6 px-8">
             <h1 className="text-2xl font-bold text-white">Registration Form</h1>
-            <p className="text-gray-100 mt-2">Join Media Vision Bangalore</p>
+            <p className="text-gray-100 mt-2">Nominee Application Form</p>
           </div>
           
           {success ? (

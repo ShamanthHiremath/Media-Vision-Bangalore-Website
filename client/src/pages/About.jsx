@@ -160,12 +160,13 @@ function About() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <h3 className="text-2xl font-semibold mb-4 text-[#669BBC]">Our Values</h3>
+              <h4 className="text-lg font-semibold mb-2 text-[#003049]">What drives our purpose and progress:</h4>
               <ul className="space-y-4">
                 {[
-                  "Commitment to Excellence",
-                  "Community Focus",
-                  "Sustainable Impact",
-                  "Inclusive Approach"
+                  "We maintain high standards in everything we do.",
+                  "Every initiative aims to uplift and engage local communities.",
+                  "Programs that bring lasting change, not just short-term relief.",
+                  "We value diverse voices and strive for equal opportunity and representation."
                 ].map((value, idx) => (
                   <li className="flex items-start" key={value}>
                     <FaCheckCircle className="text-[#669BBC] mr-3 mt-1 flex-shrink-0" />
@@ -184,9 +185,9 @@ function About() {
           animate="visible"
           variants={stagger}
         >
-          <h2 className="text-3xl font-bold text-center mb-2 text-[#003049]">Our Leadership Team</h2>
+          <h2 className="text-3xl font-bold text-center mb-2 text-[#003049]">Board Members</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            Meet the dedicated team behind Media Vision Bangalore
+            Meet the dedicated board members behind Media Vision Bangalore
           </p>
           <TeamCarousel />
         </motion.section>
@@ -200,17 +201,24 @@ function About() {
         >
           <h2 className="text-3xl font-bold text-center mb-4 text-[#003049]">Our Impact</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            Making a difference in our community through dedicated service
+            Creating measurable change across Karnataka and beyond
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { value: 1000, label: "Students Supported", suffix: "+", icon: <FaUserFriends className="text-5xl mb-4" /> },
-              { value: 50, label: "Programs Launched", suffix: "+", icon: <FaChartLine className="text-5xl mb-4" /> },
-              { value: 10, label: "Communities Reached", suffix: "+", icon: <FaHandshake className="text-5xl mb-4" /> }
+              { value: 5000, label: "Lives Touched Through Media & Social Programs", suffix: "+", icon: <FaUserFriends className="text-5xl mb-4" /> },
+              { value: 70, label: "Community Outreach Events Conducted", suffix: "+", icon: <FaChartLine className="text-5xl mb-4" /> },
+              { value: 8, label: "Years of Service in Media, Public Engagement, and Social Impact", suffix: "+", icon: <FaHandshake className="text-5xl mb-4" /> },
+              { value: 500, label: "Volunteers and Media Professionals Involved", suffix: "+", icon: <FaHandshake className="text-5xl mb-4" /> }
             ].map((impact, idx) => (
               <motion.div
                 className="bg-white text-center p-8 rounded-lg shadow-lg border-t-4"
-                style={{ borderColor: idx === 0 ? '#003049' : idx === 1 ? '#669BBC' : '#C1121F' }}
+                style={{ 
+                  borderColor: 
+                    idx === 0 ? '#003049' : 
+                    idx === 1 ? '#669BBC' : 
+                    idx === 2 ? '#C1121F' : 
+                    '#003049' 
+                }}
                 key={impact.label}
                 variants={fadeInUp}
                 transition={{ duration: 0.7, delay: 0.2 * idx }}

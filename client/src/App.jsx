@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
+      <div class="poppins-reguklar " className="font-poppins-medium min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>
