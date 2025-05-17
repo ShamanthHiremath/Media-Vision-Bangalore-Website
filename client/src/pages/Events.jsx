@@ -192,7 +192,7 @@ const Events = () => {
               variants={fadeInUp}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Join us for our upcoming events and activities that make a difference
+              We celebrate, educate, and inspire
             </motion.p>
           </div>
         </motion.section>

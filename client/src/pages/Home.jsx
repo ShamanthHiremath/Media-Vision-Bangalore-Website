@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling, FaArrowRight } from "react-icons/fa";
-import image from '../assets/logo1.png';
+import image from '../assets/logo.png';
 function Home() {
   // Animation variants for reuse
   const fadeInUp = {
@@ -52,7 +52,7 @@ function Home() {
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Transforming communities through education, support, and empowerment
+            Empowering society through media, strategy, and community engagement.
           </motion.p>
           <motion.div
             variants={fadeInUp}
@@ -85,10 +85,10 @@ function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: 2000, label: "People Helped", plus: true },
-              { value: 50, label: "Community Programs", plus: true },
-              { value: 12, label: "Years of Service", plus: false },
-              { value: 100, label: "Volunteers", plus: true }
+              { value: 5000, label: "Lives Touched Through Media & Social Programs", plus: true },
+              { value: 10, label: "Community Outreach Events Conducted", plus: true },
+              { value: 8, label: "Years of Service in Media, Public Engagement, and Social Impact", plus: true },
+              { value: 500, label: "Volunteers and Media Professionals Involved", plus: true }
             ].map((stat, idx) => (
               <motion.div
                 key={stat.label}
@@ -116,30 +116,41 @@ function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4 text-[#003049]">Our Programs</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            Empowering individuals and communities through our comprehensive programs
+          Empowering individuals and communities through purpose-driven initiatives
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               {
-                title: "Education",
-                desc: "Providing quality education and learning opportunities for all.",
+                title: "Media & Strategic Services",
+                desc: "Supporting individuals, campaigns, and organizations with innovative media solutions, branding, and PR.",
                 icon: <FaGraduationCap className="text-4xl text-[#003049] mb-4" />
               },
               {
-                title: "Community Support",
-                desc: "Supporting local communities through various initiatives and resources.",
+                title: "Awards and Recognition:",
+                desc: "Honoring socially contributing people to identify and uplift human welfare and spread awareness.",
                 icon: <FaPeopleCarry className="text-4xl text-[#669BBC] mb-4" />
               },
               {
-                title: "Development",
-                desc: "Fostering sustainable growth and development in our society.",
+                title: "Social Welfare & Development",
+                desc: "From free health camps, food kit donation and campaigns to women's empowerment programs and student aid – we build resilient communities.",
                 icon: <FaSeedling className="text-4xl text-[#C1121F] mb-4" />
+              },
+              {
+                title: "Educational Outreach",
+                desc: "Workshops, camps, and recognition programs that promote access to learning and teacher excellence.",
+                icon: <FaGraduationCap className="text-4xl text-[#003049] mb-4" />
               }
             ].map((feature, idx) => (
               <motion.div
                 key={feature.title}
                 className="bg-white p-8 rounded-lg shadow-lg border-t-4 hover:shadow-xl transition-shadow text-center"
-                style={{ borderColor: idx === 0 ? '#003049' : idx === 1 ? '#669BBC' : '#C1121F' }}
+                style={{ 
+                  borderColor: 
+                    idx === 0 ? '#003049' : 
+                    idx === 1 ? '#669BBC' : 
+                    idx === 2 ? '#C1121F' : 
+                    '#003049' 
+                }}
                 variants={fadeInUp}
               >
                 <div className="flex justify-center">{feature.icon}</div>
@@ -256,7 +267,8 @@ function Home() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Join Our Mission</h2>
           <p className="text-xl mb-10 max-w-2xl mx-auto">
-            Together, we can make a lasting impact in our community. Volunteer, donate, or partner with us today.
+          <span className='font-bold text-2xl'> Be a changemaker with us.</span><br/>
+          Volunteer, partner, sponser or contribute to help amplify voices and transform lives through events, media and social outreach.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

@@ -120,7 +120,8 @@ const Donation = () => {
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Your generosity helps us continue our mission and create lasting change
+            Your support empowers our mission.
+            Help us provide essential services, amplify unheard voices, and nurture future leaders.
           </motion.p>
         </div>
       </motion.section>
@@ -143,15 +144,15 @@ const Donation = () => {
                 <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Why Donate?</h2>
                 
                 <div className="space-y-6 text-gray-600">
-                  <p>Your contribution helps us support communities through:</p>
+                  <p>Your generosity enables us to:</p>
                   
                   <div className="flex items-start">
                     <div className="bg-[#003049] text-white p-2 rounded-full mr-3 mt-1">
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#003049]">Local Support Programs</h3>
-                      <p className="text-sm">Providing essential resources to those in need</p>
+                      <h3 className="font-semibold text-[#003049]">Empower Communities</h3>
+                      <p className="text-sm">With free health camps, women’s empowerment initiatives, and student support.</p>
                     </div>
                   </div>
                   
@@ -160,8 +161,8 @@ const Donation = () => {
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#003049]">Educational Initiatives</h3>
-                      <p className="text-sm">Funding scholarships and learning resources</p>
+                      <h3 className="font-semibold text-[#003049]">Elevate Education</h3>
+                      <p className="text-sm">Recognizing top educators, supporting students, and hosting cultural education camps.</p>
                     </div>
                   </div>
                   
@@ -170,8 +171,8 @@ const Donation = () => {
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#003049]">Community Development</h3>
-                      <p className="text-sm">Building infrastructure and sustainable programs</p>
+                      <h3 className="font-semibold text-[#003049]">Advance Development</h3>
+                      <p className="text-sm">Strategic support for social infrastructure and awareness-building through media.</p>
                     </div>
                   </div>
                 </div>
