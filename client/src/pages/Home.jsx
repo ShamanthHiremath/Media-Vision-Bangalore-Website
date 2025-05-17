@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
-import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling } from "react-icons/fa";
+import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling, FaArrowRight } from "react-icons/fa";
 import image from '../assets/logo1.png';
 function Home() {
   // Animation variants for reuse
@@ -148,6 +148,100 @@ function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </motion.section>
+
+      {/* Event Highlights Section - Added below Our Programs */}
+      <motion.section
+        className="py-16 bg-white"
+        initial="hidden"
+        animate="visible"
+        variants={containerStagger}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4 text-[#003049]">Event Highlights</h2>
+          <p className="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
+            A glimpse into our impactful events and initiatives across Bengaluru
+          </p>
+          
+          {/* Featured Event - Large Banner */}
+          <motion.div 
+            className="mb-10 rounded-xl overflow-hidden shadow-xl relative"
+            variants={fadeInUp}
+          >
+            <img 
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&h=500&q=80" 
+              alt="Media Vision Annual Conference" 
+              className="w-full h-[300px] md:h-[400px] object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+              <h3 className="text-2xl font-bold text-white">Annual Media Vision Conference 2024</h3>
+              <p className="text-white/80 text-lg">Bringing together media professionals from across South India</p>
+            </div>
+          </motion.div>
+          
+          {/* Event Grid - Multiple Images */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {[
+              {
+                img: "https://images.unsplash.com/photo-1560523159-4a9692d222f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                title: "Media Training Workshop",
+                date: "June 12, 2024"
+              },
+              {
+                img: "https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                title: "Excellence in Journalism Awards",
+                date: "April 25, 2024"
+              },
+              {
+                img: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                title: "PR Strategy Summit",
+                date: "March 18, 2024"
+              },
+              {
+                img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                title: "Media & Technology Conference",
+                date: "February 8, 2024"
+              },
+              {
+                img: "https://images.unsplash.com/photo-1534649643822-e7431de08af6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                title: "Community Radio Workshop",
+                date: "January 22, 2024"
+              }
+            ].map((event, idx) => (
+              <motion.div 
+                key={idx}
+                className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow group"
+                variants={fadeInUp}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                <div className="h-52 overflow-hidden">
+                  <img 
+                    src={event.img} 
+                    alt={event.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-4 bg-white">
+                  <h3 className="font-semibold text-lg text-[#003049]">{event.title}</h3>
+                  <p className="text-gray-500 text-sm">{event.date}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* View All Events Button */}
+          <motion.div 
+            className="text-center mt-10"
+            variants={fadeInUp}
+          >
+            <Link 
+              to="/events" 
+              className="inline-flex items-center gap-2 bg-[#003049] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#002030] transition-colors"
+            >
+              View All Events <FaArrowRight />
+            </Link>
+          </motion.div>
         </div>
       </motion.section>
 
