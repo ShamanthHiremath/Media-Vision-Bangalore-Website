@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* About Section */}
           <div className="md:text-left text-center">
-            <h3 className="text-xl font-bold mb-3 text-white border-b border-[#669BBC] pb-2 inline-block">About Us</h3>
+            <h3 className="text-xl font-bold mb-3 text-white border-b border-blue-900 pb-2 inline-block">About Us</h3>
             <p className="text-gray-300 mt-3">
               Empowering communities through education, skill development, sustainability, and social initiatives.
             </p>
@@ -101,7 +101,7 @@ const Footer = () => {
                 <li>
                   <Link 
                     to="/events" 
-                    className="text-gray-300 hover:text-[#669BBC] transition-colors"
+                    className="text-gray-300 hover:text-blue-900 transition-colors"
                     onClick={scrollToTop}
                   >
                     Events
@@ -132,11 +132,11 @@ const Footer = () => {
           
           {/* Contact Section */}
           <div className="flex flex-col max-md:items-center">
-            <h3 className="text-xl font-bold mb-3 text-white border-b border-[#669BBC] pb-2 inline-block">Contact Us</h3>
+            <h3 className="text-xl font-bold mb-3 text-white border-b border-blue-900 pb-2 inline-block">Contact Us</h3>
             <ul className="space-y-3 mt-3">
               <li className="flex items-center space-x-3">
-                <div className="bg-[#003049] p-2 rounded-full">
-                  <FiMail className="text-[#669BBC]" size={18} />
+                <div className="bg-blue-900 p-2 rounded-full">
+                  <FiMail className="text-white" size={18} />
                 </div>
                 <a 
                   href="mailto:mediavisionbng@gmail.com" 
@@ -146,8 +146,8 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <div className="bg-[#003049] p-2 rounded-full">
-                  <FiPhone className="text-[#669BBC]" size={18} />
+                <div className="bg-blue-900 p-2 rounded-full">
+                  <FiPhone className="text-white" size={18} />
                 </div>
                 <a 
                   href="tel:+917259456555" 
@@ -157,8 +157,8 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-start space-x-3">
-                <div className="bg-[#003049] p-2 rounded-full mt-1">
-                  <FiMapPin className="text-[#669BBC]" size={18} />
+                <div className="bg-blue-900 p-2 rounded-full mt-1">
+                  <FiMapPin className="text-white" size={18} />
                 </div>
                 <span className="text-gray-300">
                   300B/B, Second Floor, Okhla Main Road, Jamia Nagar, 110025, New Delhi
@@ -179,8 +179,8 @@ const Footer = () => {
           
           {/* Map Section */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-xl font-bold mb-4 text-white border-b border-[#669BBC] pb-2 inline-block">Our Location</h3>
-            <div className="rounded-lg overflow-hidden shadow-lg border border-[#003049] w-full">
+            <h3 className="text-xl font-bold mb-4 text-white border-b border-blue-900 pb-2 inline-block">Our Location</h3>
+            <div className="rounded-lg overflow-hidden shadow-lg border border-blue-900 w-full">
               <iframe
                 title="Organization Location"
                 src="https://www.google.com/maps?q=300B/B, Second Floor, Okhla Main Road, Jamia Nagar, 110025, New Delhi&output=embed"

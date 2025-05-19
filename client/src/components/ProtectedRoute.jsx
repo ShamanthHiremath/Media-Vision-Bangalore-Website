@@ -44,7 +44,7 @@ const ProtectedRoute = ({ children }) => {
     // Still loading, show a loading indicator
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#003049]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
       </div>
     );
   }

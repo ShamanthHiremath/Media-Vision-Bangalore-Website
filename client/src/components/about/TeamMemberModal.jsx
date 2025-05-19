@@ -18,7 +18,7 @@ function TeamMemberModal({ member, show, onClose }) {
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           className="relative bg-white rounded-xl shadow-2xl w-full max-w-xl overflow-hidden"
         >
-          <div className="h-3 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
+          <div className="h-3 bg-gradient-to-r from-blue-900 to-blue-900"></div>
           <button
             className="absolute top-4 right-4 bg-white rounded-full p-1 shadow-md text-gray-500 hover:text-[#C1121F] transition-colors z-10"
             onClick={onClose}
@@ -37,7 +37,7 @@ function TeamMemberModal({ member, show, onClose }) {
                     onError={e => {
                       e.target.onerror = null;
                       e.target.style.display = 'none';
-                      e.target.parentNode.classList.add('bg-gradient-to-r', 'from-[#003049]', 'to-[#669BBC]');
+                      e.target.parentNode.classList.add('bg-gradient-to-r', 'from-blue-900', 'to-blue-900');
                       const initials = document.createElement('div');
                       initials.className = 'flex items-center justify-center text-3xl text-white font-bold w-full h-full';
                       initials.innerText = member.name.split(' ').map(n => n[0]).join('').slice(0,2);
@@ -46,13 +46,13 @@ function TeamMemberModal({ member, show, onClose }) {
                   />
                 </div>
               ) : (
-                <div className="w-32 h-32 bg-gradient-to-r from-[#003049] to-[#669BBC] rounded-full border-4 border-white shadow-lg flex items-center justify-center text-3xl text-white font-bold">
+                <div className="w-32 h-32 bg-gradient-to-r from-blue-900 to-blue-900 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-3xl text-white font-bold">
                   {member.name.split(' ').map(n => n[0]).join('').slice(0,2)}
                 </div>
               )}
               <div className="text-center sm:text-left sm:flex-1">
-                <h3 className="text-2xl font-bold text-[#003049] mb-2">{member.name}</h3>
-                <div className="inline-block px-4 py-1 rounded-full bg-[#669BBC]/10 text-[#669BBC] font-medium mb-3">
+                <h3 className="text-2xl font-bold text-blue-900 mb-2">{member.name}</h3>
+                <div className="inline-block px-4 py-1 rounded-full bg-blue-900/10 text-blue-900 font-medium mb-3">
                   {member.position}
                 </div>
                 <div className="mt-2 flex justify-center sm:justify-start">
@@ -69,7 +69,7 @@ function TeamMemberModal({ member, show, onClose }) {
                   {member.email && (
                     <a 
                       href={`mailto:${member.email}`}
-                      className="bg-[#003049] text-white p-2 rounded-full w-8 h-8 flex items-center justify-center"
+                      className="bg-blue-900 text-white p-2 rounded-full w-8 h-8 flex items-center justify-center"
                     >
                       <FaEnvelope size={14} />
                     </a>
@@ -78,7 +78,7 @@ function TeamMemberModal({ member, show, onClose }) {
               </div>
             </div>
             <div className="mt-8 pt-6 border-t border-gray-200">
-              <h4 className="text-xl font-semibold mb-4 text-[#003049]">About</h4>
+              <h4 className="text-xl font-semibold mb-4 text-blue-900">About</h4>
               {member.description ? (
                 <div className="prose prose-lg max-w-none text-gray-700">
                   <p className="whitespace-pre-line">{member.description}</p>
@@ -91,11 +91,11 @@ function TeamMemberModal({ member, show, onClose }) {
             </div>
             {member.accomplishments && (
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <h4 className="text-xl font-semibold mb-4 text-[#003049]">Accomplishments</h4>
+                <h4 className="text-xl font-semibold mb-4 text-blue-900">Accomplishments</h4>
                 <ul className="space-y-2">
                   {member.accomplishments.map((item, i) => (
                     <li key={i} className="flex items-start">
-                      <span className="text-[#669BBC] mr-2">•</span>
+                      <span className="text-blue-900 mr-2">•</span>
                       <span>{item}</span>
                     </li>
                   ))}

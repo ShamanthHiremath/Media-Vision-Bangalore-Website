@@ -101,7 +101,7 @@ const Donation = () => {
     <div className="min-h-screen">
       {/* Hero Banner */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16"
+        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -140,28 +140,28 @@ const Donation = () => {
               variants={fadeInUp}
               transition={{ duration: 0.7 }}
             >
-              <div className={`bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-[#003049] transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Why Donate?</h2>
+              <div className={`bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-blue-900 transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Why Donate?</h2>
                 
                 <div className="space-y-6 text-gray-600">
                   <p>Your generosity enables us to:</p>
                   
                   <div className="flex items-start">
-                    <div className="bg-[#003049] text-white p-2 rounded-full mr-3 mt-1">
+                    <div className="bg-blue-900 text-white p-2 rounded-full mr-3 mt-1">
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#003049]">Empower Communities</h3>
+                      <h3 className="font-semibold text-blue-900">Empower Communities</h3>
                       <p className="text-sm">With free health camps, women’s empowerment initiatives, and student support.</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <div className="bg-[#669BBC] text-white p-2 rounded-full mr-3 mt-1">
+                    <div className="bg-blue-900 text-white p-2 rounded-full mr-3 mt-1">
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#003049]">Elevate Education</h3>
+                      <h3 className="font-semibold text-blue-900">Elevate Education</h3>
                       <p className="text-sm">Recognizing top educators, supporting students, and hosting cultural education camps.</p>
                     </div>
                   </div>
@@ -171,14 +171,14 @@ const Donation = () => {
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#003049]">Advance Development</h3>
+                      <h3 className="font-semibold text-blue-900">Advance Development</h3>
                       <p className="text-sm">Strategic support for social infrastructure and awareness-building through media.</p>
                     </div>
                   </div>
                 </div>
                 
                 <div className="mt-8 bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-[#003049] mb-2">Tax Benefits</h3>
+                  <h3 className="font-semibold text-blue-900 mb-2">Tax Benefits</h3>
                   <p className="text-sm text-gray-600">
                     All donations are eligible for tax deduction under Section 80G of the Income Tax Act.
                   </p>
@@ -200,22 +200,22 @@ const Donation = () => {
             >
               <form 
                 onSubmit={handleDonate} 
-                className={`bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#669BBC] transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`bg-white p-8 rounded-lg shadow-lg border-l-4 border-blue-900 transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               >
-                <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Make a Donation</h2>
+                <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Make a Donation</h2>
                 
                 <div className="space-y-4">
                   {/* Name Field */}
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Your Name</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-[#003049]">
+                      <span className="absolute left-3 top-3 text-blue-900">
                         <FaUser />
                       </span>
                       <input
                         type="text"
                         name="name"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Full Name"
@@ -227,13 +227,13 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Email Address</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-[#669BBC]">
+                      <span className="absolute left-3 top-3 text-blue-900">
                         <FaEnvelope />
                       </span>
                       <input
                         type="email"
                         name="email"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="email@example.com"
@@ -245,13 +245,13 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Phone Number</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-[#003049]">
+                      <span className="absolute left-3 top-3 text-blue-900">
                         <FaPhone />
                       </span>
                       <input
                         type="tel"
                         name="phone"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="Your Phone Number"
@@ -286,7 +286,7 @@ const Donation = () => {
                           type="button"
                           className={`px-3 py-1 text-sm rounded-md ${
                             Number(formData.amount) === amount
-                              ? 'bg-[#003049] text-white'
+                              ? 'bg-blue-900 text-white'
                               : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                           }`}
                           onClick={() => setFormData(prev => ({ ...prev, amount: amount.toString() }))}
@@ -301,13 +301,13 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Message (Optional)</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-[#669BBC]">
+                      <span className="absolute left-3 top-3 text-blue-900">
                         <FaComment />
                       </span>
                       <textarea
                         name="description"
                         rows="3"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                         value={formData.description}
                         onChange={handleChange}
                         placeholder="Share why you're making this donation..."
@@ -323,7 +323,7 @@ const Donation = () => {
                       name="anonymous"
                       checked={formData.anonymous}
                       onChange={handleChange}
-                      className="w-4 h-4 text-[#003049] border-gray-300 rounded focus:ring-[#003049]"
+                      className="w-4 h-4 text-blue-900 border-gray-300 rounded focus:ring-blue-900"
                     />
                     <label htmlFor="anonymous" className="ml-2 text-gray-700">
                       Make this donation anonymous
@@ -364,7 +364,7 @@ const Donation = () => {
             variants={fadeInUp}
             transition={{ delay: 0.4 }}
           >
-            <h2 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Your Impact</h2>
+            <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Your Impact</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               {[
@@ -379,7 +379,7 @@ const Donation = () => {
                   variants={fadeInUp}
                   transition={{ duration: 0.7, delay: 0.2 * idx }}
                 >
-                  <div className="text-3xl font-bold mb-4 text-[#003049]">{item.amount}</div>
+                  <div className="text-3xl font-bold mb-4 text-blue-900">{item.amount}</div>
                   <p className="text-gray-600">{item.impact}</p>
                 </motion.div>
               ))}
@@ -390,7 +390,7 @@ const Donation = () => {
       
       {/* Call to Action */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16 mt-8"
+        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16 mt-8"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -404,7 +404,7 @@ const Donation = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/volunteer"
-              className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
             >
               Volunteer With Us
             </a>

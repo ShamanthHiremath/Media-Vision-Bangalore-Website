@@ -6,7 +6,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message }) => {
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-gray-800 bg-opacity-75 flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 animate-fade-in-down">
-        <h2 className="text-xl font-semibold text-[#003049] mb-4">{title}</h2>
+        <h2 className="text-xl font-semibold text-blue-900 mb-4">{title}</h2>
         <p className="text-gray-600 mb-6">{message}</p>
         
         <div className="flex justify-end space-x-3">
