@@ -162,8 +162,8 @@ const DragDropImageUpload = ({
       <div
         className={`relative border-2 border-dashed rounded-lg p-4 transition-colors ${
           isDragging 
-            ? 'border-[#669BBC] bg-[#669BBC]/10' 
-            : 'border-gray-300 hover:border-[#669BBC] bg-gray-50'
+            ? 'border-blue-900 bg-blue-900/10' 
+            : 'border-gray-300 hover:border-blue-900 bg-gray-50'
         }`}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -179,7 +179,7 @@ const DragDropImageUpload = ({
           <p className="text-sm text-gray-500 mt-1">or</p>
           <button
             type="button"
-            className="mt-2 px-4 py-2 bg-[#003049] text-white rounded-lg hover:bg-[#003049]/90 transition-colors"
+            className="mt-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-900/90 transition-colors"
           >
             Choose {multiple ? 'Files' : 'File'}
           </button>

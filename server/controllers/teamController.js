@@ -4,7 +4,7 @@ const { uploadImageToCloudinary } = require('../utils/imageUploader');
 // Get all team members (public)
 exports.getAllTeamMembers = async (req, res) => {
   try {
-    const teamMembers = await Team.find().sort({ order: 1, createdAt: -1 });
+    const teamMembers = await Team.find().sort({ order: -1, createdAt: -1 });
     res.json(teamMembers);
   } catch (error) {
     console.error('Error fetching team members:', error);

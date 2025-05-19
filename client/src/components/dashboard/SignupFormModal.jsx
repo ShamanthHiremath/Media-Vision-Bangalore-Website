@@ -33,7 +33,7 @@ const SignupFormModal = ({ show, onClose, onSuccess }) => {
             exit={{ opacity: 0, y: 20 }}
           >
             {/* Gradient top border */}
-            <div className="h-2 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
+            <div className="h-2 bg-gradient-to-r from-blue-900 to-blue-900"></div>
             
             <button
               className="absolute top-3 right-3 text-gray-400 hover:text-[#C1121F] transition-colors duration-200 p-1 rounded-full hover:bg-gray-100"
@@ -43,7 +43,7 @@ const SignupFormModal = ({ show, onClose, onSuccess }) => {
             </button>
             
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-4 text-[#003049]">Create New Admin User</h3>
+              <h3 className="text-xl font-bold mb-4 text-blue-900">Create New Admin User</h3>
               <SignupForm 
                 onClose={onClose} 
                 onSuccess={handleUserCreated} 

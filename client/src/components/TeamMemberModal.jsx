@@ -40,8 +40,8 @@ const TeamMemberModal = ({ member, isOpen, onClose }) => (
           </div>
           {/* Info on the right */}
           <div className="flex-1 p-8 flex flex-col justify-center">
-            <h3 className="text-3xl font-bold text-[#003049] mb-2">{member.name}</h3>
-            <p className="text-[#669BBC] font-medium text-xl mb-4">{member.position}</p>
+            <h3 className="text-3xl font-bold text-blue-900 mb-2">{member.name}</h3>
+            <p className="text-blue-900 font-medium text-xl mb-4">{member.position}</p>
             <div className="text-gray-700 leading-relaxed text-base">
               <p>{member.description}</p>
             </div>

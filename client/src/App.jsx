@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <div class="poppins-regular " className="font-poppins-medium min-h-screen flex flex-col">
+      <div class="ancizar-serif" className="ancizar-serif min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>
@@ -72,7 +72,7 @@ function App() {
                 transition={{ duration: 0.4 }}
               >
                 {/* Top color band */}
-                <div className="h-2 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
+                <div className="h-2 bg-gradient-to-r from-blue-900 to-blue-900"></div>
                 
                 {/* Close button */}
                 <button
@@ -85,12 +85,12 @@ function App() {
                 
                 <div className="p-6 pt-8">
                   {/* Icon at the top */}
-                  <div className="w-16 h-16 rounded-full bg-[#003049] mx-auto mb-4 flex items-center justify-center text-white">
+                  <div className="w-16 h-16 rounded-full bg-blue-900 mx-auto mb-4 flex items-center justify-center text-white">
                     <FaBell size={28} />
                   </div>
                   
                   {/* Modal content */}
-                  <h2 className="text-2xl font-bold mb-4 text-[#003049] text-center">
+                  <h2 className="text-2xl font-bold mb-4 text-blue-900 text-center">
                     Welcome to Media Vision Bangalore!
                   </h2>
                   
@@ -104,7 +104,7 @@ function App() {
                       <input 
                         type="email" 
                         placeholder="Your email address" 
-                        className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+                        className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                       />
                       <button className="bg-[#C1121F] hover:bg-[#780000] text-white font-medium px-4 py-2 rounded-r-md transition-colors duration-300">
                         Subscribe
@@ -114,20 +114,20 @@ function App() {
                   
                   {/* Modal footer */}
                   <div className="text-center text-sm text-gray-500 mt-4">
-                    <p>By subscribing, you agree to our <a href="/privacy" className="text-[#669BBC] hover:text-[#003049] hover:underline">privacy policy</a></p>
+                    <p>By subscribing, you agree to our <a href="/privacy" className="text-blue-900 hover:text-blue-900 hover:underline">privacy policy</a></p>
                   </div>
                 </div>
                 
                 {/* Bottom actions */}
                 <div className="bg-gray-50 px-6 py-3 flex justify-between items-center border-t border-gray-200">
                   <button 
-                    className="text-gray-600 hover:text-[#003049] text-sm font-medium hover:underline"
+                    className="text-gray-600 hover:text-blue-900 text-sm font-medium hover:underline"
                     onClick={() => setShowModal(false)}
                   >
                     Remind me later
                   </button>
                   <button 
-                    className="text-[#003049] hover:text-[#669BBC] text-sm font-medium hover:underline"
+                    className="text-blue-900 hover:text-blue-900 text-sm font-medium hover:underline"
                     onClick={() => setShowModal(false)}
                   >
                     Don't show again

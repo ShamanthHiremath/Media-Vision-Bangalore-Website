@@ -82,7 +82,7 @@ const EventForm = ({
             name="name"
             value={form.name}
             onChange={onChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
             placeholder="Enter event name"
             required
           />
@@ -94,14 +94,14 @@ const EventForm = ({
           <label className="block mb-2 font-medium text-gray-700">Event Date</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FaCalendarAlt className="text-[#669BBC]" />
+              <FaCalendarAlt className="text-blue-900" />
             </div>
             <input
               type="date"
               name="date"
               value={form.date}
               onChange={onChange}
-              className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+              className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
               required
             />
           </div>
@@ -129,14 +129,14 @@ const EventForm = ({
       <div>
         <label className="block mb-2 font-medium text-gray-700">
           <div className="flex items-center">
-            <FaFileImage className="mr-2 text-[#003049]" />
+            <FaFileImage className="mr-2 text-blue-900" />
             <span>Event Photos</span>
           </div>
         </label>
         
         <div 
           ref={dropZoneRef}
-          className={`border-2 border-dashed ${isDragging ? 'border-[#003049] bg-blue-100' : 'border-[#669BBC] bg-blue-50'} rounded-lg p-6 hover:bg-blue-100 transition-colors`}
+          className={`border-2 border-dashed ${isDragging ? 'border-blue-900 bg-blue-100' : 'border-blue-900 bg-blue-50'} rounded-lg p-6 hover:bg-blue-100 transition-colors`}
           onDragEnter={handleDragEnter}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -156,11 +156,11 @@ const EventForm = ({
             />
             <div className="flex flex-col items-center justify-center py-4">
               {isDragging ? (
-                <FaUpload className="text-[#003049] text-4xl mb-2 animate-bounce" />
+                <FaUpload className="text-blue-900 text-4xl mb-2 animate-bounce" />
               ) : (
-                <FaFileImage className="text-[#003049] text-3xl mb-2" />
+                <FaFileImage className="text-blue-900 text-3xl mb-2" />
               )}
-              <span className="text-[#003049] font-medium">
+              <span className="text-blue-900 font-medium">
                 {isDragging ? 'Drop images here' : 'Drag and drop or click to select images'}
               </span>
               <span className="text-gray-500 text-sm mt-1">
@@ -244,7 +244,7 @@ const EventForm = ({
       <div>
         <label className="block mb-2 font-medium text-gray-700">
           <div className="flex items-center">
-            <FaAlignLeft className="mr-2 text-[#669BBC]" />
+            <FaAlignLeft className="mr-2 text-blue-900" />
             <span>Description</span>
           </div>
         </label>
@@ -252,7 +252,7 @@ const EventForm = ({
           name="description"
           value={form.description}
           onChange={onChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
           rows={5}
           placeholder="Provide a detailed description of the event..."
           required
@@ -268,7 +268,7 @@ const EventForm = ({
       <div className="flex gap-4 pt-2">
         <button
           type="submit"
-          className="flex-1 bg-[#003049] text-white py-3 rounded-lg font-medium hover:bg-[#00243a] transition-colors flex items-center justify-center"
+          className="flex-1 bg-blue-900 text-white py-3 rounded-lg font-medium hover:bg-[#00243a] transition-colors flex items-center justify-center"
           disabled={loading}
         >
           {loading ? (

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import React, { useState, useEffect, useRef } from 'react';
-import { FaCheckCircle, FaUserFriends, FaChartLine, FaHandshake, FaTimes, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
+import { FaCheckCircle, FaUserFriends, FaChartLine, FaHandshake, FaTimes, FaLinkedinIn, FaEnvelope, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 function About() {
   // Animation variants
@@ -19,31 +19,8 @@ function About() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Banner */}
-      <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16"
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <motion.h1
-            className="text-4xl md:text-5xl font-bold mb-4"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            About Media Vision Bangalore
-          </motion.h1>
-          <motion.p
-            className="text-xl max-w-3xl mx-auto"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Leading the way in media management and public relations since 2017
-          </motion.p>
-        </div>
-      </motion.section>
+      {/* Hero Carousel Banner - Replacing static banner */}
+      <HeroCarousel />
 
       <div className="container mx-auto px-4 py-12">
         {/* About Section */}
@@ -55,7 +32,7 @@ function About() {
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-3xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block"
+            className="text-3xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
@@ -67,7 +44,7 @@ function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <p>
-              <b className="text-[#003049]">Media Vision Bangalore</b> specializes in media management and public relations. As one of the leading media organizations in the state, we are actively involved across the cultural, social, political, and media sectors.
+              <b className="text-blue-900">Media Vision Bangalore</b> specializes in media management and public relations. As one of the leading media organizations in the state, we are actively involved across the cultural, social, political, and media sectors.
             </p>
             <p>
               Established in 2017, Media Vision Bangalore has provided effective media coordination, management, and strategic advice in selected constituencies. We successfully supported candidates in both the 2023 Assembly and 2024 Lok Sabha elections.
@@ -95,7 +72,7 @@ function About() {
           variants={fadeInUp}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold mb-8 text-center text-[#003049]">Event Highlights</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-blue-900">Event Highlights</h2>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {/* Feature image - larger */}
             <div className="md:col-span-3 rounded-xl overflow-hidden shadow-xl h-96">
@@ -125,7 +102,7 @@ function About() {
             </div>
           </div>
           <div className="text-center mt-8">
-            <a href="/events" className="inline-block px-6 py-3 bg-[#003049] text-white rounded-lg font-medium hover:bg-[#002030] transition-colors">
+            <a href="/events" className="inline-block px-6 py-3 bg-blue-900 text-white rounded-lg font-medium hover:bg-[#002030] transition-colors">
               View All Events
             </a>
           </div>
@@ -142,9 +119,9 @@ function About() {
             <motion.div 
               variants={fadeInUp} 
               transition={{ duration: 0.7 }}
-              className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#003049]"
+              className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-blue-900"
             >
-              <h2 className="text-3xl font-bold mb-6 text-[#003049]">Our Mission</h2>
+              <h2 className="text-3xl font-bold mb-6 text-blue-900">Our Mission</h2>
               <p className="text-gray-700 mb-4">
                 Our mission is to empower individuals and communities through education
                 and support programs that create lasting change.
@@ -155,12 +132,12 @@ function About() {
               </p>
             </motion.div>
             <motion.div
-              className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#669BBC]"
+              className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-blue-900"
               variants={fadeInUp}
               transition={{ duration: 0.7, delay: 0.2 }}
             >
-              <h3 className="text-2xl font-semibold mb-4 text-[#669BBC]">Our Values</h3>
-              <h4 className="text-lg font-semibold mb-2 text-[#003049]">What drives our purpose and progress:</h4>
+              <h3 className="text-2xl font-semibold mb-4 text-blue-900">Our Values</h3>
+              <h4 className="text-lg font-semibold mb-2 text-blue-900">What drives our purpose and progress:</h4>
               <ul className="space-y-4">
                 {[
                   "We maintain high standards in everything we do.",
@@ -169,7 +146,7 @@ function About() {
                   "We value diverse voices and strive for equal opportunity and representation."
                 ].map((value, idx) => (
                   <li className="flex items-start" key={value}>
-                    <FaCheckCircle className="text-[#669BBC] mr-3 mt-1 flex-shrink-0" />
+                    <FaCheckCircle className="text-blue-900 mr-3 mt-1 flex-shrink-0" />
                     <span className="text-gray-700">{value}</span>
                   </li>
                 ))}
@@ -185,7 +162,7 @@ function About() {
           animate="visible"
           variants={stagger}
         >
-          <h2 className="text-3xl font-bold text-center mb-2 text-[#003049]">Board Members</h2>
+          <h2 className="text-3xl font-bold text-center mb-2 text-blue-900">Board Members</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
             Meet the dedicated board members behind Media Vision Bangalore
           </p>
@@ -199,7 +176,7 @@ function About() {
           variants={stagger}
           className="py-8"
         >
-          <h2 className="text-3xl font-bold text-center mb-4 text-[#003049]">Our Impact</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-blue-900">Our Impact</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
             Creating measurable change across Karnataka and beyond
           </p>
@@ -226,7 +203,7 @@ function About() {
                 <div className="flex justify-center text-gray-700">
                   {impact.icon}
                 </div>
-                <h3 className="text-4xl font-bold mb-2 text-[#003049]">
+                <h3 className="text-4xl font-bold mb-2 text-blue-900">
                   <CountUp
                     end={impact.value}
                     duration={2}
@@ -244,7 +221,7 @@ function About() {
 
       {/* Call to Action */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16"
+        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -262,7 +239,7 @@ function About() {
           >
             <a
               href="/contact"
-              className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
             >
               Contact Us
             </a>
@@ -446,7 +423,7 @@ function TeamCarousel() {
   if (loading) {
     return (
       <div className="w-full max-w-[100%] mx-auto bg-white rounded-lg shadow-lg p-8 flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#003049]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
       </div>
     );
   }
@@ -456,7 +433,7 @@ function TeamCarousel() {
       <div className="w-full max-w-[100%] mx-auto bg-white rounded-lg shadow-lg p-8 text-center">
         <p className="text-red-500">{error}</p>
         <button 
-          className="mt-4 px-4 py-2 bg-[#003049] text-white rounded-md hover:bg-[#002030] transition-colors"
+          className="mt-4 px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-[#002030] transition-colors"
           onClick={() => window.location.reload()}
         >
           Retry
@@ -471,7 +448,7 @@ function TeamCarousel() {
         {/* Navigation controls */}
         <div className="flex items-center justify-between w-full mb-6">
           <button
-            className="text-2xl px-3 py-1 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors text-[#003049]"
+            className="text-2xl px-3 py-1 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors text-blue-900"
             onClick={() => setIdx((idx - 1 + teamMembers.length) % teamMembers.length)}
             aria-label="Previous team member"
           >
@@ -481,7 +458,7 @@ function TeamCarousel() {
             {teamMembers.map((_, i) => (
               <span
                 key={i}
-                className={`w-3 h-3 rounded-full ${i === idx ? 'bg-[#003049]' : 'bg-gray-300'}`}
+                className={`w-3 h-3 rounded-full ${i === idx ? 'bg-blue-900' : 'bg-gray-300'}`}
                 onClick={() => setIdx(i)}
                 style={{ cursor: 'pointer' }}
                 aria-label={`Go to team member ${i + 1}`}
@@ -489,7 +466,7 @@ function TeamCarousel() {
             ))}
           </div>
           <button
-            className="text-2xl px-3 py-1 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors text-[#003049]"
+            className="text-2xl px-3 py-1 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors text-blue-900"
             onClick={() => setIdx((idx + 1) % teamMembers.length)}
             aria-label="Next team member"
           >
@@ -528,7 +505,7 @@ function TeamCarousel() {
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.style.display = 'none';
-                        e.target.parentNode.classList.add('bg-gradient-to-r', 'from-[#003049]', 'to-[#669BBC]');
+                        e.target.parentNode.classList.add('bg-gradient-to-r', 'from-blue-900', 'to-blue-900');
                         const initials = document.createElement('div');
                         initials.className = 'flex items-center justify-center text-2xl text-white font-bold w-full h-full';
                         initials.innerText = member.name.split(' ').map(n => n[0]).join('').slice(0,2);
@@ -537,15 +514,15 @@ function TeamCarousel() {
                     />
                   </div>
                 ) : (
-                  <div className="w-24 h-24 bg-gradient-to-r from-[#003049] to-[#669BBC] rounded-full mb-4 flex items-center justify-center text-2xl text-white font-bold">
+                  <div className="w-24 h-24 bg-gradient-to-r from-blue-900 to-blue-900 rounded-full mb-4 flex items-center justify-center text-2xl text-white font-bold">
                     {member.name.split(' ').map(n => n[0]).join('').slice(0,2)}
                   </div>
                 )}
-                <h3 className="text-lg font-semibold mb-1 text-center text-[#003049]">{member.name}</h3>
-                <p className="text-[#669BBC] font-medium mb-2 text-center">{member.position}</p>
+                <h3 className="text-lg font-semibold mb-1 text-center text-blue-900">{member.name}</h3>
+                <p className="text-blue-900 font-medium mb-2 text-center">{member.position}</p>
                 {/* View details button */}
                 <button
-                  className="mt-2 px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-[#003049] rounded-full transition-colors"
+                  className="mt-2 px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 text-blue-900 rounded-full transition-colors"
                 >
                   View Details
                 </button>
@@ -572,7 +549,7 @@ function TeamCarousel() {
               className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden"
             >
               {/* Decorative top gradient */}
-              <div className="h-3 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
+              <div className="h-3 bg-gradient-to-r from-blue-900 to-blue-900"></div>
               
               {/* Close button */}
               <button
@@ -598,7 +575,7 @@ function TeamCarousel() {
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.style.display = 'none';
-                          e.target.parentNode.classList.add('bg-gradient-to-r', 'from-[#003049]', 'to-[#669BBC]');
+                          e.target.parentNode.classList.add('bg-gradient-to-r', 'from-blue-900', 'to-blue-900');
                           const initials = document.createElement('div');
                           initials.className = 'flex items-center justify-center text-5xl text-white font-bold w-full h-full';
                           initials.innerText = selectedMember.name.split(' ').map(n => n[0]).join('').slice(0,2);
@@ -607,7 +584,7 @@ function TeamCarousel() {
                       />
                     </div>
                   ) : (
-                    <div className="aspect-square w-full bg-gradient-to-r from-[#003049] to-[#669BBC] rounded-lg border-4 border-white shadow-lg flex items-center justify-center text-5xl text-white font-bold">
+                    <div className="aspect-square w-full bg-gradient-to-r from-blue-900 to-blue-900 rounded-lg border-4 border-white shadow-lg flex items-center justify-center text-5xl text-white font-bold">
                       {selectedMember.name.split(' ').map(n => n[0]).join('').slice(0,2)}
                     </div>
                   )}
@@ -617,8 +594,8 @@ function TeamCarousel() {
                 <div className="w-full md:w-2/3">
                   {/* Header with name and position - centered */}
                   <div className="text-center md:text-center mb-6">
-                    <h3 className="text-2xl font-bold text-[#003049] mb-2">{selectedMember.name}</h3>
-                    <div className="inline-block px-4 py-1 rounded-full bg-[#669BBC]/10 text-[#669BBC] font-medium">
+                    <h3 className="text-2xl font-bold text-blue-900 mb-2">{selectedMember.name}</h3>
+                    <div className="inline-block px-4 py-1 rounded-full bg-blue-900/10 text-blue-900 font-medium">
                       {selectedMember.position}
                     </div>
                     
@@ -637,7 +614,7 @@ function TeamCarousel() {
                       {selectedMember.email && (
                         <a 
                           href={`mailto:${selectedMember.email}`}
-                          className="bg-[#003049] text-white p-2 rounded-full w-8 h-8 flex items-center justify-center"
+                          className="bg-blue-900 text-white p-2 rounded-full w-8 h-8 flex items-center justify-center"
                         >
                           <FaEnvelope size={14} />
                         </a>
@@ -647,7 +624,7 @@ function TeamCarousel() {
                   
                   {/* Description section */}
                   <div className="pt-4 border-t border-gray-200">
-                    <h4 className="text-xl font-semibold mb-4 text-[#003049]">About</h4>
+                    <h4 className="text-xl font-semibold mb-4 text-blue-900">About</h4>
                     {selectedMember.description ? (
                       <div className="prose prose-lg max-w-none text-gray-700">
                         <p className="whitespace-pre-line">{selectedMember.description}</p>
@@ -662,11 +639,11 @@ function TeamCarousel() {
                   {/* Optional accomplishments section */}
                   {selectedMember.accomplishments && (
                     <div className="mt-6 pt-4 border-t border-gray-200">
-                      <h4 className="text-xl font-semibold mb-4 text-[#003049]">Accomplishments</h4>
+                      <h4 className="text-xl font-semibold mb-4 text-blue-900">Accomplishments</h4>
                       <ul className="space-y-2">
                         {selectedMember.accomplishments.map((item, i) => (
                           <li key={i} className="flex items-start">
-                            <span className="text-[#669BBC] mr-2">•</span>
+                            <span className="text-blue-900 mr-2">•</span>
                             <span>{item}</span>
                           </li>
                         ))}
@@ -740,6 +717,116 @@ function TeamCarousel() {
         }
       `}</style>
     </>
+  );
+}
+
+// New HeroCarousel component
+function HeroCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const slideImages = {
+    image1: new URL('../assets/events/012A3702.jpg', import.meta.url).href,
+    image2: new URL('../assets/events/DSC07070.jpg', import.meta.url).href,
+    image3: new URL('../assets/events/DSC07105.jpg', import.meta.url).href,
+  };
+  const slides = [
+    {
+      image: slideImages.image1,
+      title: "About Media Vision Bangalore",
+      description: "Leading the way in media management and public relations since 2017",
+      cta: "/about"
+    },
+    {
+      image: slideImages.image2,
+      title: "About Media Vision Bangalore",
+      description: "Leading the way in media management and public relations since 2017",
+      cta: "/about"
+    },
+    {
+      image: slideImages.image3,
+      title: "About Media Vision Bangalore",
+      description: "Leading the way in media management and public relations since 2017",
+      cta: "/about"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  return (
+    <div className="relative w-full h-[60vh] sm:h-[80vh] overflow-hidden rounded-lg">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-900 opacity-90"></div>
+      
+      {/* Slides */}
+      <div className="absolute inset-0 flex transition-transform duration-700" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+        {slides.map((slide, index) => (
+          <div key={index} className="w-full h-full flex-shrink-0 relative">
+            <img 
+              src={slide.image} 
+              alt={`Slide ${index + 1}`} 
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Content overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+              <motion.h2
+                className="text-4xl sm:text-5xl font-bold mb-4 text-white"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+              >
+                {slide.title}
+              </motion.h2>
+              <motion.p
+                className="text-lg sm:text-xl mb-6 text-white/90"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+              >
+                {slide.description}
+              </motion.p>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      {/* Navigation arrows */}
+      <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10">
+        <button
+          className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+          onClick={() => setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length)}
+          aria-label="Previous slide"
+        >
+          <FaArrowLeft className="text-blue-900" />
+        </button>
+      </div>
+      <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
+        <button
+          className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+          onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length)}
+          aria-label="Next slide"
+        >
+          <FaArrowRight className="text-blue-900" />
+        </button>
+      </div>
+      
+      {/* Dots navigation */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-white' : 'bg-white/50'}`}
+            onClick={() => setCurrentIndex(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
   );
 }
 

@@ -6,8 +6,8 @@ const TabNavigation = ({ activeTab, onTabChange }) => (
       <button
         className={`py-4 px-6 text-sm font-medium border-b-2 ${
           activeTab === 'events' 
-          ? 'border-[#003049] text-[#003049]' 
-          : 'border-transparent text-gray-500 hover:text-[#669BBC] hover:border-gray-300'
+          ? 'border-blue-900 text-blue-900' 
+          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
         }`}
         onClick={() => onTabChange('events')}
       >
@@ -16,8 +16,8 @@ const TabNavigation = ({ activeTab, onTabChange }) => (
       <button
         className={`py-4 px-6 text-sm font-medium border-b-2 ${
           activeTab === 'users' 
-          ? 'border-[#003049] text-[#003049]' 
-          : 'border-transparent text-gray-500 hover:text-[#669BBC] hover:border-gray-300'
+          ? 'border-blue-900 text-blue-900' 
+          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
         }`}
         onClick={() => onTabChange('users')}
       >
@@ -26,8 +26,8 @@ const TabNavigation = ({ activeTab, onTabChange }) => (
       <button
         className={`py-4 px-6 text-sm font-medium border-b-2 ${
           activeTab === 'donations' 
-          ? 'border-[#003049] text-[#003049]' 
-          : 'border-transparent text-gray-500 hover:text-[#669BBC] hover:border-gray-300'
+          ? 'border-blue-900 text-blue-900' 
+          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
         }`}
         onClick={() => onTabChange('donations')}
       >
@@ -36,8 +36,8 @@ const TabNavigation = ({ activeTab, onTabChange }) => (
       <button
         className={`py-4 px-6 text-sm font-medium border-b-2 ${
           activeTab === 'messages' 
-          ? 'border-[#003049] text-[#003049]' 
-          : 'border-transparent text-gray-500 hover:text-[#669BBC] hover:border-gray-300'
+          ? 'border-blue-900 text-blue-900' 
+          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
         }`}
         onClick={() => onTabChange('messages')}
       >

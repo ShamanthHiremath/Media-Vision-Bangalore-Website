@@ -22,7 +22,7 @@ function Home() {
     <div className="min-h-screen">
       {/* Hero Section - Updated with background image and overlay */}
       <motion.section
-        className="relative bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-24 md:py-32"
+        className="relative bg-gradient-to-r from-blue-600 to-blue-300 text-white py-24 md:py-32"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -35,7 +35,7 @@ function Home() {
             alt="Bangalore cityscape" 
             className="w-full h-full object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-900/80"></div>
         </div>
         
         {/* Content positioned over the background */}
@@ -61,7 +61,7 @@ function Home() {
           >
             <Link
               to="/about"
-              className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
             >
               Learn More
             </Link>
@@ -95,7 +95,7 @@ function Home() {
                 className="p-6"
                 variants={fadeInUp}
               >
-                <p className="text-4xl font-bold text-[#003049] mb-2">
+                <p className="text-4xl font-bold text-blue-900 mb-2">
                   <CountUp end={stat.value} duration={2.5} />
                   {stat.plus && "+"}
                 </p>
@@ -114,7 +114,7 @@ function Home() {
         variants={containerStagger}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4 text-[#003049]">Our Programs</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-blue-900">Our Programs</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
           Empowering individuals and communities through purpose-driven initiatives
           </p>
@@ -123,12 +123,12 @@ function Home() {
               {
                 title: "Media & Strategic Services",
                 desc: "Supporting individuals, campaigns, and organizations with innovative media solutions, branding, and PR.",
-                icon: <FaGraduationCap className="text-4xl text-[#003049] mb-4" />
+                icon: <FaGraduationCap className="text-4xl text-blue-900 mb-4" />
               },
               {
                 title: "Awards and Recognition:",
                 desc: "Honoring socially contributing people to identify and uplift human welfare and spread awareness.",
-                icon: <FaPeopleCarry className="text-4xl text-[#669BBC] mb-4" />
+                icon: <FaPeopleCarry className="text-4xl text-blue-900 mb-4" />
               },
               {
                 title: "Social Welfare & Development",
@@ -138,7 +138,7 @@ function Home() {
               {
                 title: "Educational Outreach",
                 desc: "Workshops, camps, and recognition programs that promote access to learning and teacher excellence.",
-                icon: <FaGraduationCap className="text-4xl text-[#003049] mb-4" />
+                icon: <FaGraduationCap className="text-4xl text-blue-900 mb-4" />
               }
             ].map((feature, idx) => (
               <motion.div
@@ -170,7 +170,7 @@ function Home() {
         variants={containerStagger}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4 text-[#003049]">Event Highlights</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-blue-900">Event Highlights</h2>
           <p className="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
             A glimpse into our impactful events and initiatives across Bengaluru
           </p>
@@ -234,7 +234,7 @@ function Home() {
                   />
                 </div>
                 <div className="p-4 bg-white">
-                  <h3 className="font-semibold text-lg text-[#003049]">{event.title}</h3>
+                  <h3 className="font-semibold text-lg text-blue-900">{event.title}</h3>
                   <p className="text-gray-500 text-sm">{event.date}</p>
                 </div>
               </motion.div>
@@ -248,7 +248,7 @@ function Home() {
           >
             <Link 
               to="/events" 
-              className="inline-flex items-center gap-2 bg-[#003049] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#002030] transition-colors"
+              className="inline-flex items-center gap-2 bg-blue-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-[#002030] transition-colors"
             >
               View All Events <FaArrowRight />
             </Link>
@@ -258,7 +258,7 @@ function Home() {
 
       {/* Call to Action - Updated with branded colors */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-20"
+        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-20"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -273,7 +273,7 @@ function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
             >
               Get Involved
             </Link>

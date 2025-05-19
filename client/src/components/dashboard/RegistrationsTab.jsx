@@ -50,7 +50,7 @@ const RegistrationsTab = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#003049]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
       </div>
     );
   }
@@ -66,7 +66,7 @@ const RegistrationsTab = () => {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-[#003049]">Registrations</h2>
+        <h2 className="text-xl font-semibold text-blue-900">Registrations</h2>
         <p className="text-gray-600">View and manage user registrations</p>
       </div>
 
@@ -78,7 +78,7 @@ const RegistrationsTab = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded-lg overflow-hidden shadow-md">
-            <thead className="bg-[#003049] text-white">
+            <thead className="bg-blue-900 text-white">
               <tr>
                 <th className="py-3 px-4 text-left">Name</th>
                 <th className="py-3 px-4 text-left">Contact</th>
@@ -92,16 +92,16 @@ const RegistrationsTab = () => {
               {registrations.map((registration) => (
                 <tr key={registration._id} className="hover:bg-gray-50">
                   <td className="py-3 px-4">
-                    <div className="font-medium text-[#003049]">{registration.name}</div>
+                    <div className="font-medium text-blue-900">{registration.name}</div>
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex flex-col">
                       <div className="flex items-center text-sm">
-                        <FaPhone className="text-[#669BBC] mr-2" size={12} />
+                        <FaPhone className="text-blue-900 mr-2" size={12} />
                         <span>{registration.phoneNumber}</span>
                       </div>
                       <div className="flex items-center text-sm mt-1">
-                        <FaEnvelope className="text-[#669BBC] mr-2" size={12} />
+                        <FaEnvelope className="text-blue-900 mr-2" size={12} />
                         <span>{registration.email}</span>
                       </div>
                     </div>
@@ -120,7 +120,7 @@ const RegistrationsTab = () => {
                       href={registration.resumeUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-[#003049] hover:text-[#669BBC] transition-colors flex items-center"
+                      className="text-blue-900 hover:text-blue-900 transition-colors flex items-center"
                     >
                       <FaDownload className="mr-1" />
                       <span>View</span>

@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
 // Import event banner images
-import event1 from '../assets/events/e1.jpeg';
-import event2 from '../assets/events/e2.jpeg';
-import event3 from '../assets/events/e3.jpeg';
+import event1 from '../assets/events/012A3702.jpg';
+import event2 from '../assets/events/DSC07070.jpg';
+import event3 from '../assets/events/DSC07105.jpg';
 
 const Events = () => {
+  // Keep existing state variables
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,8 +16,28 @@ const Events = () => {
   const [carouselIdx, setCarouselIdx] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [showGrid, setShowGrid] = useState(true);
-  const [bannerIdx, setBannerIdx] = useState(0);
-  const bannerImages = [event1, event2, event3]; // Add your event images here
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Banner carousel data
+  const carouselImages = [
+    {
+      url: event1,
+      title: "Our Events",
+      subtitle: "We celebrate, educate, and inspire"
+    },
+    {
+      url: event2,
+      title: "Our Events",
+      subtitle: "We celebrate, educate, and inspire"
+    },
+    {
+      url: event3,
+      title: "Our Events",
+      subtitle: "We celebrate, educate, and inspire"
+    }
+  ];
+  
+  const totalSlides = carouselImages.length;
 
   // Animation variants
   const fadeInUp = {
@@ -53,7 +74,7 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  // Auto-move carousel
+  // Auto-move event image carousel
   useEffect(() => {
     const selectedEvent = events.find(e => e._id === selectedEventId);
     if (!selectedEvent || !autoPlay || !selectedEvent.photos || selectedEvent.photos.length <= 1) return;
@@ -71,17 +92,32 @@ const Events = () => {
     setAutoPlay(true);
   }, [selectedEventId]);
 
-  // Banner auto-rotation
+  // Banner auto-rotation (new hero carousel)
   useEffect(() => {
+    if (!showGrid) return;
+    
     const interval = setInterval(() => {
-      setBannerIdx((prev) => (prev + 1) % bannerImages.length);
-    }, 5000);
+      setCurrentSlide((current) => (current + 1) % totalSlides);
+    }, 6000);
     
     return () => clearInterval(interval);
-  }, [bannerImages.length]);
+  }, [totalSlides, showGrid]);
 
   // Get selected event object
   const selectedEvent = events.find(e => e._id === selectedEventId);
+
+  // Hero carousel controls
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentSlide((currentSlide + 1) % totalSlides);
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((currentSlide - 1 + totalSlides) % totalSlides);
+  };
 
   // Filter events into upcoming and past events
   const today = new Date();
@@ -101,7 +137,7 @@ const Events = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#003049]"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-900"></div>
       </div>
     );
   }
@@ -130,74 +166,87 @@ const Events = () => {
     <div className="min-h-screen">
       {/* Hero Banner with Carousel - Only show if in grid view */}
       {showGrid && (
-        <motion.section
-          className="relative text-white py-32 md:py-48 overflow-hidden" // Increased height with larger padding
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Background carousel */}
-          <div className="absolute inset-0 z-0 w-full h-full"> {/* Added h-full for explicit height */}
-            {bannerImages.map((img, idx) => (
-              <div
-                key={idx}
-                className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out"
+        <section className="relative w-full h-[80vh] overflow-hidden">
+          {/* Carousel Images */}
+          {carouselImages.map((slide, index) => (
+            <motion.div
+              key={index}
+              className="absolute inset-0 w-full h-full"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: currentSlide === index ? 1 : 0,
+                zIndex: currentSlide === index ? 10 : 0
+              }}
+              transition={{ duration: 1 }}
+            >
+              <div 
+                className="w-full h-full bg-cover bg-center"
                 style={{ 
-                  opacity: idx === bannerIdx ? 1 : 0,
+                  backgroundImage: `url(${slide.url})`,
                 }}
               >
-                <img 
-                  src={img} 
-                  alt={`Event banner ${idx + 1}`} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/80"></div>
+                {/* Dark overlay for better text visibility */}
+                <div className="absolute inset-0 bg-black/50">
+                  {/* Content Centered Overlay - Updated position */}
+                  <motion.div 
+                    className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ 
+                      opacity: currentSlide === index ? 1 : 0
+                    }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                  >
+                    <div className="max-w-3xl mx-auto px-6 py-10 rounded-lg">
+                      <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                        {slide.title}
+                      </h1>
+                      <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto drop-shadow-md">
+                        {slide.subtitle}
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
-            ))}
-          </div>
-          
-          {/* Left/Right Navigation Buttons - made larger */}
-          <div className="absolute inset-y-0 left-0 flex items-center z-20">
-            <button
-              onClick={() => setBannerIdx((prev) => (prev - 1 + bannerImages.length) % bannerImages.length)}
-              className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-r-lg transition-colors" // Larger padding
+            </motion.div>
+          ))}
+
+          {/* Navigation Arrows */}
+          <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 transform -translate-y-1/2">
+            <button 
+              onClick={goToPrevSlide}
+              className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
               aria-label="Previous slide"
             >
-              <FaArrowLeft size={24} /> {/* Increased icon size */}
+              <FaArrowLeft size={20} />
             </button>
-          </div>
-          
-          <div className="absolute inset-y-0 right-0 flex items-center z-20">
-            <button
-              onClick={() => setBannerIdx((prev) => (prev + 1) % bannerImages.length)}
-              className="bg-black/30 hover:bg-black/50 text-white p-4 rounded-l-lg transition-colors" // Larger padding
+            <button 
+              onClick={goToNextSlide}
+              className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
               aria-label="Next slide"
             >
-              <FaArrowRight size={24} /> {/* Increased icon size */}
+              <FaArrowRight size={20} />
             </button>
           </div>
-          
-          {/* Content overlay - increased spacing */}
-          <div className="container mx-auto px-4 text-center relative z-10 max-w-6xl py-8"> {/* Added py-8 padding */}
-            <motion.h1
-              className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg" // Increased font size and margin
-              variants={fadeInUp}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              Our Events
-            </motion.h1>
-            <motion.p
-              className="text-xl md:text-2xl max-w-4xl mx-auto drop-shadow-md" // Increased font size
-              variants={fadeInUp}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              We celebrate, educate, and inspire
-            </motion.p>
+
+          {/* Indicators */}
+          <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+            {Array.from({ length: totalSlides }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  currentSlide === index 
+                    ? 'bg-white scale-125' 
+                    : 'bg-white/50 hover:bg-white/80'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
-        </motion.section>
+        </section>
       )}
 
+      {/* Rest of the Events page content */}
       <div className={`container mx-auto ${showGrid ? 'py-12' : 'py-8 mt-8'} px-4`}>
         {/* Event Grid */}
         {showGrid && (
@@ -214,7 +263,7 @@ const Events = () => {
                   variants={fadeInUp}
                   className="mb-8 text-center"
                 >
-                  <h2 className="text-3xl font-bold mb-4 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Upcoming Events</h2>
+                  <h2 className="text-3xl font-bold mb-4 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Upcoming Events</h2>
                   <p className="text-gray-600 max-w-3xl mx-auto">
                     Join us at our upcoming events and be part of our community initiatives.
                   </p>
@@ -229,7 +278,7 @@ const Events = () => {
                       key={event._id}
                       className="bg-white rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer overflow-hidden border-t-4"
                       style={{ borderColor: idx === 0 ? '#003049' : idx === 1 ? '#669BBC' : '#C1121F' }}
-                      onClick={() => handleEventSelect(event._id)} // Updated to use the new function
+                      onClick={() => handleEventSelect(event._id)}
                       variants={fadeInUp}
                       transition={{ duration: 0.6, delay: idx * 0.1 }}
                     >
@@ -247,9 +296,9 @@ const Events = () => {
                         </div>
                       </div>
                       <div className="p-6">
-                        <h3 className="text-xl font-semibold text-[#003049] mb-2">{event.name}</h3>
+                        <h3 className="text-xl font-semibold text-blue-900 mb-2">{event.name}</h3>
                         <div className="flex items-center text-gray-600 mb-2">
-                          <FaMapMarkerAlt className="text-[#669BBC] mr-2" />
+                          <FaMapMarkerAlt className="text-blue-900 mr-2" />
                           <span>{event.venue}</span>
                         </div>
                         <p className="text-gray-600 line-clamp-2">{event.description}</p>
@@ -263,19 +312,20 @@ const Events = () => {
               </div>
             )}
             
-            {/* Past Events Section */}
+            {/* Past Events Section - Keep existing code */}
             {pastEvents.length > 0 && (
               <div className="mt-12">
                 <motion.div 
                   variants={fadeInUp}
                   className="mb-8 text-center"
                 >
-                  <h2 className="text-3xl font-bold mb-4 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Past Events</h2>
+                  <h2 className="text-3xl font-bold mb-4 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Past Events</h2>
                   <p className="text-gray-600 max-w-3xl mx-auto">
                     Explore our previous events and the impact they've made in our community.
                   </p>
                 </motion.div>
                 
+                {/* Keep existing past events code */}
                 <motion.div 
                   className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
                   variants={stagger}
@@ -285,7 +335,7 @@ const Events = () => {
                       key={event._id}
                       className="bg-white rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer overflow-hidden border-t-4"
                       style={{ borderColor: idx % 3 === 0 ? '#003049' : idx % 3 === 1 ? '#669BBC' : '#C1121F' }}
-                      onClick={() => handleEventSelect(event._id)} // Updated to use the new function
+                      onClick={() => handleEventSelect(event._id)}
                       variants={fadeInUp}
                       transition={{ duration: 0.6, delay: idx * 0.1 }}
                     >
@@ -303,9 +353,9 @@ const Events = () => {
                         </div>
                       </div>
                       <div className="p-6">
-                        <h3 className="text-xl font-semibold text-[#003049] mb-2">{event.name}</h3>
+                        <h3 className="text-xl font-semibold text-blue-900 mb-2">{event.name}</h3>
                         <div className="flex items-center text-gray-600 mb-2">
-                          <FaMapMarkerAlt className="text-[#669BBC] mr-2" />
+                          <FaMapMarkerAlt className="text-blue-900 mr-2" />
                           <span>{event.venue}</span>
                         </div>
                         <p className="text-gray-600 line-clamp-2">{event.description}</p>
@@ -333,7 +383,7 @@ const Events = () => {
           </motion.div>
         )}
 
-        {/* Full Event Info (Detail View) */}
+        {/* Full Event Info (Detail View) - Keep existing code */}
         {!showGrid && selectedEvent && (
           <motion.div
             initial="hidden"
@@ -341,7 +391,7 @@ const Events = () => {
             variants={fadeInUp}
           >
             <motion.button
-              className="mb-6 px-4 py-2 bg-white hover:bg-gray-100 text-[#003049] font-semibold rounded-lg shadow flex items-center transition duration-300"
+              className="mb-6 px-4 py-2 bg-white hover:bg-gray-100 text-blue-900 font-semibold rounded-lg shadow flex items-center transition duration-300"
               onClick={() => setShowGrid(true)}
               variants={fadeInUp}
             >
@@ -349,7 +399,7 @@ const Events = () => {
             </motion.button>
 
             <motion.div 
-              className="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-12 border-t-4 border-[#003049]"
+              className="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-12 border-t-4 border-blue-900"
               variants={fadeInUp}
               transition={{ delay: 0.1 }}
             >
@@ -359,7 +409,7 @@ const Events = () => {
                   <div className="relative w-full max-w-4xl h-[320px] md:h-[480px] flex items-center justify-center mx-auto rounded-lg overflow-hidden shadow-lg">
                     {selectedEvent.photos.length > 1 && (
                       <button
-                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-3 shadow hover:bg-[#003049] hover:text-white z-10 transition-colors"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-3 shadow hover:bg-blue-900 hover:text-white z-10 transition-colors"
                         onClick={() => {
                           setAutoPlay(false);
                           setCarouselIdx((carouselIdx - 1 + selectedEvent.photos.length) % selectedEvent.photos.length);
@@ -380,7 +430,7 @@ const Events = () => {
                     
                     {selectedEvent.photos.length > 1 && (
                       <button
-                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-3 shadow hover:bg-[#003049] hover:text-white z-10 transition-colors"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-3 shadow hover:bg-blue-900 hover:text-white z-10 transition-colors"
                         onClick={() => {
                           setAutoPlay(false);
                           setCarouselIdx((carouselIdx + 1) % selectedEvent.photos.length);
@@ -396,7 +446,7 @@ const Events = () => {
                       {selectedEvent.photos.map((_, idx) => (
                         <button
                           key={idx}
-                          className={`w-4 h-4 rounded-full ${idx === carouselIdx ? 'bg-[#003049] border-[#003049]' : 'bg-gray-200 border-gray-300'} border-2 transition-colors`}
+                          className={`w-4 h-4 rounded-full ${idx === carouselIdx ? 'bg-blue-900 border-blue-900' : 'bg-gray-200 border-gray-300'} border-2 transition-colors`}
                           onClick={() => {
                             setAutoPlay(false);
                             setCarouselIdx(idx);
@@ -410,11 +460,11 @@ const Events = () => {
               
               {/* Event details below carousel */}
               <div className="px-2">
-                <h3 className="text-3xl font-bold mb-4 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">{selectedEvent.name}</h3>
+                <h3 className="text-3xl font-bold mb-4 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">{selectedEvent.name}</h3>
                 
                 <div className="flex flex-wrap gap-8 mb-6 text-lg text-gray-700">
                   <div className="flex items-center">
-                    <FaCalendarAlt className="text-[#669BBC] mr-3" />
+                    <FaCalendarAlt className="text-blue-900 mr-3" />
                     <span>{new Date(selectedEvent.date).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'long', 
@@ -427,7 +477,7 @@ const Events = () => {
                   </div>
                 </div>
                 
-                <div className="text-gray-700 mt-6 whitespace-pre-line text-lg leading-relaxed bg-gray-50 p-6 rounded-lg border-l-4 border-[#669BBC]">
+                <div className="text-gray-700 mt-6 whitespace-pre-line text-lg leading-relaxed bg-gray-50 p-6 rounded-lg border-l-4 border-blue-900">
                   {selectedEvent.description}
                 </div>
                 
@@ -451,7 +501,7 @@ const Events = () => {
               variants={fadeInUp}
               transition={{ delay: 0.2 }}
             >
-              <h4 className="text-2xl font-bold mb-6 text-[#003049] border-b-2 border-[#669BBC] pb-2 inline-block">Other Events</h4>
+              <h4 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Other Events</h4>
               
               <motion.div 
                 className="grid grid-cols-1 sm:grid-cols-2 gap-8"
@@ -481,9 +531,9 @@ const Events = () => {
                         }}
                       />
                       <div className="p-4 flex-1">
-                        <h3 className="text-lg font-semibold text-[#003049]">{event.name}</h3>
+                        <h3 className="text-lg font-semibold text-blue-900">{event.name}</h3>
                         <div className="flex items-center text-gray-600 text-sm mt-1">
-                          <FaCalendarAlt className="text-[#669BBC] mr-2" />
+                          <FaCalendarAlt className="text-blue-900 mr-2" />
                           <span>{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         </div>
                         <p className="text-gray-600 mt-2 text-sm line-clamp-1">{event.description}</p>
@@ -496,9 +546,9 @@ const Events = () => {
         )}
       </div>
 
-      {/* Call to Action */}
+      {/* Call to Action - Keep existing code */}
       <motion.section
-        className="bg-gradient-to-r from-[#003049] to-[#669BBC] text-white py-16 mt-8"
+        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16 mt-8"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -512,7 +562,7 @@ const Events = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/contact"
-              className="bg-white text-[#003049] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
             >
               Contact Our Team
             </a>

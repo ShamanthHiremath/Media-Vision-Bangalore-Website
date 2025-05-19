@@ -33,7 +33,7 @@ function Header() {
         <nav className="py-4 flex justify-between items-center">
           <NavLink to="/" className="flex items-center">
             <img src={logo} className="h-12 md:h-15 mr-3" alt="Logo" />
-            <span className="text-2xl font-bold text-[#003049] hidden sm:inline">
+            <span className="text-2xl font-bold text-blue-900 hidden sm:inline">
               Media Vision Bengaluru
             </span>
           </NavLink>
@@ -45,8 +45,8 @@ function Header() {
               end
               className={({ isActive }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
-                  ? "bg-[#003049] text-white font-medium"
-                  : "text-[#003049] hover:bg-gray-100"
+                  ? "bg-blue-900 text-white font-medium"
+                  : "text-blue-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -57,8 +57,8 @@ function Header() {
               to="/about"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
-                  ? "bg-[#003049] text-white font-medium"
-                  : "text-[#003049] hover:bg-gray-100"
+                  ? "bg-blue-900 text-white font-medium"
+                  : "text-blue-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -69,8 +69,8 @@ function Header() {
               to="/contact"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
-                  ? "bg-[#003049] text-white font-medium"
-                  : "text-[#003049] hover:bg-gray-100"
+                  ? "bg-blue-900 text-white font-medium"
+                  : "text-blue-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -81,8 +81,8 @@ function Header() {
               to="/events"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
-                  ? "bg-[#669BBC] text-white font-medium"
-                  : "text-[#669BBC] hover:bg-gray-100"
+                  ? "bg-blue-900 text-white font-medium"
+                  : "text-blue-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -95,8 +95,8 @@ function Header() {
               to="/gallery"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
-                  ? "bg-[#669BBC] text-white font-medium"
-                  : "text-[#669BBC] hover:bg-gray-100"
+                  ? "bg-blue-900 text-white font-medium"
+                  : "text-blue-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -109,8 +109,8 @@ function Header() {
               to="/registration"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
-                  ? "bg-[#669BBC] text-white font-medium"
-                  : "text-[#669BBC] hover:bg-gray-100"
+                  ? "bg-blue-900 text-white font-medium"
+                  : "text-blue-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -190,7 +190,7 @@ function Header() {
               }}
               aria-label="Toggle menu"
             >
-              {menuOpen ? <FiX size={24} className="text-[#003049]" /> : <FiMenu size={24} className="text-[#003049]" />}
+              {menuOpen ? <FiX size={24} className="text-blue-900" /> : <FiMenu size={24} className="text-blue-900" />}
             </button>
           </div>
         </nav>
@@ -205,7 +205,7 @@ function Header() {
         {/* Close button inside the menu */}
         <div className="flex justify-end px-4 mb-4">
           <button
-            className="p-2 text-[#003049]"
+            className="p-2 text-blue-900"
             onClick={() => setMenuOpen(false)}
             aria-label="Close menu"
           >
@@ -224,7 +224,7 @@ function Header() {
           end
           onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-[#003049] bg-gray-50 text-[#003049] font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
+            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-blue-900 bg-gray-50 text-blue-900 font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
             }`
           }
         >
@@ -235,7 +235,7 @@ function Header() {
           to="/about"
           onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-[#003049] bg-gray-50 text-[#003049] font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
+            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-blue-900 bg-gray-50 text-blue-900 font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
             }`
           }
         >
@@ -246,7 +246,7 @@ function Header() {
           to="/contact"
           onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-[#003049] bg-gray-50 text-[#003049] font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
+            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-blue-900 bg-gray-50 text-blue-900 font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
             }`
           }
         >
@@ -257,7 +257,7 @@ function Header() {
           to="/events"
           onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-[#669BBC] bg-gray-50 text-[#669BBC] font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
+            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-blue-900 bg-gray-50 text-blue-900 font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
             }`
           }
         >
@@ -269,7 +269,7 @@ function Header() {
           to="/gallery"
           onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-[#669BBC] bg-gray-50 text-[#669BBC] font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
+            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-blue-900 bg-gray-50 text-blue-900 font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
             }`
           }
         >
@@ -281,7 +281,7 @@ function Header() {
           to="/registration"
           onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-[#669BBC] bg-gray-50 text-[#669BBC] font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
+            `flex items-center gap-2 px-4 py-3 border-l-4 ${isActive ? "border-blue-900 bg-gray-50 text-blue-900 font-medium" : "border-transparent text-gray-700 hover:bg-gray-50"
             }`
           }
         >

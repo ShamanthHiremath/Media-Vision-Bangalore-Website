@@ -49,14 +49,14 @@ const SignupForm = ({ onClose, onSuccess }) => {
         <label className="block mb-2 font-medium text-gray-700">Username</label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <FaUser className="text-[#003049]" />
+            <FaUser className="text-blue-900" />
           </div>
           <input
             type="text"
             name="username"
             value={form.username}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003049] focus:border-[#003049]"
+            className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
             placeholder="Enter username"
             required
           />
@@ -67,14 +67,14 @@ const SignupForm = ({ onClose, onSuccess }) => {
         <label className="block mb-2 font-medium text-gray-700">Email</label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <FaEnvelope className="text-[#669BBC]" />
+            <FaEnvelope className="text-blue-900" />
           </div>
           <input
             type="email"
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#669BBC] focus:border-[#669BBC]"
+            className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
             placeholder="Enter email address"
             required
           />
@@ -99,7 +99,7 @@ const SignupForm = ({ onClose, onSuccess }) => {
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-[#003049] transition-colors"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-blue-900 transition-colors"
             onClick={togglePasswordVisibility}
             tabIndex="-1"
           >
@@ -121,7 +121,7 @@ const SignupForm = ({ onClose, onSuccess }) => {
       <div className="flex gap-4 pt-2">
         <button
           type="submit"
-          className="flex-1 bg-[#003049] text-white py-3 rounded-lg font-medium hover:bg-[#00243a] transition-colors flex items-center justify-center"
+          className="flex-1 bg-blue-900 text-white py-3 rounded-lg font-medium hover:bg-[#00243a] transition-colors flex items-center justify-center"
           disabled={loading}
         >
           {loading ? (

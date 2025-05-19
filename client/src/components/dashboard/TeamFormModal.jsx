@@ -207,7 +207,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
             exit={{ opacity: 0, y: 20 }}
           >
             {/* Gradient top border */}
-            <div className="h-2 bg-gradient-to-r from-[#003049] to-[#669BBC]"></div>
+            <div className="h-2 bg-gradient-to-r from-blue-900 to-blue-900"></div>
             
             <button
               className="absolute top-3 right-3 text-gray-400 hover:text-[#C1121F] transition-colors duration-200 p-1 rounded-full hover:bg-gray-100"
@@ -217,7 +217,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
             </button>
             
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-4 text-[#003049]">
+              <h3 className="text-xl font-bold mb-4 text-blue-900">
                 {teamMember ? 'Edit Team Member' : 'Add New Team Member'}
               </h3>
 
@@ -249,7 +249,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         name="name"
                         value={form.name}
                         onChange={handleChange}
-                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-[#003049] focus:border-[#003049]"
+                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900"
                         placeholder="John Doe"
                       />
                     </div>
@@ -264,7 +264,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         name="position"
                         value={form.position}
                         onChange={handleChange}
-                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-[#003049] focus:border-[#003049]"
+                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900"
                         placeholder="Director"
                       />
                     </div>
@@ -279,7 +279,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         value={form.description}
                         onChange={handleChange}
                         rows={5}
-                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-[#003049] focus:border-[#003049]"
+                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900"
                         placeholder="Brief biography or description..."
                       />
                     </div>
@@ -291,7 +291,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                     </label>
                     <div 
                       ref={dropZoneRef}
-                      className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 ${isDragging ? 'border-[#003049] bg-blue-50' : 'border-gray-300'} border-dashed rounded-md h-64 cursor-pointer transition-colors`}
+                      className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 ${isDragging ? 'border-blue-900 bg-blue-50' : 'border-gray-300'} border-dashed rounded-md h-64 cursor-pointer transition-colors`}
                       onDragEnter={handleDragEnter}
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
@@ -322,7 +322,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         <div className="space-y-1 text-center flex flex-col items-center justify-center w-full">
                           <div className="mx-auto h-20 w-20 text-gray-400 mb-2">
                             {isDragging ? (
-                              <FaUpload className="h-20 w-20 text-[#003049] animate-bounce" />
+                              <FaUpload className="h-20 w-20 text-blue-900 animate-bounce" />
                             ) : (
                               <FaUser className="h-20 w-20" />
                             )}
@@ -337,7 +337,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                               className="sr-only" 
                               onChange={handleFileChange}
                             />
-                            <span className="font-medium text-[#003049]">
+                            <span className="font-medium text-blue-900">
                               {isDragging ? 'Drop image here' : 'Drag and drop or click to upload'}
                             </span>
                           </div>
@@ -354,14 +354,14 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                   <button
                     type="button"
                     onClick={onClose}
-                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003049]"
+                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#003049] hover:bg-[#00243a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003049] flex items-center"
+                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-900 hover:bg-[#00243a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900 flex items-center"
                   >
                     {loading ? (
                       <>

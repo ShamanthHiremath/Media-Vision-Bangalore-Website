@@ -116,7 +116,7 @@ const TeamTab = ({ onSuccess }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#003049]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
       </div>
     );
   }
@@ -137,11 +137,11 @@ const TeamTab = ({ onSuccess }) => {
       >
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h3 className="text-xl font-semibold text-[#003049] mb-2">Team Members</h3>
+            <h3 className="text-xl font-semibold text-blue-900 mb-2">Team Members</h3>
             <p className="text-gray-600">Manage your organization's team members</p>
           </div>
           <button
-            className="bg-[#003049] text-white px-4 py-2 rounded-lg hover:bg-[#00243a] transition-colors shadow-sm flex items-center gap-2"
+            className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-[#00243a] transition-colors shadow-sm flex items-center gap-2"
             onClick={() => {
               setEditTeamMember(null);
               setShowFormModal(true);
@@ -199,7 +199,7 @@ const TeamTab = ({ onSuccess }) => {
             >
               <div className="relative">
                 {/* Gradient top border */}
-                <div className="h-2 bg-gradient-to-r from-[#003049] to-[#C1121F]"></div>
+                <div className="h-2 bg-gradient-to-r from-blue-900 to-[#C1121F]"></div>
                 
                 <button
                   className="absolute top-3 right-3 text-gray-400 hover:text-[#C1121F] transition-colors p-1 rounded-full hover:bg-gray-100"
@@ -280,12 +280,12 @@ const TeamMemberCard = ({ member, onDelete, onEdit }) => {
           <div>
             <div className="flex justify-between items-start mb-2">
               <div>
-                <h3 className="text-lg font-semibold text-[#003049]">{member.name}</h3>
-                <p className="text-[#669BBC] font-medium">{member.position}</p>
+                <h3 className="text-lg font-semibold text-blue-900">{member.name}</h3>
+                <p className="text-blue-900 font-medium">{member.position}</p>
               </div>
               <div className="flex space-x-1">
                 <button 
-                  className="p-2 text-[#669BBC] hover:bg-blue-50 rounded-full transition-colors"
+                  className="p-2 text-blue-900 hover:bg-blue-50 rounded-full transition-colors"
                   onClick={onEdit}
                   title="Edit Team Member"
                 >

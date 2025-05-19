@@ -123,7 +123,7 @@ const EventsTab = ({ onSuccess }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#003049]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
       </div>
     );
   }
@@ -139,9 +139,9 @@ const EventsTab = ({ onSuccess }) => {
   return (
     <>
       <div className="mb-6 flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-[#003049]">Events Management</h2>
+        <h2 className="text-xl font-semibold text-blue-900">Events Management</h2>
         <button 
-          className="bg-[#003049] text-white px-4 py-2 rounded-lg hover:bg-[#00243a] transition-colors"
+          className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-[#00243a] transition-colors"
           onClick={() => setIsModalOpen(true)}
         >
           Create New Event
@@ -219,9 +219,9 @@ const EventCard = ({ event, onDelete, onEdit }) => {
         <div className="p-4 md:col-span-3">
           <div className="flex flex-col md:flex-row justify-between">
             <div>
-              <h3 className="text-xl font-semibold text-[#003049]">{event.name}</h3>
+              <h3 className="text-xl font-semibold text-blue-900">{event.name}</h3>
               <div className="flex items-center text-gray-600 mt-2 text-sm">
-                <FaCalendarAlt className="mr-2 text-[#669BBC]" />
+                <FaCalendarAlt className="mr-2 text-blue-900" />
                 {new Date(event.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -237,7 +237,7 @@ const EventCard = ({ event, onDelete, onEdit }) => {
             {/* Action Buttons */}
             <div className="mt-4 md:mt-0 flex space-x-2">
               <button 
-                className="p-2 text-[#669BBC] hover:bg-blue-50 rounded-full transition-colors"
+                className="p-2 text-blue-900 hover:bg-blue-50 rounded-full transition-colors"
                 title="Edit Event"
                 onClick={onEdit}
               >

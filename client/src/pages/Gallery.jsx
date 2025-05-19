@@ -1,118 +1,88 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FaTimes, FaChevronLeft, FaChevronRight, FaDownload } from 'react-icons/fa';
+import { useInView } from 'react-intersection-observer';
 
-// Sample gallery data - replace with your API call later
-const galleryData = [
-  {
-    id: 1,
-    title: "Annual Fundraising Event 2024",
-    date: "March 15, 2024",
-    images: [
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000",
-      "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=1000",
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000"
-    ]
-  },
-  {
-    id: 2,
-    title: "Community Outreach Program",
-    date: "January 28, 2024",
-    images: [
-      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=1000",
-      "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1000",
-      "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?q=80&w=1000"
-    ]
-  },
-  {
-    id: 3,
-    title: "Awareness Workshop",
-    date: "February 10, 2024",
-    images: [
-      "https://images.unsplash.com/photo-1553289038-050c0991871e?q=80&w=1000",
-      "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1000",
-      "https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?q=80&w=1000",
-      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000"
-    ]
-  },
-  {
-    id: 4,
-    title: "Youth Leadership Summit",
-    date: "April 5, 2024",
-    images: [
-      "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000",
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=1000",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000"
-    ]
-  },
-  {
-    id: 5,
-    title: "Rural Education Drive",
-    date: "May 12, 2024",
-    images: [
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1000",
-      "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=1000",
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000"
-    ]
-  }
-];
+// Import all event images using Vite's import.meta.glob
+// This assumes your images are in the assets/events directory
+const eventImages = import.meta.glob('../assets/events/**/*.{png,jpg,jpeg,webp}', { eager: true });
 
 const Gallery = () => {
-  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  // State for images
+  const [images, setImages] = useState([]);
+  const [randomizedImages, setRandomizedImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredGallery, setFilteredGallery] = useState(galleryData);
-
+  const [modalImageLoaded, setModalImageLoaded] = useState(false);
+  const [columns, setColumns] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(20);
+  const [imageCache, setImageCache] = useState({});
+  
+  // Update columns based on screen size
   useEffect(() => {
-    // Filter gallery when search term changes
-    if (searchTerm.trim() === "") {
-      setFilteredGallery(galleryData);
-    } else {
-      const filtered = galleryData.filter(
-        album => album.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredGallery(filtered);
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) setColumns(1);
+      else if (width < 768) setColumns(2);
+      else if (width < 1024) setColumns(3);
+      else setColumns(4);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Load images from events folder on component mount
+  useEffect(() => {
+    try {
+      // Convert the imported image objects to an array of URLs
+      const imageArray = Object.entries(eventImages).map(([path, module]) => ({
+        path,
+        url: module.default,
+        id: path.split('/').pop().replace(/\.[^/.]+$/, "")
+      }));
+      
+      setImages(imageArray);
+      
+      // Create a copy and shuffle the array
+      const shuffled = [...imageArray].sort(() => 0.5 - Math.random());
+      setRandomizedImages(shuffled);
+    } catch (error) {
+      console.error("Error loading images:", error);
     }
-  }, [searchTerm]);
-
-  // Open album and show its images
-  const openAlbum = (album) => {
-    setSelectedAlbum(album);
-  };
-
-  // Go back to album list
-  const closeAlbum = () => {
-    setSelectedAlbum(null);
-  };
-
+  }, []);
+  
+  // Reset image loaded state when current image changes in modal
+  useEffect(() => {
+    setModalImageLoaded(false);
+  }, [currentImageIndex]);
+  
   // Open image in modal view
   const openImageModal = (imageIndex) => {
     setCurrentImageIndex(imageIndex);
     setShowModal(true);
+    document.body.style.overflow = 'hidden';
   };
-
+  
   // Close the modal
   const closeModal = () => {
     setShowModal(false);
+    document.body.style.overflow = 'auto';
   };
-
+  
   // Navigate to next image in modal
-  const nextImage = () => {
-    if (selectedAlbum) {
-      setCurrentImageIndex((currentImageIndex + 1) % selectedAlbum.images.length);
-    }
-  };
-
+  const nextImage = useCallback(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % randomizedImages.length);
+  }, [randomizedImages.length]);
+  
   // Navigate to previous image in modal
-  const prevImage = () => {
-    if (selectedAlbum) {
-      setCurrentImageIndex(
-        (currentImageIndex - 1 + selectedAlbum.images.length) % selectedAlbum.images.length
-      );
-    }
-  };
-
+  const prevImage = useCallback(() => {
+    setCurrentImageIndex((prevIndex) => 
+      (prevIndex - 1 + randomizedImages.length) % randomizedImages.length
+    );
+  }, [randomizedImages.length]);
+  
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -122,10 +92,126 @@ const Gallery = () => {
         if (e.key === "Escape") closeModal();
       }
     };
-
+    
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showModal, currentImageIndex, selectedAlbum]);
+  }, [showModal, nextImage, prevImage]);
+  
+  // Preload next and previous images when modal is open
+  useEffect(() => {
+    if (showModal && randomizedImages.length > 0) {
+      const nextIdx = (currentImageIndex + 1) % randomizedImages.length;
+      const prevIdx = (currentImageIndex - 1 + randomizedImages.length) % randomizedImages.length;
+      
+      // Preload next and previous images
+      const nextImg = new Image();
+      nextImg.src = randomizedImages[nextIdx].url;
+      
+      const prevImg = new Image();
+      prevImg.src = randomizedImages[prevIdx].url;
+    }
+  }, [showModal, currentImageIndex, randomizedImages]);
+
+  // Handle scroll to load more images
+  useEffect(() => {
+    const handleScroll = () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+        // User is near the bottom, load more images
+        if (visibleCount < randomizedImages.length) {
+          setVisibleCount(prev => Math.min(prev + 20, randomizedImages.length));
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [visibleCount, randomizedImages.length]);
+
+  // Update image cache when an image loads or errors - but use function instead of callback
+  const updateImageCache = (id, status) => {
+    setImageCache(prev => {
+      // Only update if status has changed
+      if (prev[id] !== status) {
+        return { ...prev, [id]: status };
+      }
+      return prev;
+    });
+  };
+
+  // Gallery Item Component with lazy loading and optimized rendering
+  const GalleryItem = React.memo(({ image, index }) => {
+    const [ref, inView] = useInView({
+      triggerOnce: true,
+      rootMargin: '300px 0px',
+    });
+    
+    // Local state to track image loading status to prevent flicker
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    
+    // Pre-check cache when component mounts
+    useEffect(() => {
+      if (imageCache[image.id] === 'loaded') setIsLoaded(true);
+      if (imageCache[image.id] === 'error') setHasError(true);
+    }, []);
+
+    const handleImageLoad = () => {
+      setIsLoaded(true);
+      updateImageCache(image.id, 'loaded');
+    };
+
+    const handleImageError = () => {
+      setHasError(true);
+      updateImageCache(image.id, 'error');
+    };
+
+    return (
+      <div
+        ref={ref}
+        className="aspect-[4/3] overflow-hidden rounded-lg shadow-md cursor-pointer relative group bg-gray-100"
+        onClick={() => openImageModal(index)}
+      >
+        {/* Loading placeholder - shown only when image is not yet loaded or has error */}
+        {!isLoaded && !hasError && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+          </div>
+        )}
+        
+        {inView && (
+          <>
+            <img
+              key={image.id}
+              src={hasError ? "https://via.placeholder.com/400x400?text=Image+Not+Available" : image.url}
+              alt={`Gallery image ${index + 1}`}
+              className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+                isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ 
+                transform: 'translate3d(0,0,0)',
+                willChange: 'transform'
+              }}
+              onError={handleImageError}
+              onLoad={handleImageLoad}
+              loading="lazy"
+              width="400"
+              height="300"
+            />
+
+            {/* Image name overlay on hover */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <p className="text-white text-sm truncate">
+                {image.path.split('/').pop()}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }, (prevProps, nextProps) => {
+    // Custom comparison function to prevent unnecessary re-renders
+    return prevProps.image.id === nextProps.image.id;
+  });
 
   return (
     <motion.div
@@ -136,131 +222,46 @@ const Gallery = () => {
       className="min-h-screen bg-gray-50"
     >
       {/* Page Header */}
-      <div className="relative bg-[url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#003049]/90 to-[#669BBC]/70"></div>
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <div className="max-w-3xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Media Gallery</h1>
-            <p className="text-lg md:text-xl font-light opacity-90">
-              Explore images from our events and activities
+      <div className="relative bg-gradient-to-r from-blue-900 to-blue-600 py-12">
+        <div className="absolute inset-0 opacity-20 bg-pattern"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-white">Media Gallery</h1>
+            <div className="h-1 w-24 bg-red-400 mb-4 mx-auto"></div>
+            <p className="text-lg md:text-xl font-light text-blue-100">
+              Explore our collection of memorable moments
             </p>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-12">
-        {/* Search bar */}
-        <div className="max-w-md mx-auto mb-10">
-          <div className="relative rounded-lg overflow-hidden shadow-md">
-            <input
-              type="text"
-              placeholder="Search albums..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-[#669BBC] border-none"
-            />
-            <button
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-[#003049] text-white p-1 rounded-full"
-              onClick={() => setSearchTerm("")}
-              style={{ visibility: searchTerm ? "visible" : "hidden" }}
-            >
-              <FaTimes size={12} />
-            </button>
-          </div>
-        </div>
-
-        {selectedAlbum ? (
-          <div>
-            {/* Album view */}
-            <div className="flex items-center justify-between mb-6">
-              <button
-                onClick={closeAlbum}
-                className="flex items-center gap-2 text-[#003049] hover:text-[#669BBC] transition-colors font-medium"
-              >
-                <FaChevronLeft /> Back to Albums
-              </button>
-              <div>
-                <h2 className="text-2xl font-bold text-[#003049]">{selectedAlbum.title}</h2>
-                <p className="text-sm text-gray-500">{selectedAlbum.date}</p>
-              </div>
-              <div className="w-24"></div> {/* Empty div for flexbox balance */}
-            </div>
-
-            {/* Image grid */}
-            <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {selectedAlbum.images.map((image, index) => (
-                <motion.div
-                  key={index}
-                  className="aspect-square overflow-hidden rounded-lg shadow-md cursor-pointer relative group"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => openImageModal(index)}
-                >
-                  <img
-                    src={image}
-                    alt={`${selectedAlbum.title} - Image ${index + 1}`}
-                    className="w-full h-full object-cover transform transition-transform group-hover:scale-105 duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all flex items-center justify-center">
-                    <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                      Click to Enlarge
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+        {randomizedImages.length === 0 ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
           </div>
         ) : (
-          <div>
-            {/* Albums grid */}
-            {filteredGallery.length === 0 ? (
-              <div className="text-center py-10">
-                <p className="text-xl text-gray-500">No albums match your search.</p>
-              </div>
-            ) : (
-              <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {filteredGallery.map((album) => (
-                  <motion.div
-                    key={album.id}
-                    className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: album.id * 0.1 }}
-                    onClick={() => openAlbum(album)}
-                  >
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={album.images[0]}
-                        alt={album.title}
-                        className="w-full h-full object-cover transform transition-transform hover:scale-105 duration-300"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="text-xl font-semibold text-[#003049] mb-1">{album.title}</h3>
-                      <p className="text-sm text-gray-500">{album.date}</p>
-                      <p className="text-sm text-gray-700 mt-2">{album.images.length} photos</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {randomizedImages.slice(0, visibleCount).map((image, index) => (
+              <GalleryItem key={`${image.id}-${index}`} image={image} index={index} />
+            ))}
+          </div>
+        )}
+
+        {visibleCount < randomizedImages.length && (
+          <div className="mt-8 text-center">
+            <button 
+              onClick={() => setVisibleCount(prev => Math.min(prev + 20, randomizedImages.length))} 
+              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            >
+              Load More Images
+            </button>
           </div>
         )}
       </div>
 
       {/* Full screen image modal */}
-      {showModal && selectedAlbum && (
+      {showModal && randomizedImages.length > 0 && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center">
           <button
             className="absolute top-4 right-4 z-50 bg-white/20 hover:bg-white/30 rounded-full p-3 text-white transition-colors"
@@ -284,34 +285,53 @@ const Gallery = () => {
             <FaChevronRight size={24} />
           </button>
 
+          {/* Loading spinner */}
+          {!modalImageLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+            </div>
+          )}
+
           {/* Image container */}
           <motion.div
             className="w-full h-full flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: modalImageLoaded ? 1 : 0.3 }}
+            transition={{ duration: 0.2 }}
           >
-            <img
-              src={selectedAlbum.images[currentImageIndex]}
-              alt={`${selectedAlbum.title} - Image ${currentImageIndex + 1}`}
-              className="max-h-[90vh] max-w-[90vw] object-contain pointer-events-none"
-            />
+            {randomizedImages[currentImageIndex] && (
+              <img
+                src={randomizedImages[currentImageIndex].url}
+                alt={`Gallery image ${currentImageIndex + 1}`}
+                className="max-h-[85vh] max-w-[90%] object-contain pointer-events-none"
+                style={{ transform: 'translate3d(0,0,0)' }}
+                onLoad={() => setModalImageLoaded(true)}
+                onError={(e) => {
+                  console.log(`Modal image failed to load:`, e.target.src);
+                  e.target.src = "https://via.placeholder.com/800x600?text=Image+Not+Available";
+                  setModalImageLoaded(true);
+                }}
+              />
+            )}
           </motion.div>
 
           {/* Counter and download button */}
           <div className="absolute bottom-4 left-0 right-0 flex justify-between items-center px-4">
             <div className="bg-black/50 text-white px-4 py-2 rounded-full">
-              {currentImageIndex + 1} / {selectedAlbum.images.length}
+              {currentImageIndex + 1} / {randomizedImages.length}
             </div>
-            <a
-              href={selectedAlbum.images[currentImageIndex]}
-              download={`media-vision-${selectedAlbum.title}-${currentImageIndex + 1}.jpg`}
-              target="_blank"
-              rel="noreferrer"
-              className="bg-white/20 hover:bg-white/30 rounded-full p-3 text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <FaDownload size={18} />
-            </a>
+            {randomizedImages[currentImageIndex] && (
+              <a
+                href={randomizedImages[currentImageIndex].url}
+                download={`gallery-image-${currentImageIndex + 1}.jpg`}
+                target="_blank"
+                rel="noreferrer"
+                className="bg-white/20 hover:bg-white/30 rounded-full p-3 text-white transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FaDownload size={18} />
+              </a>
+            )}
           </div>
         </div>
       )}
