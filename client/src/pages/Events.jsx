@@ -221,7 +221,7 @@ const Events = () => {
             </button>
             <button 
               onClick={goToNextSlide}
-              className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+              className="bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
               aria-label="Next slide"
             >
               <FaArrowRight size={20} />

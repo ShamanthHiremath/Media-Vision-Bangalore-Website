@@ -765,7 +765,7 @@ function HeroCarousel() {
       {/* Slides */}
       <div className="absolute inset-0 flex transition-transform duration-700" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {slides.map((slide, index) => (
-          <div key={index} className="w-full h-full flex-shrink-0 relative">
+          <div key={index} className="w-full h-full bg-black/60 flex-shrink-0 relative">
             <img 
               src={slide.image} 
               alt={`Slide ${index + 1}`} 
@@ -773,7 +773,7 @@ function HeroCarousel() {
             />
             
             {/* Content overlay */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
               <motion.h2
                 className="text-4xl sm:text-5xl font-bold mb-4 text-white"
                 initial={{ opacity: 0, y: 30 }}
