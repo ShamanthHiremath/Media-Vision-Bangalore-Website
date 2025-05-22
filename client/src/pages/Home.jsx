@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import CountUp from 'react-countup';
-import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling, FaArrowRight } from "react-icons/fa";
-import image from '../assets/logo.png';
+import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling, FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import logo from '../assets/logo.png';
+import image1 from '../assets/events/012A3702.jpg';
+import image2 from '../assets/events/DSC07070.jpg';
+import image3 from '../assets/events/DSC07105.jpg';
+
 function Home() {
   // Animation variants for reuse
   const fadeInUp = {
@@ -18,62 +23,163 @@ function Home() {
     }
   };
 
+  // Carousel state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const carouselImages = [
+    {
+      url: image1,
+      title: "Welcome to Media Vision Bengaluru",
+      subtitle: "Empowering society through media, strategy, and community engagement."
+    },
+    {
+      url: image2,
+      title: "Welcome to Media Vision Bengaluru",
+      subtitle: "Empowering society through media, strategy, and community engagement."
+    },
+    {
+      url: image3,
+      title: "Welcome to Media Vision Bengaluru",
+      subtitle: "Empowering society through media, strategy, and community engagement."
+    }
+  ];
+  const totalSlides = carouselImages.length;
+  
+  // Auto-advance carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 6000); // Change slide every 6 seconds
+    
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
+
+  // Navigation functions
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentSlide((currentSlide + 1) % totalSlides);
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((currentSlide - 1 + totalSlides) % totalSlides);
+  };
+
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Updated with background image and overlay */}
-      <motion.section
-        className="relative bg-gradient-to-r from-blue-600 to-blue-300 text-white py-24 md:py-32"
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        transition={{ duration: 0.8 }}
-      >
-        {/* Background image with overlay */}
-        <div className="absolute inset-0 overflow-hidden">
-          <img 
-            src={image}
-            alt="Bangalore cityscape" 
-            className="w-full h-full object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-900/80"></div>
-        </div>
-        
-        {/* Content positioned over the background */}
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.h1
-            className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            Welcome to Media Vision Bengaluru
-          </motion.h1>
-          <motion.p
-            className="text-xl mb-10 max-w-3xl mx-auto text-white/90 drop-shadow-md"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Empowering society through media, strategy, and community engagement.
-          </motion.p>
+      {/* Hero Section with Carousel */}
+      <section className="relative w-full h-[80vh] overflow-hidden">
+        {/* Carousel Images */}
+        {carouselImages.map((slide, index) => (
           <motion.div
-            variants={fadeInUp}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            key={index}
+            className="absolute inset-0 w-full h-full"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: currentSlide === index ? 1 : 0,
+              zIndex: currentSlide === index ? 10 : 0
+            }}
+            transition={{ duration: 1 }}
           >
-            <Link
-              to="/about"
-              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+            <div 
+              className="w-full h-full bg-cover bg-center"
+              style={{ 
+                backgroundImage: `url(${slide.url})`,
+              }}
             >
-              Learn More
-            </Link>
-            <Link
-              to="/donate"
-              className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center justify-center gap-2"
-            >
-              <FaHandHoldingHeart /> Donate Now
-            </Link>
+              {/* Dark overlay for better text visibility */}
+              <div className="absolute inset-0 bg-black/50">
+                {/* Content Centered Overlay */}
+                <motion.div 
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: currentSlide === index ? 1 : 0
+                  }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                >
+                  {/* Logo */}
+                  <div className="flex bg-white/50 p-8 rounded-lg justify-center mb-6">
+                    <img 
+                      src={logo} 
+                      alt="Media Vision Bengaluru Logo" 
+                      className="h-24 md:h-32 drop-shadow-lg"
+                    />
+                  </div>
+                  
+                  <motion.h1
+                    className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg"
+                    variants={fadeInUp}
+                    transition={{ duration: 0.8, delay: 0.1 }}
+                  >
+                    {slide.title}
+                  </motion.h1>
+                  <motion.p
+                    className="text-xl mb-10 max-w-3xl mx-auto text-white/90 drop-shadow-md"
+                    variants={fadeInUp}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                  >
+                    {slide.subtitle}
+                  </motion.p>
+                  <motion.div
+                    variants={fadeInUp}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="flex flex-col sm:flex-row gap-4 justify-center"
+                  >
+                    <Link
+                      to="/about"
+                      className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+                    >
+                      Learn More
+                    </Link>
+                    <Link
+                      to="/donate"
+                      className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center justify-center gap-2"
+                    >
+                      <FaHandHoldingHeart /> Donate Now
+                    </Link>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
+        ))}
+
+        {/* Navigation Arrows */}
+        <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 transform -translate-y-1/2">
+          <button 
+            onClick={goToPrevSlide}
+            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+            aria-label="Previous slide"
+          >
+            <FaArrowLeft size={20} />
+          </button>
+          <button 
+            onClick={goToNextSlide}
+            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+            aria-label="Next slide"
+          >
+            <FaArrowRight size={20} />
+          </button>
         </div>
-      </motion.section>
+
+        {/* Indicators */}
+        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+          {Array.from({ length: totalSlides }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                currentSlide === index 
+                  ? 'bg-white scale-125' 
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </section>
 
       {/* Impact Stats Section - New section */}
       <motion.section
