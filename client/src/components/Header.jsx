@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FiHome, FiInfo, FiMail, FiMenu, FiX, FiCamera } from "react-icons/fi";
 import { FaCalendarAlt, FaHandHoldingHeart, FaUserPlus } from "react-icons/fa";
 import GoogleTranslate from './GoogleTranslate';
+import GoogleTranslateMob from './GoogleTranslateMob';
 import logo from '../assets/logo.png';
 
 function Header() {
@@ -26,25 +27,60 @@ function Header() {
   // Close menu when a link is clicked (for better UX)
   const handleLinkClick = () => setMenuOpen(false);
 
+  // Function to open Google Translate dropdown
+  const openTranslateDropdown = () => {
+    let attempts = 0;
+    const tryOpenDropdown = () => {
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.focus();
+        combo.click();
+        const event = new KeyboardEvent('keydown', { key: 'ArrowDown', keyCode: 40, which: 40 });
+        combo.dispatchEvent(event);
+      } else if (attempts < 5) {
+        attempts++;
+        setTimeout(tryOpenDropdown, 300);
+      }
+    };
+    tryOpenDropdown();
+  };
+
+  const openTranslateDropdownMod = () => {
+    let attempts = 0;
+    const tryOpenDropdownMod = () => {
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.focus();
+        combo.click();
+        const event = new KeyboardEvent('keydown', { key: 'ArrowDown', keyCode: 40, which: 40 });
+        combo.dispatchEvent(event);
+      } else if (attempts < 5) {
+        attempts++;
+        setTimeout(tryOpenDropdownMod, 300);
+      }
+    };
+    tryOpenDropdownMod();
+  };
+
   return (
-    <header className="bg-white shadow-lg relative z-50">
-      <div className="container mx-auto px-4">
+    <header className="bg-white shadow-lg relative z-50 w-full">
+      <div className="container mx-auto px-2 sm:px-4">
         {/* Main navigation */}
-        <nav className="py-4 flex justify-between items-center">
-          <NavLink to="/" className="flex items-center">
-            <img src={logo} className="h-12 md:h-15 mr-3" alt="Logo" />
-            <span className="text-2xl font-bold text-blue-900 hidden sm:inline">
+        <nav className="py-2 sm:py-4 flex justify-between items-center min-h-[60px]">
+          <NavLink to="/" className="flex items-center flex-shrink-0">
+            <img src={logo} className="h-10 sm:h-12 w-auto mr-2 sm:mr-3" alt="Logo" />
+            <span className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 hidden lg:inline whitespace-nowrap">
               Media Vision Bengaluru
             </span>
           </NavLink>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
             <NavLink
               to="/"
               end
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
+                `flex items-center gap-1 xl:gap-2 px-2 xl:px-3 py-2 rounded-md transition-colors text-sm xl:text-base whitespace-nowrap ${isActive
                   ? "bg-blue-900 text-white font-medium"
                   : "text-blue-900 hover:bg-gray-100"
                 }`
@@ -56,7 +92,7 @@ function Header() {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
+                `flex items-center gap-1 xl:gap-2 px-2 xl:px-3 py-2 rounded-md transition-colors text-sm xl:text-base whitespace-nowrap ${isActive
                   ? "bg-blue-900 text-white font-medium"
                   : "text-blue-900 hover:bg-gray-100"
                 }`
@@ -68,7 +104,7 @@ function Header() {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
+                `flex items-center gap-1 xl:gap-2 px-2 xl:px-3 py-2 rounded-md transition-colors text-sm xl:text-base whitespace-nowrap ${isActive
                   ? "bg-blue-900 text-white font-medium"
                   : "text-blue-900 hover:bg-gray-100"
                 }`
@@ -80,7 +116,7 @@ function Header() {
             <NavLink
               to="/events"
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
+                `flex items-center gap-1 xl:gap-2 px-2 xl:px-3 py-2 rounded-md transition-colors text-sm xl:text-base whitespace-nowrap ${isActive
                   ? "bg-blue-900 text-white font-medium"
                   : "text-blue-900 hover:bg-gray-100"
                 }`
@@ -94,7 +130,7 @@ function Header() {
             <NavLink
               to="/gallery"
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
+                `flex items-center gap-1 xl:gap-2 px-2 xl:px-3 py-2 rounded-md transition-colors text-sm xl:text-base whitespace-nowrap ${isActive
                   ? "bg-blue-900 text-white font-medium"
                   : "text-blue-900 hover:bg-gray-100"
                 }`
@@ -108,7 +144,7 @@ function Header() {
             <NavLink
               to="/registration"
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${isActive
+                `flex items-center gap-1 xl:gap-2 px-2 xl:px-3 py-2 rounded-md transition-colors text-sm xl:text-base whitespace-nowrap ${isActive
                   ? "bg-blue-900 text-white font-medium"
                   : "text-blue-900 hover:bg-gray-100"
                 }`
@@ -120,85 +156,59 @@ function Header() {
 
             <NavLink
               to="/donate"
-              className="flex items-center gap-2 px-4 py-2 bg-[#C1121F] hover:bg-[#780000] text-white font-medium rounded-md transition-colors shadow-md"
+              className="flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 bg-[#C1121F] hover:bg-[#780000] text-white font-medium rounded-md transition-colors shadow-md text-sm xl:text-base whitespace-nowrap"
             >
               <FaHandHoldingHeart />
               Donate
             </NavLink>
 
             {/* Google Translate integrated in navbar */}
-            <div className="flex items-center ml-2 bg-gray-50 rounded-md px-3 py-1 shadow-sm hover:shadow transition-shadow">
+            <div className="flex items-center bg-gray-50 rounded-md px-2 py-1 shadow-sm hover:shadow transition-shadow">
               <span
-                className="text-sm text-[#AE1F23] font-semibold cursor-pointer inline mr-1 hover:underline"
-                onClick={() => {
-                  let attempts = 0;
-                  const tryOpenDropdown = () => {
-                    const combo = document.querySelector('.goog-te-combo');
-                    if (combo) {
-                      combo.focus();
-                      combo.click();
-                      const event = new KeyboardEvent('keydown', { key: 'ArrowDown', keyCode: 40, which: 40 });
-                      combo.dispatchEvent(event);
-                    } else if (attempts < 5) {
-                      attempts++;
-                      setTimeout(tryOpenDropdown, 300);
-                    }
-                  };
-                  tryOpenDropdown();
-                }}
+                className="text-xs xl:text-sm text-[#AE1F23] font-semibold cursor-pointer inline mr-1 hover:underline whitespace-nowrap"
+                onClick={openTranslateDropdown}
               >
                 Translate:
               </span>
-              <GoogleTranslate />
+              <div className="scale-75 xl:scale-100 origin-left">
+                <GoogleTranslate />
+              </div>
             </div>
           </div>
 
-          {/* Mobile - Logo, Translate and Burger */}
-          <div className="flex items-center space-x-3 md:hidden">
+          {/* Mobile/Tablet - Translate and Burger */}
+          <div className="flex items-center space-x-2 lg:hidden">
             {/* Google Translate for Mobile */}
             <div className="flex items-center bg-gray-50 rounded-md px-2 py-1 shadow-sm hover:shadow transition-shadow">
               <span
-                className="text-sm text-[#AE1F23] font-semibold cursor-pointer inline mr-1 hover:underline"
-                onClick={() => {
-                  let attempts = 0;
-                  const tryOpenDropdown = () => {
-                    const combo = document.querySelector('.goog-te-combo');
-                    if (combo) {
-                      combo.focus();
-                      combo.click();
-                      const event = new KeyboardEvent('keydown', { key: 'ArrowDown', keyCode: 40, which: 40 });
-                      combo.dispatchEvent(event);
-                    } else if (attempts < 5) {
-                      attempts++;
-                      setTimeout(tryOpenDropdown, 300);
-                    }
-                  };
-                  tryOpenDropdown();
-                }}
+                className="text-xs text-[#AE1F23] font-semibold cursor-pointer inline mr-1 hover:underline whitespace-nowrap"
+                onClick={openTranslateDropdownMod}
               >
-                <span className="sr-only md:not-sr-only">Translate:</span>
+                Translate:
               </span>
-              <GoogleTranslate />
+              <div className="scale-75 origin-left">
+                <GoogleTranslateMob />
+              </div>
             </div>
 
             {/* Mobile Burger */}
             <button
-              className="bg-gray-100 p-2 rounded-md z-50 relative"
+              className="bg-gray-100 p-2 rounded-md z-50 relative flex-shrink-0"
               onClick={(e) => {
                 e.stopPropagation();
                 setMenuOpen((open) => !open);
               }}
               aria-label="Toggle menu"
             >
-              {menuOpen ? <FiX size={24} className="text-blue-900" /> : <FiMenu size={24} className="text-blue-900" />}
+              {menuOpen ? <FiX size={20} className="text-blue-900" /> : <FiMenu size={20} className="text-blue-900" />}
             </button>
           </div>
         </nav>
       </div>
 
-      {/* Mobile Menu Dropdown - Updated with backdrop blur and dynamic height */}
+      {/* Mobile Menu Dropdown */}
       <div
-        className={`fixed top-0 right-0 bg-white shadow-lg py-3 md:hidden z-40 w-64 transform transition-transform duration-300 ease-in-out mobile-menu ${menuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 bg-white shadow-lg py-3 lg:hidden z-40 w-64 sm:w-72 transform transition-transform duration-300 ease-in-out mobile-menu ${menuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         style={{ maxHeight: '100vh', overflowY: 'auto' }}
       >
@@ -215,7 +225,7 @@ function Header() {
 
         {/* Menu header with logo */}
         <div className="flex justify-center mb-6">
-          <img src={logo} className="h-12" alt="Logo" />
+          <img src={logo} className="h-12 w-auto" alt="Logo" />
         </div>
 
         {/* Menu links */}
@@ -304,7 +314,7 @@ function Header() {
       {/* Backdrop blur overlay */}
       {menuOpen && (
         <div
-          className="fixed inset-0 backdrop-blur-sm bg-white/30 md:hidden z-30"
+          className="fixed inset-0 backdrop-blur-sm bg-white/30 lg:hidden z-30"
           onClick={() => setMenuOpen(false)}
         ></div>
       )}
