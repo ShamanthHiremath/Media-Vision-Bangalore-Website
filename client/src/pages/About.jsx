@@ -2,6 +2,10 @@ import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import React, { useState, useEffect, useRef } from 'react';
 import { FaCheckCircle, FaUserFriends, FaChartLine, FaHandshake, FaTimes, FaLinkedinIn, FaEnvelope, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import image4 from '../assets/events/012A3722.jpg';
+import image5 from '../assets/events/DSC07055.jpg';
+import image6 from '../assets/events/DSC07193.jpg';
+
 
 function About() {
   // Animation variants
@@ -77,8 +81,8 @@ function About() {
             {/* Feature image - larger */}
             <div className="md:col-span-3 rounded-xl overflow-hidden shadow-xl h-96">
               <img 
-                src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                alt="PR conference" 
+                src={image4} 
+                alt="Image1" 
                 className="w-full h-full object-cover"
               />
             </div>
@@ -87,15 +91,15 @@ function About() {
             <div className="md:col-span-2 grid grid-cols-1 gap-6">
               <div className="rounded-xl overflow-hidden shadow-lg h-44">
                 <img 
-                  src="https://images.unsplash.com/photo-1558403194-611308249627?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                  alt="Panel discussion" 
+                  src={image5} 
+                  alt="Image2" 
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden shadow-lg h-44">
                 <img 
-                  src="https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                  alt="Media workshop" 
+                  src={image6} 
+                  alt="Image3" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -720,7 +724,7 @@ function TeamCarousel() {
   );
 }
 
-// New HeroCarousel component
+// New HeroCarousel component - Updated with Events.jsx style animation
 function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideImages = {
@@ -737,7 +741,7 @@ function HeroCarousel() {
     },
     {
       image: slideImages.image2,
-      title: "About Media Vision Bangalore",
+      title: "About Media Vision Bangalore", 
       description: "Leading the way in media management and public relations since 2017",
       cta: "/about"
     },
@@ -749,84 +753,111 @@ function HeroCarousel() {
     }
   ];
 
+  const totalSlides = slides.length;
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 5000);
+    }, 6000); // Changed to 6 seconds to match Events.jsx
     
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  // Navigation functions to match Events.jsx
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentIndex((currentIndex + 1) % totalSlides);
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentIndex((currentIndex - 1 + totalSlides) % totalSlides);
+  };
+
   return (
-    <div className="relative w-full h-[60vh] sm:h-[80vh] overflow-hidden rounded-lg">
+    <section className="relative w-full h-[60vh] sm:h-[80vh] overflow-hidden rounded-lg">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-900 opacity-90"></div>
       
-      {/* Slides */}
-      <div className="absolute inset-0 flex transition-transform duration-700" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-        {slides.map((slide, index) => (
-          <div key={index} className="w-full h-full bg-black/60 flex-shrink-0 relative">
-            <img 
-              src={slide.image} 
-              alt={`Slide ${index + 1}`} 
-              className="w-full h-full object-cover"
-            />
-            
-            {/* Content overlay */}
-            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-              <motion.h2
-                className="text-4xl sm:text-5xl font-bold mb-4 text-white"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
+      {/* Slides - Updated animation to match Events.jsx */}
+      {slides.map((slide, index) => (
+        <motion.div
+          key={index}
+          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: currentIndex === index ? 1 : 0,
+            zIndex: currentIndex === index ? 10 : 0
+          }}
+          transition={{ duration: 1 }}
+        >
+          <div 
+            className="w-full h-full bg-cover bg-center"
+            style={{ 
+              backgroundImage: `url(${slide.image})`,
+            }}
+          >
+            {/* Dark overlay for better text visibility */}
+            <div className="absolute inset-0 bg-black/60">
+              {/* Content Centered Overlay */}
+              <motion.div 
+                className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: currentIndex === index ? 1 : 0
+                }}
+                transition={{ duration: 0.8, delay: 0.5 }}
               >
-                {slide.title}
-              </motion.h2>
-              <motion.p
-                className="text-lg sm:text-xl mb-6 text-white/90"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-              >
-                {slide.description}
-              </motion.p>
+                <div className="max-w-3xl mx-auto px-6 py-10 rounded-lg">
+                  <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                    {slide.title}
+                  </h1>
+                  <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto drop-shadow-md">
+                    {slide.description}
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
-        ))}
-      </div>
+        </motion.div>
+      ))}
       
-      {/* Navigation arrows */}
-      <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10">
-        <button
-          className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
-          onClick={() => setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length)}
+      {/* Navigation arrows - Updated to match Events.jsx */}
+      <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 transform -translate-y-1/2">
+        <button 
+          onClick={goToPrevSlide}
+          className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
           aria-label="Previous slide"
         >
-          <FaArrowLeft className="text-blue-900" />
+          <FaArrowLeft size={20} />
         </button>
-      </div>
-      <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
-        <button
-          className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
-          onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length)}
+        <button 
+          onClick={goToNextSlide}
+          className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
           aria-label="Next slide"
         >
-          <FaArrowRight className="text-blue-900" />
+          <FaArrowRight size={20} />
         </button>
       </div>
       
-      {/* Dots navigation */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-        {slides.map((_, index) => (
+      {/* Dots navigation - Updated to match Events.jsx */}
+      <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+        {Array.from({ length: totalSlides }).map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-white' : 'bg-white/50'}`}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all ${
+              currentIndex === index 
+                ? 'bg-white scale-125' 
+                : 'bg-white/50 hover:bg-white/80'
+            }`}
             aria-label={`Go to slide ${index + 1}`}
-          ></button>
+          />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

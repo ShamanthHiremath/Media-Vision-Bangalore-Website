@@ -7,7 +7,9 @@ import logo from '../assets/logo.png';
 import image1 from '../assets/events/012A3702.jpg';
 import image2 from '../assets/events/DSC07070.jpg';
 import image3 from '../assets/events/DSC07105.jpg';
-
+import image4 from '../assets/events/012A3722.jpg';
+import image5 from '../assets/events/DSC07055.jpg';
+import image6 from '../assets/events/DSC07193.jpg';
 function Home() {
   // Animation variants for reuse
   const fadeInUp = {
@@ -268,7 +270,7 @@ function Home() {
         </div>
       </motion.section>
 
-      {/* Event Highlights Section - Added below Our Programs */}
+      {/* Event Highlights Section - Updated with local images */}
       <motion.section
         className="py-16 bg-white"
         initial="hidden"
@@ -287,43 +289,29 @@ function Home() {
             variants={fadeInUp}
           >
             <img 
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&h=500&q=80" 
+              src={image1}
               alt="Media Vision Annual Conference" 
               className="w-full h-[300px] md:h-[400px] object-cover"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-              <h3 className="text-2xl font-bold text-white">Annual Media Vision Conference 2024</h3>
-              <p className="text-white/80 text-lg">Bringing together media professionals from across South India</p>
-            </div>
           </motion.div>
           
           {/* Event Grid - Multiple Images */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
-                img: "https://images.unsplash.com/photo-1560523159-4a9692d222f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                title: "Media Training Workshop",
-                date: "June 12, 2024"
+                img: image2,
               },
               {
-                img: "https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                title: "Excellence in Journalism Awards",
-                date: "April 25, 2024"
+                img: image3,
               },
               {
-                img: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                title: "PR Strategy Summit",
-                date: "March 18, 2024"
+                img: image4,
               },
               {
-                img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                title: "Media & Technology Conference",
-                date: "February 8, 2024"
+                img: image5,
               },
               {
-                img: "https://images.unsplash.com/photo-1534649643822-e7431de08af6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                title: "Community Radio Workshop",
-                date: "January 22, 2024"
+                img: image6,
               }
             ].map((event, idx) => (
               <motion.div 
@@ -335,13 +323,9 @@ function Home() {
                 <div className="h-52 overflow-hidden">
                   <img 
                     src={event.img} 
-                    alt={event.title} 
+                    alt={`Event ${idx + 1}`} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                </div>
-                <div className="p-4 bg-white">
-                  <h3 className="font-semibold text-lg text-blue-900">{event.title}</h3>
-                  <p className="text-gray-500 text-sm">{event.date}</p>
                 </div>
               </motion.div>
             ))}
@@ -355,6 +339,10 @@ function Home() {
             <Link 
               to="/events" 
               className="inline-flex items-center gap-2 bg-blue-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-[#002030] transition-colors"
+              onClick={() => {
+                // Scroll to top when navigating
+                window.scrollTo(0, 0);
+              }}
             >
               View All Events <FaArrowRight />
             </Link>
@@ -380,12 +368,20 @@ function Home() {
             <Link
               to="/contact"
               className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              onClick={() => {
+                // Scroll to top when navigating
+                window.scrollTo(0, 0);
+              }}
             >
               Get Involved
             </Link>
             <Link
               to="/events"
               className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg"
+              onClick={() => {
+                // Scroll to top when navigating
+                window.scrollTo(0, 0);
+              }}
             >
               Upcoming Events
             </Link>

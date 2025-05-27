@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const GoogleTranslate = () => {
+const GoogleTranslateMob = () => {
   useEffect(() => {
     // Add Google Translate script to head
     const addScript = () => {
@@ -46,4 +46,4 @@ const GoogleTranslate = () => {
   return <div id="google_translate_element" className="google-translate-custom"></div>;
 };
 
-export default GoogleTranslate;
+export default GoogleTranslateMob;
