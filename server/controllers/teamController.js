@@ -45,7 +45,7 @@ exports.createTeamMember = async (req, res) => {
     const imageFile = req.files.image;
     const uploadResult = await uploadImageToCloudinary(
       imageFile, 
-      "team_members",
+      "Team Media Vision",
       400, // height
       80 // quality
     );
@@ -83,7 +83,7 @@ exports.updateTeamMember = async (req, res) => {
       const imageFile = req.files.image;
       const uploadResult = await uploadImageToCloudinary(
         imageFile, 
-        "team_members",
+        "Team Media Vision",
         400, // height
         80 // quality
       );

@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <div class="ancizar-serif" className="ancizar-serif min-h-screen flex flex-col">
+      <div className="ancizar-serif min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>

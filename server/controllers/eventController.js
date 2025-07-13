@@ -47,7 +47,7 @@ exports.createEvent = async (req, res) => {
       for (const file of photoFiles) {
         const result = await uploadImageToCloudinary(
           file,
-          "events",
+          "Events Media Vision",
           1200, // height
           80 // quality
         );
@@ -111,7 +111,7 @@ exports.updateEvent = async (req, res) => {
       for (const file of photoFiles) {
         const result = await uploadImageToCloudinary(
           file,
-          "events",
+          "Events Media Vision",
           1200, // height
           80 // quality
         );

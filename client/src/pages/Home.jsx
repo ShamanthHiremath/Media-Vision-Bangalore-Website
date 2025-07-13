@@ -70,8 +70,14 @@ function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Carousel */}
-      <section className="relative w-full h-[80vh] overflow-hidden">
+      {/* Hero Section with Carousel - Full Screen */}
+      <section 
+        className="relative w-full overflow-hidden" 
+        style={{ 
+          height: '100vh',
+          minHeight: '100dvh' // Dynamic viewport height for mobile devices
+        }}
+      >
         {/* Carousel Images */}
         {carouselImages.map((slide, index) => (
           <motion.div
@@ -85,16 +91,18 @@ function Home() {
             transition={{ duration: 1 }}
           >
             <div 
-              className="w-full h-full bg-cover bg-center"
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
               style={{ 
                 backgroundImage: `url(${slide.url})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center'
               }}
             >
               {/* Dark overlay for better text visibility */}
               <div className="absolute inset-0 bg-black/50">
                 {/* Content Centered Overlay */}
                 <motion.div 
-                  className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 py-8 pt-24"
                   initial={{ opacity: 0 }}
                   animate={{ 
                     opacity: currentSlide === index ? 1 : 0
@@ -102,23 +110,23 @@ function Home() {
                   transition={{ duration: 0.8, delay: 0.5 }}
                 >
                   {/* Logo */}
-                  <div className="flex bg-white/50 p-8 rounded-lg justify-center mb-6">
+                  <div className="flex bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-xl justify-center mb-8 shadow-2xl">
                     <img 
                       src={logo} 
                       alt="Media Vision Bengaluru Logo" 
-                      className="h-24 md:h-32 drop-shadow-lg"
+                      className="h-20 md:h-28 lg:h-32 drop-shadow-lg"
                     />
                   </div>
                   
                   <motion.h1
-                    className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg"
+                    className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white drop-shadow-2xl leading-tight"
                     variants={fadeInUp}
                     transition={{ duration: 0.8, delay: 0.1 }}
                   >
                     {slide.title}
                   </motion.h1>
                   <motion.p
-                    className="text-xl mb-10 max-w-3xl mx-auto text-white/90 drop-shadow-md"
+                    className="text-lg md:text-xl lg:text-2xl mb-10 max-w-4xl mx-auto text-white/95 drop-shadow-xl leading-relaxed"
                     variants={fadeInUp}
                     transition={{ duration: 0.8, delay: 0.2 }}
                   >
@@ -131,13 +139,13 @@ function Home() {
                   >
                     <Link
                       to="/about"
-                      className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+                      className="bg-white/90 backdrop-blur-sm text-amber-900 px-8 py-4 rounded-xl font-semibold hover:bg-white hover:scale-105 transition-all duration-300 shadow-xl"
                     >
                       Learn More
                     </Link>
                     <Link
                       to="/donate"
-                      className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center justify-center gap-2"
+                      className="bg-amber-700 hover:bg-amber-800 hover:scale-105 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-xl flex items-center justify-center gap-2"
                     >
                       <FaHandHoldingHeart /> Donate Now
                     </Link>
@@ -149,33 +157,33 @@ function Home() {
         ))}
 
         {/* Navigation Arrows */}
-        <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 transform -translate-y-1/2">
+        <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 md:px-8 transform -translate-y-1/2">
           <button 
             onClick={goToPrevSlide}
-            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+            className="bg-black/40 hover:bg-black/60 text-white rounded-full p-3 md:p-4 backdrop-blur-sm transition-all hover:scale-110"
             aria-label="Previous slide"
           >
-            <FaArrowLeft size={20} />
+            <FaArrowLeft size={24} />
           </button>
           <button 
             onClick={goToNextSlide}
-            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+            className="bg-black/40 hover:bg-black/60 text-white rounded-full p-3 md:p-4 backdrop-blur-sm transition-all hover:scale-110"
             aria-label="Next slide"
           >
-            <FaArrowRight size={20} />
+            <FaArrowRight size={24} />
           </button>
         </div>
 
         {/* Indicators */}
-        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
+              className={`w-4 h-4 rounded-full transition-all duration-300 ${
                 currentSlide === index 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/50 hover:bg-white/80'
+                  ? 'bg-white scale-125 shadow-lg' 
+                  : 'bg-white/60 hover:bg-white/90 hover:scale-110'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -203,7 +211,7 @@ function Home() {
                 className="p-6"
                 variants={fadeInUp}
               >
-                <p className="text-4xl font-bold text-blue-900 mb-2">
+                <p className="text-4xl font-bold text-amber-900 mb-2">
                   <CountUp end={stat.value} duration={2.5} />
                   {stat.plus && "+"}
                 </p>
@@ -222,7 +230,7 @@ function Home() {
         variants={containerStagger}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4 text-blue-900">Our Programs</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-amber-900">Our Programs</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
           Empowering individuals and communities through purpose-driven initiatives
           </p>
@@ -231,22 +239,22 @@ function Home() {
               {
                 title: "Media & Strategic Services",
                 desc: "Supporting individuals, campaigns, and organizations with innovative media solutions, branding, and PR.",
-                icon: <FaGraduationCap className="text-4xl text-blue-900 mb-4" />
+                icon: <FaGraduationCap className="text-4xl text-amber-900 mb-4" />
               },
               {
                 title: "Awards and Recognition:",
                 desc: "Honoring socially contributing people to identify and uplift human welfare and spread awareness.",
-                icon: <FaPeopleCarry className="text-4xl text-blue-900 mb-4" />
+                icon: <FaPeopleCarry className="text-4xl text-amber-900 mb-4" />
               },
               {
                 title: "Social Welfare & Development",
                 desc: "From free health camps, food kit donation and campaigns to women's empowerment programs and student aid – we build resilient communities.",
-                icon: <FaSeedling className="text-4xl text-[#C1121F] mb-4" />
+                icon: <FaSeedling className="text-4xl text-amber-700 mb-4" />
               },
               {
                 title: "Educational Outreach",
                 desc: "Workshops, camps, and recognition programs that promote access to learning and teacher excellence.",
-                icon: <FaGraduationCap className="text-4xl text-blue-900 mb-4" />
+                icon: <FaGraduationCap className="text-4xl text-amber-900 mb-4" />
               }
             ].map((feature, idx) => (
               <motion.div
@@ -254,10 +262,10 @@ function Home() {
                 className="bg-white p-8 rounded-lg shadow-lg border-t-4 hover:shadow-xl transition-shadow text-center"
                 style={{ 
                   borderColor: 
-                    idx === 0 ? '#003049' : 
-                    idx === 1 ? '#669BBC' : 
-                    idx === 2 ? '#C1121F' : 
-                    '#003049' 
+                    idx === 0 ? '#92400e' : 
+                    idx === 1 ? '#d97706' : 
+                    idx === 2 ? '#b45309' : 
+                    '#92400e' 
                 }}
                 variants={fadeInUp}
               >
@@ -278,7 +286,7 @@ function Home() {
         variants={containerStagger}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4 text-blue-900">Event Highlights</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 text-amber-900">Event Highlights</h2>
           <p className="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
             A glimpse into our impactful events and initiatives across Bengaluru
           </p>
@@ -338,7 +346,7 @@ function Home() {
           >
             <Link 
               to="/events" 
-              className="inline-flex items-center gap-2 bg-blue-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-[#002030] transition-colors"
+              className="inline-flex items-center gap-2 bg-amber-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-amber-800 transition-colors"
               onClick={() => {
                 // Scroll to top when navigating
                 window.scrollTo(0, 0);
@@ -350,9 +358,10 @@ function Home() {
         </div>
       </motion.section>
 
-      {/* Call to Action - Updated with branded colors */}
+      {/* Call to Action - Updated with desert sand brown background and brown text */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-20"
+        className="text-amber-900 py-20"
+        style={{ backgroundColor: '#d2b48c' }}
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -367,7 +376,7 @@ function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-amber-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-800 transition duration-300 shadow-lg"
               onClick={() => {
                 // Scroll to top when navigating
                 window.scrollTo(0, 0);
@@ -377,7 +386,7 @@ function Home() {
             </Link>
             <Link
               to="/events"
-              className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg"
+              className="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg"
               onClick={() => {
                 // Scroll to top when navigating
                 window.scrollTo(0, 0);

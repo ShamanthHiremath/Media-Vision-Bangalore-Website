@@ -64,7 +64,7 @@ const Donation = () => {
           contact: formData.phone
         },
         theme: {
-          color: '#003049',
+          color: '#92400e',
         },
       };
       const rzp = new window.Razorpay(options);
@@ -98,25 +98,29 @@ const Donation = () => {
   const suggestedAmounts = [500, 1000, 2000, 5000];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Banner */}
+    <div className="min-h-screen bg-stone-50">
+      {/* Hero Banner - 2/3 Screen */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16"
+        className="bg-gradient-to-r from-amber-900 to-amber-800 text-white relative overflow-hidden"
+        style={{ 
+          height: '66.67vh',
+          minHeight: '66.67dvh' // Dynamic viewport height for mobile devices
+        }}
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center h-full flex flex-col items-center justify-center">
           <motion.h1
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             Support Our Cause
           </motion.h1>
           <motion.p
-            className="text-xl max-w-3xl mx-auto"
+            className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto leading-relaxed"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
@@ -140,45 +144,45 @@ const Donation = () => {
               variants={fadeInUp}
               transition={{ duration: 0.7 }}
             >
-              <div className={`bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-blue-900 transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Why Donate?</h2>
+              <div className={`bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-amber-900 transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <h2 className="text-2xl font-bold mb-6 text-amber-900 border-b-2 border-amber-900 pb-2 inline-block">Why Donate?</h2>
                 
                 <div className="space-y-6 text-gray-600">
                   <p>Your generosity enables us to:</p>
                   
                   <div className="flex items-start">
-                    <div className="bg-blue-900 text-white p-2 rounded-full mr-3 mt-1">
+                    <div className="bg-amber-900 text-white p-2 rounded-full mr-3 mt-1">
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-blue-900">Empower Communities</h3>
+                      <h3 className="font-semibold text-amber-900">Empower Communities</h3>
                       <p className="text-sm">With free health camps, women’s empowerment initiatives, and student support.</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <div className="bg-blue-900 text-white p-2 rounded-full mr-3 mt-1">
+                    <div className="bg-amber-900 text-white p-2 rounded-full mr-3 mt-1">
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-blue-900">Elevate Education</h3>
+                      <h3 className="font-semibold text-amber-900">Elevate Education</h3>
                       <p className="text-sm">Recognizing top educators, supporting students, and hosting cultural education camps.</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <div className="bg-[#C1121F] text-white p-2 rounded-full mr-3 mt-1">
+                    <div className="bg-amber-700 text-white p-2 rounded-full mr-3 mt-1">
                       <FaHandHoldingHeart />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-blue-900">Advance Development</h3>
+                      <h3 className="font-semibold text-amber-900">Advance Development</h3>
                       <p className="text-sm">Strategic support for social infrastructure and awareness-building through media.</p>
                     </div>
                   </div>
                 </div>
                 
                 <div className="mt-8 bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-blue-900 mb-2">Tax Benefits</h3>
+                  <h3 className="font-semibold text-amber-900 mb-2">Tax Benefits</h3>
                   <p className="text-sm text-gray-600">
                     All donations are eligible for tax deduction under Section 80G of the Income Tax Act.
                   </p>
@@ -200,22 +204,22 @@ const Donation = () => {
             >
               <form 
                 onSubmit={handleDonate} 
-                className={`bg-white p-8 rounded-lg shadow-lg border-l-4 border-blue-900 transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`bg-white p-8 rounded-lg shadow-lg border-l-4 border-amber-900 transition-all duration-700 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               >
-                <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Make a Donation</h2>
+                <h2 className="text-2xl font-bold mb-6 text-amber-900 border-b-2 border-amber-900 pb-2 inline-block">Make a Donation</h2>
                 
                 <div className="space-y-4">
                   {/* Name Field */}
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Your Name</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-blue-900">
+                      <span className="absolute left-3 top-3 text-amber-900">
                         <FaUser />
                       </span>
                       <input
                         type="text"
                         name="name"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Full Name"
@@ -227,13 +231,13 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Email Address</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-blue-900">
+                      <span className="absolute left-3 top-3 text-amber-900">
                         <FaEnvelope />
                       </span>
                       <input
                         type="email"
                         name="email"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="email@example.com"
@@ -245,13 +249,13 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Phone Number</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-blue-900">
+                      <span className="absolute left-3 top-3 text-amber-900">
                         <FaPhone />
                       </span>
                       <input
                         type="tel"
                         name="phone"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="Your Phone Number"
@@ -263,14 +267,14 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Donation Amount (INR)</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-[#C1121F]">
+                      <span className="absolute left-3 top-3 text-amber-700">
                         <FaRupeeSign />
                       </span>
                       <input
                         type="number"
                         name="amount"
                         min="1"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-[#C1121F] focus:border-[#C1121F]"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-amber-700 focus:border-amber-700"
                         value={formData.amount}
                         onChange={handleChange}
                         placeholder="Amount in INR"
@@ -286,7 +290,7 @@ const Donation = () => {
                           type="button"
                           className={`px-3 py-1 text-sm rounded-md ${
                             Number(formData.amount) === amount
-                              ? 'bg-blue-900 text-white'
+                              ? 'bg-amber-900 text-white'
                               : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                           }`}
                           onClick={() => setFormData(prev => ({ ...prev, amount: amount.toString() }))}
@@ -301,13 +305,13 @@ const Donation = () => {
                   <div>
                     <label className="block mb-1 font-medium text-gray-700">Message (Optional)</label>
                     <div className="relative">
-                      <span className="absolute left-3 top-3 text-blue-900">
+                      <span className="absolute left-3 top-3 text-amber-900">
                         <FaComment />
                       </span>
                       <textarea
                         name="description"
                         rows="3"
-                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                        className="w-full border rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                         value={formData.description}
                         onChange={handleChange}
                         placeholder="Share why you're making this donation..."
@@ -323,7 +327,7 @@ const Donation = () => {
                       name="anonymous"
                       checked={formData.anonymous}
                       onChange={handleChange}
-                      className="w-4 h-4 text-blue-900 border-gray-300 rounded focus:ring-blue-900"
+                      className="w-4 h-4 text-amber-900 border-gray-300 rounded focus:ring-amber-900"
                     />
                     <label htmlFor="anonymous" className="ml-2 text-gray-700">
                       Make this donation anonymous
@@ -331,14 +335,14 @@ const Donation = () => {
                   </div>
                   
                   {error && (
-                    <div className="text-[#C1121F] bg-red-50 p-3 rounded-lg border-l-4 border-[#C1121F]">
+                    <div className="text-amber-800 bg-red-50 p-3 rounded-lg border-l-4 border-amber-700">
                       {error}
                     </div>
                   )}
                   
                   <button
                     type="submit"
-                    className="w-full bg-[#C1121F] text-white py-3 px-4 rounded-lg hover:bg-[#780000] transition font-semibold flex items-center justify-center gap-2 shadow-md mt-4"
+                    className="w-full bg-amber-700 text-white py-3 px-4 rounded-lg hover:bg-amber-800 transition font-semibold flex items-center justify-center gap-2 shadow-md mt-4"
                     disabled={loading}
                   >
                     <FaHandHoldingHeart />
@@ -364,7 +368,7 @@ const Donation = () => {
             variants={fadeInUp}
             transition={{ delay: 0.4 }}
           >
-            <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Your Impact</h2>
+            <h2 className="text-2xl font-bold mb-6 text-amber-900 border-b-2 border-amber-900 pb-2 inline-block">Your Impact</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               {[
@@ -375,11 +379,11 @@ const Donation = () => {
                 <motion.div
                   key={item.amount}
                   className="bg-white p-8 rounded-lg shadow-lg border-t-4 hover:shadow-xl transition-shadow text-center"
-                  style={{ borderColor: idx === 0 ? '#003049' : idx === 1 ? '#669BBC' : '#C1121F' }}
+                  style={{ borderColor: idx === 0 ? '#92400e' : idx === 1 ? '#d97706' : '#b45309' }}
                   variants={fadeInUp}
                   transition={{ duration: 0.7, delay: 0.2 * idx }}
                 >
-                  <div className="text-3xl font-bold mb-4 text-blue-900">{item.amount}</div>
+                  <div className="text-3xl font-bold mb-4 text-amber-900">{item.amount}</div>
                   <p className="text-gray-600">{item.impact}</p>
                 </motion.div>
               ))}
@@ -390,7 +394,8 @@ const Donation = () => {
       
       {/* Call to Action */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16 mt-8"
+        className="text-amber-900 py-16 mt-8"
+        style={{ backgroundColor: '#d2b48c' }}
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -404,13 +409,13 @@ const Donation = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/volunteer"
-              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+              className="bg-amber-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-800 transition duration-300 shadow-lg"
             >
               Volunteer With Us
             </a>
             <a
               href="/contact"
-              className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg"
+              className="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg"
             >
               Contact for Partnerships
             </a>

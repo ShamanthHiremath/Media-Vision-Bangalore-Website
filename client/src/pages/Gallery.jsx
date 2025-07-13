@@ -236,7 +236,7 @@ const Gallery = () => {
         {/* Loading placeholder - shown only when image is not yet loaded or has error */}
         {!isLoaded && !hasError && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+            <div className="w-10 h-10 border-4 border-amber-200 border-t-amber-500 rounded-full animate-spin"></div>
           </div>
         )}
 
@@ -280,10 +280,10 @@ const Gallery = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen bg-gray-50"
+      className="min-h-screen bg-stone-50"
     >
       {/* Hero Section with Carousel */}
-      <section className="relative w-full h-[80vh] overflow-hidden">
+      <section className="relative w-full h-[100vh] overflow-hidden" style={{ minHeight: '100dvh' }}>
         {/* Carousel Images */}
         {carouselImages.map((slide, index) => (
           <motion.div
@@ -297,13 +297,15 @@ const Gallery = () => {
             transition={{ duration: 1 }}
           >
             <div
-              className="w-full h-full bg-cover bg-center"
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url(${slide.url})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center'
               }}
             >
               {/* Dark overlay for better text visibility */}
-              <div className="absolute inset-0 bg-black/50">
+              <div className="absolute inset-0 bg-black/60">
                 {/* Content Centered Overlay - Updated position */}
                 <motion.div
                   className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
@@ -328,17 +330,17 @@ const Gallery = () => {
         ))}
 
         {/* Navigation Arrows */}
-        <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 transform -translate-y-1/2">
+        <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 md:px-8 transform -translate-y-1/2">
           <button
             onClick={goToPrevSlide}
-            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+            className="bg-black/40 hover:bg-black/60 text-white rounded-full p-2 md:p-3 backdrop-blur-sm transition-all hover:scale-110"
             aria-label="Previous slide"
           >
             <FaArrowLeft size={20} />
           </button>
           <button
             onClick={goToNextSlide}
-            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
+            className="bg-black/40 hover:bg-black/60 text-white rounded-full p-2 md:p-3 backdrop-blur-sm transition-all hover:scale-110"
             aria-label="Next slide"
           >
             <FaArrowRight size={20} />
@@ -346,32 +348,14 @@ const Gallery = () => {
         </div>
 
         {/* Indicators */}
-        <div className="absolute z-20 flex justify-between items-center w-full top-1/2 px-4 transform -translate-y-1/2">
-          <button
-            onClick={goToPrevSlide}
-            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
-            aria-label="Previous slide"
-          >
-            <FaArrowLeft size={20} />
-          </button>
-          <button
-            onClick={goToNextSlide}
-            className="bg-black/30 hover:bg-black/50 text-white rounded-full p-3 backdrop-blur-sm transition-all"
-            aria-label="Next slide"
-          >
-            <FaArrowRight size={20} />
-          </button>
-        </div>
-
-        {/* Indicators */}
-        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+        <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${currentSlide === index
-                  ? 'bg-white scale-125'
-                  : 'bg-white/50 hover:bg-white/80'
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index
+                  ? 'bg-white scale-125 shadow-lg'
+                  : 'bg-white/60 hover:bg-white/90 hover:scale-110'
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -382,7 +366,7 @@ const Gallery = () => {
       <div className="container mx-auto px-4 py-12">
         {randomizedImages.length === 0 ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -396,7 +380,7 @@ const Gallery = () => {
           <div className="mt-8 text-center">
             <button
               onClick={() => setVisibleCount(prev => Math.min(prev + 20, randomizedImages.length))}
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+              className="px-6 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition"
             >
               Load More Images
             </button>

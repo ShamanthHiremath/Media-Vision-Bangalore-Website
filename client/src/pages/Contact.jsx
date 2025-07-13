@@ -58,25 +58,29 @@ function Contact() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Banner */}
+    <div className="min-h-screen bg-stone-50">
+      {/* Hero Banner - 2/3 Screen */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16"
+        className="bg-gradient-to-r from-amber-900 to-amber-800 text-white relative overflow-hidden"
+        style={{ 
+          height: '66.67vh',
+          minHeight: '66.67dvh' // Dynamic viewport height for mobile devices
+        }}
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center h-full flex flex-col items-center justify-center">
           <motion.h1
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             Contact Us
           </motion.h1>
           <motion.p
-            className="text-xl max-w-3xl mx-auto"
+            className="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto leading-relaxed"
             variants={fadeInUp}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
@@ -98,24 +102,24 @@ function Contact() {
             variants={fadeInUp}
             transition={{ duration: 0.7 }}
           >
-            <div className="bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-blue-900">
-              <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Get in Touch</h2>
+            <div className="bg-white p-8 rounded-lg shadow-lg h-full border-l-4 border-amber-900">
+              <h2 className="text-2xl font-bold mb-6 text-amber-900 border-b-2 border-amber-900 pb-2 inline-block">Get in Touch</h2>
               <div className="space-y-8">
                 <div className="flex items-start">
-                  <div className="text-blue-900 mr-4 mt-1 bg-gray-100 p-3 rounded-full">
+                  <div className="text-amber-900 mr-4 mt-1 bg-gray-100 p-3 rounded-full">
                     <FiMapPin size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-blue-900">Address</h3>
-                    <p className="text-gray-600">123 Organization Street, City, Country</p>
+                    <h3 className="font-semibold text-amber-900">Address</h3>
+                    <p className="text-gray-600">18th Cross, Near Sankey Tank, Malleshwaram, Bengaluru - 06</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-blue-900 mr-4 mt-1 bg-gray-100 p-3 rounded-full">
+                  <div className="text-amber-900 mr-4 mt-1 bg-gray-100 p-3 rounded-full">
                     <FiMail size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-blue-900">Email</h3>
+                    <h3 className="font-semibold text-amber-900">Email</h3>
                     <a 
                       href="mailto:mediavisionbng@gmail.com" 
                       className="text-gray-600 hover:text-gray-800 transition-colors"
@@ -125,11 +129,11 @@ function Contact() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-[#C1121F] mr-4 mt-1 bg-gray-100 p-3 rounded-full">
+                  <div className="text-amber-700 mr-4 mt-1 bg-gray-100 p-3 rounded-full">
                     <FiPhone size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-blue-900">Phone</h3>
+                    <h3 className="font-semibold text-amber-900">Phone</h3>
                     <a 
                       href="tel:+917259456555" 
                       className="text-gray-600 hover:text-gray-800 transition-colors"
@@ -142,7 +146,7 @@ function Contact() {
               
               {/* Social Media Links */}
               <div className="mt-8 pt-6 border-t border-gray-200">
-                <h3 className="font-semibold text-blue-900 mb-4">Connect With Us</h3>
+                <h3 className="font-semibold text-amber-900 mb-4">Connect With Us</h3>
                 <div className="flex space-x-4">
                   {/* Facebook */}
                   <a 
@@ -200,15 +204,15 @@ function Contact() {
             variants={fadeInUp}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-blue-900">
-              <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Send a Message</h2>
+            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-amber-900">
+              <h2 className="text-2xl font-bold mb-6 text-amber-900 border-b-2 border-amber-900 pb-2 inline-block">Send a Message</h2>
               
               <div className="mb-6 relative">
                 <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
                   Name
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3 text-blue-900">
+                  <span className="absolute left-4 top-3 text-amber-900">
                     <FaUser />
                   </span>
                   <input
@@ -217,7 +221,7 @@ function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                     placeholder="Your full name"
                     required
                   />
@@ -229,7 +233,7 @@ function Contact() {
                   Email
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3 text-blue-900">
+                  <span className="absolute left-4 top-3 text-amber-900">
                     <FaEnvelope />
                   </span>
                   <input
@@ -238,7 +242,7 @@ function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                     placeholder="Your email address"
                     required
                   />
@@ -250,7 +254,7 @@ function Contact() {
                   Subject
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3 text-blue-900">
+                  <span className="absolute left-4 top-3 text-amber-900">
                     <FaEdit />
                   </span>
                   <input
@@ -259,7 +263,7 @@ function Contact() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                     placeholder="What is this regarding?"
                     required
                   />
@@ -271,7 +275,7 @@ function Contact() {
                   Message
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3 text-blue-900">
+                  <span className="absolute left-4 top-3 text-amber-900">
                     <FaComments />
                   </span>
                   <textarea
@@ -280,7 +284,7 @@ function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     rows="5"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
                     placeholder="Your message..."
                     required
                   ></textarea>
@@ -289,7 +293,7 @@ function Contact() {
               
               <button
                 type="submit"
-                className="w-full bg-[#C1121F] hover:bg-[#780000] text-white py-3 px-6 rounded-lg font-semibold transition duration-300 flex items-center justify-center gap-2 shadow-md"
+                className="w-full bg-amber-700 hover:bg-amber-800 text-white py-3 px-6 rounded-lg font-semibold transition duration-300 flex items-center justify-center gap-2 shadow-md"
               >
                 <FiSend />
                 Send Message
@@ -317,11 +321,11 @@ function Contact() {
           animate="visible"
           variants={fadeInUp}
         >
-          <h2 className="text-2xl font-bold mb-6 text-blue-900 border-b-2 border-blue-900 pb-2 inline-block">Find Us Here</h2>
-          <div className="w-full h-72 md:h-96 rounded-lg overflow-hidden shadow-lg border-t-4 border-blue-900">
+          <h2 className="text-2xl font-bold mb-6 text-amber-900 border-b-2 border-amber-900 pb-2 inline-block">Find Us Here</h2>
+          <div className="w-full h-72 md:h-96 rounded-lg overflow-hidden shadow-lg border-t-4 border-amber-900">
             <iframe
               title="Organization Location"
-              src="https://www.google.com/maps?q=123+Organization+Street,+City,+Country&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d242.96459075516375!2d77.57097012590636!3d13.00804649234904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1752358321390!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -335,7 +339,8 @@ function Contact() {
       
       {/* Call to Action */}
       <motion.section
-        className="bg-gradient-to-r from-blue-900 to-blue-900 text-white py-16 mt-12"
+        className="text-amber-900 py-16 mt-12"
+        style={{ backgroundColor: '#d2b48c' }}
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
@@ -349,13 +354,13 @@ function Contact() {
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="tel:+917259456555"
-              className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg flex items-center gap-2"
+              className="bg-amber-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-800 transition duration-300 shadow-lg flex items-center gap-2"
             >
               <FiPhone /> Call Now
             </a>
             <a
               href="mailto:mediavisionbng@gmail.com"
-              className="bg-[#C1121F] hover:bg-[#780000] text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center gap-2"
+              className="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg flex items-center gap-2"
             >
               <FiMail /> Email Us
             </a>
@@ -364,7 +369,7 @@ function Contact() {
       </motion.section>
 
       {/* Add Instagram gradient style */}
-      <style jsx>{`
+      <style>{`
         .instagram-gradient {
           background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }

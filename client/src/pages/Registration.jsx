@@ -68,7 +68,7 @@ const Registration = () => {
       
       // Submit registration
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/registrations`, 
+        `${process.env.REACT_APP_API_URL}/api/registrations`, 
         formDataToSend, 
         {
           headers: {
@@ -106,10 +106,10 @@ const Registration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-stone-50 py-12" style={{ marginTop: '5rem' }}>
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-900 to-blue-900 py-6 px-8">
+          <div className="bg-gradient-to-r from-amber-900 to-amber-800 py-6 px-8">
             <h1 className="text-2xl font-bold text-white">Registration Form</h1>
             <p className="text-gray-100 mt-2">Nominee Application Form</p>
           </div>
@@ -122,7 +122,7 @@ const Registration = () => {
               </div>
               <button
                 onClick={() => setSuccess(false)}
-                className="bg-blue-900 text-white px-6 py-2 rounded-md hover:bg-[#00243a] transition-colors"
+                className="bg-amber-900 text-white px-6 py-2 rounded-md hover:bg-amber-800 transition-colors"
               >
                 Register Another
               </button>
@@ -138,7 +138,7 @@ const Registration = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Personal Information */}
                 <div className="md:col-span-2">
-                  <h2 className="text-lg font-semibold text-blue-900 mb-4 border-b border-gray-200 pb-2">
+                  <h2 className="text-lg font-semibold text-amber-900 mb-4 border-b border-gray-200 pb-2">
                     Personal Information
                   </h2>
                 </div>
@@ -153,7 +153,7 @@ const Registration = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                 </div>
@@ -168,7 +168,7 @@ const Registration = () => {
                     name="phoneNumber"
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                 </div>
@@ -183,7 +183,7 @@ const Registration = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                 </div>
@@ -198,7 +198,7 @@ const Registration = () => {
                     name="resume"
                     accept="application/pdf"
                     onChange={handleFileChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                   <p className="text-xs text-gray-500 mt-1">Max file size: 5MB</p>
@@ -214,7 +214,7 @@ const Registration = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows="2"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   ></textarea>
                 </div>
@@ -229,7 +229,7 @@ const Registration = () => {
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                 </div>
@@ -244,14 +244,14 @@ const Registration = () => {
                     name="state"
                     value={formData.state}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                 </div>
                 
                 {/* Professional Information */}
                 <div className="md:col-span-2 mt-4">
-                  <h2 className="text-lg font-semibold text-blue-900 mb-4 border-b border-gray-200 pb-2">
+                  <h2 className="text-lg font-semibold text-amber-900 mb-4 border-b border-gray-200 pb-2">
                     Professional Information
                   </h2>
                 </div>
@@ -266,7 +266,7 @@ const Registration = () => {
                     name="occupation"
                     value={formData.occupation}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                     required
                   />
                 </div>
@@ -281,7 +281,7 @@ const Registration = () => {
                     value={formData.worksDone}
                     onChange={handleInputChange}
                     rows="3"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                   ></textarea>
                 </div>
                 
@@ -295,7 +295,7 @@ const Registration = () => {
                     value={formData.contributionsAchievements}
                     onChange={handleInputChange}
                     rows="3"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900 outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900 outline-none"
                   ></textarea>
                 </div>
               </div>
@@ -303,7 +303,7 @@ const Registration = () => {
               <div className="mt-8">
                 <button
                   type="submit"
-                  className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-[#00243a] transition-colors font-medium flex items-center justify-center"
+                  className="w-full bg-amber-900 text-white px-6 py-3 rounded-md hover:bg-amber-800 transition-colors font-medium flex items-center justify-center"
                   disabled={loading}
                 >
                   {loading ? (
