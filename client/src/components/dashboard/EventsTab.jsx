@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaMapMarkerAlt, FaEdit, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import ConfirmationModal from '../ConfirmationModal';
+import { getCloudinaryUrl } from '../../utils/cloudinaryUrl';
 
 const EventsTab = ({ onSuccess, onCreateEvent, onEditEvent }) => {
   const [events, setEvents] = useState([]);
@@ -174,9 +175,10 @@ const EventCard = ({ event, onDelete, onEdit }) => {
         {/* Event Image */}
         <div className="md:col-span-1 bg-gray-100 flex items-center justify-center h-40 md:h-full">
           {event.photos && event.photos.length > 0 ? (
-            <img 
-              src={event.photos[0]} 
-              alt={event.name} 
+            <img
+              src={getCloudinaryUrl(event.photos[0], { width: 400 })}
+              alt={event.name}
+              loading="lazy"
               className="w-full h-full object-cover"
             />
           ) : (

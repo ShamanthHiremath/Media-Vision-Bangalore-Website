@@ -14,6 +14,17 @@ export default defineConfig(({ mode }) => {
     ],
     define: {
       'process.env.REACT_APP_API_URL': JSON.stringify(env.REACT_APP_API_URL)
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+            'vendor-motion': ['motion'],
+            'vendor-icons': ['react-icons'],
+          }
+        }
+      }
     }
   }
 })

@@ -5,6 +5,7 @@ import { FaCheckCircle, FaUserFriends, FaChartLine, FaHandshake, FaTimes, FaLink
 import image4 from '../assets/events/012A3722.jpg';
 import image5 from '../assets/events/DSC07055.jpg';
 import image6 from '../assets/events/DSC07193.jpg';
+import { getCloudinaryUrl } from '../utils/cloudinaryUrl';
 
 
 function About() {
@@ -503,10 +504,11 @@ function TeamCarousel() {
               >
                 {member.image ? (
                   <div className="w-24 h-24 rounded-[5px] overflow-hidden mb-4">
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
+                    <img
+                      src={getCloudinaryUrl(member.image, { width: 400 })}
+                      alt={member.name}
                       className="w-full h-full object-cover object-center"
+                      loading="lazy"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.style.display = 'none';

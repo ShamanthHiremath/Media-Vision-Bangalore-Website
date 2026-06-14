@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes } from 'react-icons/fa';
+import { getCloudinaryUrl } from '../utils/cloudinaryUrl';
 
 const TeamMemberModal = ({ member, isOpen, onClose }) => (
   <AnimatePresence>
@@ -28,8 +29,8 @@ const TeamMemberModal = ({ member, isOpen, onClose }) => (
           </button>
           {/* Big square image on the left */}
           <div className="flex-shrink-0 w-full md:w-[400px] aspect-square bg-gray-100 flex items-center justify-center">
-            <img 
-              src={member.image} 
+            <img
+              src={getCloudinaryUrl(member.image, { width: 700 })}
               alt={member.name}
               className="w-full h-full object-cover object-center rounded-none"
               onError={e => {

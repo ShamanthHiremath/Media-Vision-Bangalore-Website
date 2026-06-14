@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { FaTimes, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
 
@@ -31,7 +31,7 @@ function TeamMemberModal({ member, show, onClose }) {
               {member.image ? (
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
                   <img 
-                    src={member.image} 
+                    src={getCloudinaryUrl(member.image, { width: 400 })} 
                     alt={member.name} 
                     className="w-full h-full object-cover object-center"
                     onError={e => {
@@ -95,7 +95,7 @@ function TeamMemberModal({ member, show, onClose }) {
                 <ul className="space-y-2">
                   {member.accomplishments.map((item, i) => (
                     <li key={i} className="flex items-start">
-                      <span className="text-blue-900 mr-2">•</span>
+                      <span className="text-blue-900 mr-2">â€¢</span>
                       <span>{item}</span>
                     </li>
                   ))}

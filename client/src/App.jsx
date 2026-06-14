@@ -1,20 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Donation from './pages/Donation';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import Events from './pages/Events';
 import ProtectedRoute from './components/ProtectedRoute';
 import { FaTimes, FaBell } from 'react-icons/fa';
 import './App.css';
-import Registration from './pages/Registration';
-import Gallery from './pages/Gallery';
+
+const About         = lazy(() => import('./pages/About'));
+const Contact       = lazy(() => import('./pages/Contact'));
+const Donation      = lazy(() => import('./pages/Donation'));
+const AdminLogin    = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const Events        = lazy(() => import('./pages/Events'));
+const Registration  = lazy(() => import('./pages/Registration'));
+const Gallery       = lazy(() => import('./pages/Gallery'));
+
+const PageSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-900" />
+  </div>
+);
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -35,6 +42,7 @@ function App() {
       <div className="ancizar-serif min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
+          <Suspense fallback={<PageSpinner />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -50,6 +58,7 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<Gallery />} />
           </Routes>
+          </Suspense>
         </main>
         <Footer />
         

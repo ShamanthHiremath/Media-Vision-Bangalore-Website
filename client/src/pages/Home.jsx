@@ -10,6 +10,7 @@ import image4 from '../assets/events/012A3722.jpg';
 import image5 from '../assets/events/DSC07055.jpg';
 import image6 from '../assets/events/DSC07193.jpg';
 
+import { getCloudinaryUrl } from '../utils/cloudinaryUrl';
 const LOGO_URL = 'https://res.cloudinary.com/dznfbr1ur/image/upload/v1781451567/Media_Vision_Logo_wpdwog.jpg';
 function Home() {
   // Animation variants for reuse
@@ -113,7 +114,7 @@ function Home() {
                   {/* Logo */}
                   <div className="flex bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-xl justify-center mb-8 shadow-2xl">
                     <img 
-                      src={LOGO_URL}
+                      src={getCloudinaryUrl(LOGO_URL, { width: 300 })}
                       alt="Media Vision Bengaluru Logo" 
                       className="h-20 md:h-28 lg:h-32 drop-shadow-lg"
                     />

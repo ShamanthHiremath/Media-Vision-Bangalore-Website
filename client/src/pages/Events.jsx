@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
+import { getCloudinaryUrl } from '../utils/cloudinaryUrl';
 // Import event banner images
 import event1 from '../assets/events/012A3702.jpg';
 import event2 from '../assets/events/DSC07070.jpg';
@@ -286,12 +287,11 @@ const Events = () => {
                     >
                       <div className="relative">
                         <img
-                          src={event.photos && event.photos.length > 0 ? event.photos[0] : '/placeholder-event.jpg'}
+                          src={getCloudinaryUrl(event.photos?.[0] ?? '/placeholder-event.jpg', { width: 600 })}
                           alt={event.name}
-                          className="w-full h-52 object-cover"
-                          onError={(e) => {
-                            e.target.src = '/placeholder-event.jpg';
-                          }}
+                          className="w-full h-52 object-cover transition-opacity duration-500"
+                          loading="lazy"
+                          onError={(e) => { e.target.src = '/placeholder-event.jpg'; }}
                         />
                         <div className="absolute top-0 right-0 bg-green-600 text-white px-3 py-1 m-2 rounded-lg text-sm font-medium">
                           {new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -343,12 +343,11 @@ const Events = () => {
                     >
                       <div className="relative">
                         <img
-                          src={event.photos && event.photos.length > 0 ? event.photos[0] : '/placeholder-event.jpg'}
+                          src={getCloudinaryUrl(event.photos?.[0] ?? '/placeholder-event.jpg', { width: 600 })}
                           alt={event.name}
-                          className="w-full h-52 object-cover grayscale-[30%]"
-                          onError={(e) => {
-                            e.target.src = '/placeholder-event.jpg';
-                          }}
+                          className="w-full h-52 object-cover grayscale-[30%] transition-opacity duration-500"
+                          loading="lazy"
+                          onError={(e) => { e.target.src = '/placeholder-event.jpg'; }}
                         />
                         <div className="absolute top-0 right-0 bg-gray-700 text-white px-3 py-1 m-2 rounded-lg text-sm font-medium">
                           {new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -422,12 +421,10 @@ const Events = () => {
                     )}
                     
                     <img
-                      src={selectedEvent.photos[carouselIdx]}
+                      src={getCloudinaryUrl(selectedEvent.photos[carouselIdx], { width: 1200 })}
                       alt={selectedEvent.name}
                       className="object-cover h-full w-full transition-all duration-500"
-                      onError={(e) => {
-                        e.target.src = '/placeholder-event.jpg';
-                      }}
+                      onError={(e) => { e.target.src = '/placeholder-event.jpg'; }}
                     />
                     
                     {selectedEvent.photos.length > 1 && (
@@ -525,12 +522,11 @@ const Events = () => {
                       variants={fadeInUp}
                     >
                       <img
-                        src={event.photos && event.photos.length > 0 ? event.photos[0] : '/placeholder-event.jpg'}
+                        src={getCloudinaryUrl(event.photos?.[0] ?? '/placeholder-event.jpg', { width: 200 })}
                         alt={event.name}
                         className="w-24 h-full object-cover"
-                        onError={(e) => {
-                          e.target.src = '/placeholder-event.jpg';
-                        }}
+                        loading="lazy"
+                        onError={(e) => { e.target.src = '/placeholder-event.jpg'; }}
                       />
                       <div className="p-4 flex-1">
                         <h3 className="text-lg font-semibold text-amber-900">{event.name}</h3>

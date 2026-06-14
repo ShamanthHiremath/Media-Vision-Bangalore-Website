@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUser, FaTrash, FaEdit, FaPlus, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { getCloudinaryUrl } from '../../utils/cloudinaryUrl';
 
 const TeamTab = ({ onSuccess, onCreateTeamMember, onEditTeamMember }) => {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -244,9 +245,10 @@ const TeamMemberCard = ({ member, onDelete, onEdit }) => {
           className="relative md:w-2/5 aspect-square cursor-pointer" 
           onClick={() => setShowImageModal(true)}
         >
-          <img 
-            src={member.image} 
+          <img
+            src={getCloudinaryUrl(member.image, { width: 400 })}
             alt={member.name}
+            loading="lazy"
             className="w-full h-full object-cover object-center"
             onError={(e) => {
               e.target.onerror = null;
@@ -312,8 +314,8 @@ const TeamMemberCard = ({ member, onDelete, onEdit }) => {
               >
                 <FaTimes className="text-2xl" />
               </button>
-              <img 
-                src={member.image} 
+              <img
+                src={getCloudinaryUrl(member.image, { width: 700 })}
                 alt={member.name}
                 className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
                 onError={(e) => {
