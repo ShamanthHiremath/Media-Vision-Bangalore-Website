@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FaTimes, FaChevronLeft, FaChevronRight, FaDownload, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
-import logo from '../assets/logo.png'; // Import your logo
 import carouselImage1 from '../assets/events/012A3702.jpg';
 import carouselImage2 from '../assets/events/DSC07070.jpg';
 import carouselImage3 from '../assets/events/DSC07105.jpg';

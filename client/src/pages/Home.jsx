@@ -3,13 +3,14 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import CountUp from 'react-countup';
 import { FaHandHoldingHeart, FaGraduationCap, FaPeopleCarry, FaSeedling, FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import logo from '../assets/logo.png';
 import image1 from '../assets/events/012A3702.jpg';
 import image2 from '../assets/events/DSC07070.jpg';
 import image3 from '../assets/events/DSC07105.jpg';
 import image4 from '../assets/events/012A3722.jpg';
 import image5 from '../assets/events/DSC07055.jpg';
 import image6 from '../assets/events/DSC07193.jpg';
+
+const LOGO_URL = 'https://res.cloudinary.com/dznfbr1ur/image/upload/v1781451567/Media_Vision_Logo_wpdwog.jpg';
 function Home() {
   // Animation variants for reuse
   const fadeInUp = {
@@ -112,7 +113,7 @@ function Home() {
                   {/* Logo */}
                   <div className="flex bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-xl justify-center mb-8 shadow-2xl">
                     <img 
-                      src={logo} 
+                      src={LOGO_URL}
                       alt="Media Vision Bengaluru Logo" 
                       className="h-20 md:h-28 lg:h-32 drop-shadow-lg"
                     />

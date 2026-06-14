@@ -5,8 +5,7 @@ import { FaCalendarAlt, FaHandHoldingHeart, FaUserPlus } from "react-icons/fa";
 import { FcGoogle } from 'react-icons/fc';
 import GoogleTranslate from './GoogleTranslate';
 import GoogleTranslateMob from './GoogleTranslateMob';
-import logo from '../assets/logo.png';
-import headerLogo from '../assets/header_logo.png';
+const LOGO_URL = 'https://res.cloudinary.com/dznfbr1ur/image/upload/v1781451567/Media_Vision_Logo_wpdwog.jpg';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -68,7 +67,7 @@ const  openTranslateDropdownMod = () => {
         {/* Main navigation */}
         <nav className="py-4 sm:py-5 px-2 sm:px-3 lg:px-4 flex justify-between items-center min-h-[90px] sm:min-h-[100px] gap-2">
           <NavLink to="/" className="flex items-center flex-shrink-1 min-w-0 overflow-hidden">
-            <img src={headerLogo} className="h-8 sm:h-10 lg:h-12 w-auto mr-2 sm:mr-3 lg:mr-4 flex-shrink-0" alt="Logo" />
+            <img src={LOGO_URL} className="h-8 sm:h-10 lg:h-12 w-auto mr-2 sm:mr-3 lg:mr-4 flex-shrink-0" alt="Logo" />
             <span className="text-sm sm:text-base lg:text-lg xl:text-2xl font-black text-amber-900 leading-tight">
               <span className="block sm:inline">Media Vision</span>
               <span className="block sm:inline sm:ml-1">Bengaluru</span>
@@ -226,7 +225,7 @@ const  openTranslateDropdownMod = () => {
 
         {/* Menu header with logo */}
         <div className="flex justify-center mb-6">
-          <img src={logo} className="h-12 w-auto" alt="Logo" />
+          <img src={LOGO_URL} className="h-12 w-auto" alt="Logo" />
         </div>
 
         {/* Menu links */}
